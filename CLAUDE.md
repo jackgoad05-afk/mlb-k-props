@@ -1,5 +1,49 @@
 Jack prefers dense, data-rich analysis with firm directional recommendations. No hedging, no surface-level takes. Show the numbers behind every claim. When a result is bad, say so plainly.
 
+## Session 5 (2026-07-09/10): live pipeline, GitHub Actions, Streamlit dashboard
+Free-tier Odds API key is in `.env` (gitignored). Free tier has no `/historical/` access,
+so CLV can't be bought after the fact -- solved by capturing closing lines ourselves:
+`src/capture_closing_ks.py` snapshots current prop prices for flagged-but-not-yet-
+captured games, idempotently (skips games already captured), written straight into the
+ledger's `closing_over_odds`/`closing_under_odds` columns. `reconcile_ks.py` no longer
+calls the Odds API at all -- CLV is just arithmetic on whatever's already in the ledger
+by the time it runs. This also means reconciliation costs 0 API quota.
+
+**Confirmed quota formula** (via WebFetch of the-odds-api.com docs + verified against
+real response headers): `/v4/sports/{sport}/events` (list) costs 0. Player-prop markets
+(`pitcher_strikeouts`) require the per-event endpoint `/events/{id}/odds`, cost =
+`markets_returned x regions` = 1 unit/event queried (1 market, `regions=us`). The bulk
+all-events endpoint does NOT support player props, confirmed via search -- can't use it
+to cut cost. Real data point: today's live run (evening, 4 of ~13 games still upcoming)
+cost 4 units (morning-equivalent pull) + 3 units (closing capture, 4 flagged rows across
+3 unique events, deduped) = 7 units. `odds_api.py` logs `x-requests-remaining` from every
+response to `output/odds_api_usage.csv` and warns below 30 remaining -- real usage is
+tracked, not guessed, going forward.
+
+**Real bug fixed while wiring this up:** `fetch.py` imported `pybaseball` unconditionally
+at module level, so `daily_ks.py`'s `import fetch` pulled in pybaseball + all its heavy
+transitive deps even though the live pipeline only uses the lightweight MLB Stats API
+functions in that file. Made the pybaseball import lazy (only the two functions that
+actually call it trigger it). Verified by installing `requirements-actions.txt` (the lean
+CI-only dependency list) into a clean venv and confirming `daily_ks.py`/`reconcile_ks.py`/
+`capture_closing_ks.py` import without pybaseball or scikit-learn present.
+
+**Repo scope is deliberately narrow.** `.gitignore` excludes Sessions 1-4's bulky
+research/backtest data (the 81MB scraped odds JSON, full 2020-2025 Statcast/bref/schedule
+pulls, moneyline model artifacts -- none of it needed at runtime by the live K-props
+pipeline) and keeps only: `src/`, the 3 GitHub Actions workflows, `output/model_ks.joblib`
++ `ks_paper_ledger.csv` + `odds_api_usage.csv`, the small season-lag tables
+(`pitcher_season.parquet`, `team_season.parquet`), and the accumulating current-season
+`pitcher_gamelogs_2026.csv`. Total tracked footprint: ~580KB, not 96MB.
+
+**No `gh` CLI and no git credentials configured on this machine** -- repo creation, push,
+GitHub Actions secret setup, and Streamlit Cloud deploy all had to be handed to Jack as a
+manual walkthrough rather than done directly. First commit (`9080bd4`) has everything
+through today's live run staged and ready to push.
+
+Paper trading window: today (2026-07-09) through early August 2026. Decision to go live
+(or not) rests on the ledger's real record/ROI/CLV, not the backtest alone.
+
 ## Known data-source constraint (as of 2026-07-08)
 FanGraphs' `leaders-legacy.aspx` page (used by `pybaseball.pitching_stats()` and
 `pybaseball.team_batting()`) is now behind a Cloudflare interactive challenge and returns
