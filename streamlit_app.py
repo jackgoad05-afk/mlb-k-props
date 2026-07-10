@@ -56,15 +56,15 @@ def why_flagged(r: pd.Series) -> tuple[list[str], str] | None:
         trend_note = f", trending {trend} from his 30-day rate of {k9_30d:.1f}" if trend else ""
         stats.append(f"Rolling K/9 (last 3 starts): **{k9_3s:.1f}** ({vs_avg}-average{trend_note})")
         if trend == "down" or k9_3s < LEAGUE_AVG_K9:
-            under_factors.append("trailing K rate is down" if trend == "down" else "trailing K rate is below average")
+            under_factors.append("his trailing K rate is down" if trend == "down" else "his trailing K rate is below average")
         if trend == "up" or k9_3s > LEAGUE_AVG_K9:
-            over_factors.append("trailing K rate is up" if trend == "up" else "trailing K rate is above average")
+            over_factors.append("his trailing K rate is up" if trend == "up" else "his trailing K rate is above average")
 
     whiff = r.get("season_lag_whiff_pct")
     if pd.notna(whiff):
         vs_avg = "above" if whiff > LEAGUE_AVG_WHIFF_PCT else "below"
         stats.append(f"Whiff%: **{whiff:.1f}%** ({vs_avg}-average)")
-        (over_factors if whiff > LEAGUE_AVG_WHIFF_PCT else under_factors).append(f"whiff rate is {vs_avg} average")
+        (over_factors if whiff > LEAGUE_AVG_WHIFF_PCT else under_factors).append(f"his whiff rate is {vs_avg} average")
 
     opp_kpct = r.get("opp_off_kpct")
     if pd.notna(opp_kpct):
@@ -94,7 +94,7 @@ def why_flagged(r: pd.Series) -> tuple[list[str], str] | None:
         body = factors[0]
     else:
         body = "the model's overall projection still clears the edge threshold"
-    summary = f"{short_name}'s {body}, so the model sees the {bet_side} as more likely than the market prices."
+    summary = f"For {short_name}, {body}, so the model sees the {bet_side} as more likely than the market prices."
 
     return stats, summary
 
