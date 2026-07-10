@@ -1,0 +1,31 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+.claude/
+.streamlit/secrets.toml
+
+# Research/backtest-only data (Sessions 1-4) -- large, reproducible from src/fetch.py
+# and src/fetch_odds.py, not needed at runtime by the live daily pipeline (Session 5).
+# Season-2026-onward files (current-season rolling cache, current lag-season tables)
+# ARE tracked -- see the negation rules below.
+data/raw/external_odds/
+data/raw/schedule_202[0-5].csv
+data/raw/statcast_*_202[0-5].csv
+data/raw/team_hitting_202[0-5].csv
+data/raw/teams_202[0-5].csv
+data/raw/pitching_bref_202[0-5].csv
+data/raw/pitcher_gamelogs_202[0-5].csv
+data/processed/games.parquet
+data/processed/model_features_ml.parquet
+data/processed/model_features_ks.parquet
+data/processed/real_odds.parquet
+
+# Moneyline model artifacts -- not part of the live pipeline (Session 2 kill criteria:
+# doesn't bet, dashboard-only). Keep model_ks.joblib (below), drop the rest.
+output/model_ml.joblib
+output/calibrator_ml.joblib
+output/ml_*.csv
+output/ml_*.parquet
+output/ks_holdout_predictions.parquet
+output/ks_prop_line_brier.csv

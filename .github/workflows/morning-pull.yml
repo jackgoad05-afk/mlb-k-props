@@ -1,0 +1,43 @@
+name: Morning K-props pull
+
+# 9am ET. Cron is always UTC; ET is UTC-4 during EDT (the whole paper-trading window,
+# now through early August, is inside EDT -- no DST crossing to worry about this run).
+# If this workflow is still running after the fall DST switch, bump to "0 14 * * *".
+on:
+  schedule:
+    - cron: "0 13 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: morning-pull
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements-actions.txt
+
+      - name: Run daily_ks.py
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python src/daily_ks.py
+
+      - name: Commit and push outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/raw/pitcher_gamelogs_*.csv data/raw/pitcher_handedness.csv data/raw/teams_*.csv \
+                  output/ks_paper_ledger.csv output/odds_api_usage.csv
+          git diff --staged --quiet || git commit -m "Morning pull: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push
