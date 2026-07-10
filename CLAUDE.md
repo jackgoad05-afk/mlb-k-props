@@ -44,6 +44,19 @@ through today's live run staged and ready to push.
 Paper trading window: today (2026-07-09) through early August 2026. Decision to go live
 (or not) rests on the ledger's real record/ROI/CLV, not the backtest alone.
 
+**Bug caught on the first real Actions run (2026-07-10):** all three workflows' commit
+step used `git add data/raw/teams_*.csv` alongside other globs -- a dead pathspec,
+`daily_ks.py` never creates that file. Locally in zsh this fails differently (or not at
+all, since leftover research-era `teams_2020-2025.csv` files exist on disk here and are
+gitignored). On the Actions runner's bash, an unmatched glob is passed through as a
+literal string (bash doesn't nullglob by default), so `git add` got a pathspec matching
+zero files and exited 128 -- before the commit/push ever ran. `--ignore-unmatch` is a
+`git rm` flag, not valid for `git add` (tried it, confirmed the error). Fixed with
+`git add $(ls <patterns> 2>/dev/null)`: pre-expand in the shell, so a total non-match
+reduces to `git add` with no arguments (a harmless no-op), not a hard failure. Verified
+with explicit `bash -c '...'` locally before trusting it, since the default shell here
+(zsh) doesn't reproduce the Actions runner's glob behavior.
+
 ## Known data-source constraint (as of 2026-07-08)
 FanGraphs' `leaders-legacy.aspx` page (used by `pybaseball.pitching_stats()` and
 `pybaseball.team_batting()`) is now behind a Cloudflare interactive challenge and returns
