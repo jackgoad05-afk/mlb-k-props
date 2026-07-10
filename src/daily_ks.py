@@ -196,9 +196,11 @@ def run(target_date: date, dry_run: bool):
             print(flagged[["name", "line", "bet_side", "bet_edge", "model_p_over", "over_prob_fair",
                             "over_odds", "under_odds", "n_books"]].to_string(index=False))
 
+    WHY_COLS = ["trail_k_per9_3s", "trail_k_per9_30d", "season_lag_whiff_pct", "opp_off_kpct",
+                "days_rest", "mu"]
     ledger_rows = flagged[["mlbID", "game_pk", "event_id", "name", "opponent_name", "line", "bet_side",
                             "bet_edge", "model_p_over", "over_prob_fair", "over_odds", "under_odds",
-                            "n_books"]].copy()
+                            "n_books"] + WHY_COLS].copy()
     ledger_rows.insert(0, "date", target_date.isoformat())
     ledger_rows["logged_at"] = datetime.now().isoformat(timespec="seconds")
     for c in ["closing_over_odds", "closing_under_odds", "actual_so", "pnl", "clv"]:

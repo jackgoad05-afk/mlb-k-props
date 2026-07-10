@@ -21,6 +21,83 @@ ROOT = Path(__file__).resolve().parent
 LEDGER_PATH = ROOT / "output" / "ks_paper_ledger.csv"
 EDGE_TIER_BOUNDS = [(0.03, 0.05), (0.05, 0.10), (0.10, 1.01)]
 
+# Rough, stable MLB-wide reference points -- used only to characterize a raw feature
+# value as "above/below average" in plain language. Not recomputed per-day; the raw
+# feature values themselves (trail_k_per9_3s, etc.) are the real, precise numbers the
+# model actually scored with.
+LEAGUE_AVG_K9 = 8.5
+LEAGUE_AVG_WHIFF_PCT = 25.0
+LEAGUE_AVG_TEAM_KPCT = 0.22
+STANDARD_REST_DAYS = 5
+
+
+def why_flagged(r: pd.Series) -> tuple[list[str], str] | None:
+    """Plain-language stat lines + a 1-2 sentence summary for one flagged bet, built
+    straight from the feature values the model scored it with. Returns None if this
+    row predates the columns being captured (nothing to show)."""
+    why_cols = ["trail_k_per9_3s", "trail_k_per9_30d", "season_lag_whiff_pct", "opp_off_kpct", "days_rest", "mu"]
+    if r[why_cols].isna().all():
+        return None
+
+    bet_side = r["bet_side"]
+    short_name = r["name"].split()[-1]
+    stats = []
+    under_factors, over_factors = [], []
+
+    k9_3s, k9_30d = r.get("trail_k_per9_3s"), r.get("trail_k_per9_30d")
+    if pd.notna(k9_3s):
+        trend = None
+        if pd.notna(k9_30d):
+            if k9_3s > k9_30d + 0.3:
+                trend = "up"
+            elif k9_3s < k9_30d - 0.3:
+                trend = "down"
+        vs_avg = "above" if k9_3s > LEAGUE_AVG_K9 else "below"
+        trend_note = f", trending {trend} from his 30-day rate of {k9_30d:.1f}" if trend else ""
+        stats.append(f"Rolling K/9 (last 3 starts): **{k9_3s:.1f}** ({vs_avg}-average{trend_note})")
+        if trend == "down" or k9_3s < LEAGUE_AVG_K9:
+            under_factors.append("trailing K rate is down" if trend == "down" else "trailing K rate is below average")
+        if trend == "up" or k9_3s > LEAGUE_AVG_K9:
+            over_factors.append("trailing K rate is up" if trend == "up" else "trailing K rate is above average")
+
+    whiff = r.get("season_lag_whiff_pct")
+    if pd.notna(whiff):
+        vs_avg = "above" if whiff > LEAGUE_AVG_WHIFF_PCT else "below"
+        stats.append(f"Whiff%: **{whiff:.1f}%** ({vs_avg}-average)")
+        (over_factors if whiff > LEAGUE_AVG_WHIFF_PCT else under_factors).append(f"whiff rate is {vs_avg} average")
+
+    opp_kpct = r.get("opp_off_kpct")
+    if pd.notna(opp_kpct):
+        vs_avg = "above" if opp_kpct > LEAGUE_AVG_TEAM_KPCT else "below"
+        stats.append(f"Opponent K% vs. his hand: **{opp_kpct:.1%}** ({vs_avg}-average)")
+        if opp_kpct < LEAGUE_AVG_TEAM_KPCT:
+            under_factors.append("the opposing lineup makes contact at an above-average clip")
+        else:
+            over_factors.append("the opposing lineup strikes out at an above-average clip")
+
+    rest = r.get("days_rest")
+    if pd.notna(rest):
+        note = "standard rest" if rest == STANDARD_REST_DAYS else (
+            "extended rest" if rest > STANDARD_REST_DAYS else "short rest")
+        stats.append(f"Rest: **{rest:.0f} days** ({note})")
+
+    mu, line = r.get("mu"), r.get("line")
+    if pd.notna(mu):
+        side_prob = r["model_p_over"] if bet_side == "over" else 1 - r["model_p_over"]
+        stats.append(f"Model projects **{mu:.1f}** strikeouts vs. a line of **{line}** "
+                     f"({side_prob:.0%} on the {bet_side})")
+
+    factors = under_factors if bet_side == "under" else over_factors
+    if len(factors) >= 2:
+        body = f"{factors[0]} and {factors[1]}"
+    elif len(factors) == 1:
+        body = factors[0]
+    else:
+        body = "the model's overall projection still clears the edge threshold"
+    summary = f"{short_name}'s {body}, so the model sees the {bet_side} as more likely than the market prices."
+
+    return stats, summary
+
 st.set_page_config(page_title="K Props", page_icon="⚾", layout="centered")
 
 
@@ -78,6 +155,14 @@ else:
                         f"model {model_p:.1%} vs. market {market_p:.1%}")
             st.caption(f"price {price:+.0f} · {r['n_books']} book(s) · "
                        f"{'captured' if pd.notna(r['closing_over_odds']) else 'no closing line yet'}")
+
+            why = why_flagged(r)
+            if why:
+                stats, summary = why
+                with st.expander("Why?"):
+                    for line_txt in stats:
+                        st.markdown(f"- {line_txt}")
+                    st.caption(summary)
 
 # --------------------------------------------------------------------------- #
 # Ledger summary

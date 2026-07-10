@@ -1,5 +1,25 @@
 Jack prefers dense, data-rich analysis with firm directional recommendations. No hedging, no surface-level takes. Show the numbers behind every claim. When a result is bad, say so plainly.
 
+## Dashboard "why" section (2026-07-10)
+Flag cards on the Streamlit dashboard now have a collapsible "Why?" showing the raw
+feature values the model actually scored with (trail_k_per9_3s, trail_k_per9_30d,
+season_lag_whiff_pct, opp_off_kpct, days_rest, mu) plus an auto-generated 1-2 sentence
+summary. `daily_ks.py`'s `run()` now persists these into the ledger (they were already
+being computed, just discarded after scoring -- see `WHY_COLS` in `daily_ks.py`).
+
+The summary generator only pulls a factor into the sentence if it points the SAME
+direction as the bet -- e.g. for Janson Junk's under-3.5 flag, opponent K% vs. his hand
+was actually above league average (favors the over), so it correctly got left out of
+the "why" sentence rather than forced in as false support. Don't weaken this -- a
+narrative that cherry-picks contradictory factors would be actively misleading.
+
+Backfilled the 4 pre-existing 2026-07-09 ledger rows by recomputing that date's features
+from game logs filtered to strictly BEFORE 2026-07-09 (the real pipeline had already
+moved past that date, so a naive re-pull would have leaked each start's own outcome into
+its own "form entering the game" features). Recomputed `mu` values matched the original
+live run's output exactly, which is the check that mattered before writing anything back
+to the real ledger.
+
 ## Session 5 (2026-07-09/10): live pipeline, GitHub Actions, Streamlit dashboard
 Free-tier Odds API key is in `.env` (gitignored). Free tier has no `/historical/` access,
 so CLV can't be bought after the fact -- solved by capturing closing lines ourselves:
