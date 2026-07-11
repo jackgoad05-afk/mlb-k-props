@@ -31,10 +31,18 @@ LEAGUE_AVG_TEAM_KPCT = 0.22
 STANDARD_REST_DAYS = 5
 
 
-def why_flagged(r: pd.Series) -> tuple[list[str], str] | None:
-    """Plain-language stat lines + a 1-2 sentence summary for one flagged bet, built
-    straight from the feature values the model scored it with. Returns None if this
-    row predates the columns being captured (nothing to show)."""
+def why_flagged(r: pd.Series) -> tuple[list[str], str, str | None] | None:
+    """Plain-language stat lines, a 1-2 sentence summary, and an optional contradiction
+    caution for one flagged bet, built straight from the feature values the model
+    scored it with. Returns None if this row predates the columns being captured.
+
+    Each factor is tagged with a category: "rate" (the pitcher's own rolling K/9 and
+    whiff%) or "opponent" (opposing lineup's K% vs. his hand). The caution fires only
+    when NONE of the pitcher's own rate-stat factors support the bet direction while
+    at least one points the other way -- a genuine contradiction, not just one of two
+    rate stats being lukewarm. days_rest and mu/line aren't directional votes, they're
+    context, so they don't participate in this check.
+    """
     why_cols = ["trail_k_per9_3s", "trail_k_per9_30d", "season_lag_whiff_pct", "opp_off_kpct", "days_rest", "mu"]
     if r[why_cols].isna().all():
         return None
@@ -42,7 +50,7 @@ def why_flagged(r: pd.Series) -> tuple[list[str], str] | None:
     bet_side = r["bet_side"]
     short_name = r["name"].split()[-1]
     stats = []
-    under_factors, over_factors = [], []
+    factors = []  # list of dicts: category ("rate"/"opponent"), direction ("over"/"under"), clause, short
 
     k9_3s, k9_30d = r.get("trail_k_per9_3s"), r.get("trail_k_per9_30d")
     if pd.notna(k9_3s):
@@ -56,24 +64,30 @@ def why_flagged(r: pd.Series) -> tuple[list[str], str] | None:
         trend_note = f", trending {trend} from his 30-day rate of {k9_30d:.1f}" if trend else ""
         stats.append(f"Rolling K/9 (last 3 starts): **{k9_3s:.1f}** ({vs_avg}-average{trend_note})")
         if trend == "down" or k9_3s < LEAGUE_AVG_K9:
-            under_factors.append("his trailing K rate is down" if trend == "down" else "his trailing K rate is below average")
+            factors.append({"category": "rate", "direction": "under", "short": "his trailing K rate",
+                             "clause": "his trailing K rate is down" if trend == "down" else "his trailing K rate is below average"})
         if trend == "up" or k9_3s > LEAGUE_AVG_K9:
-            over_factors.append("his trailing K rate is up" if trend == "up" else "his trailing K rate is above average")
+            factors.append({"category": "rate", "direction": "over", "short": "his trailing K rate",
+                             "clause": "his trailing K rate is up" if trend == "up" else "his trailing K rate is above average"})
 
     whiff = r.get("season_lag_whiff_pct")
     if pd.notna(whiff):
         vs_avg = "above" if whiff > LEAGUE_AVG_WHIFF_PCT else "below"
         stats.append(f"Whiff%: **{whiff:.1f}%** ({vs_avg}-average)")
-        (over_factors if whiff > LEAGUE_AVG_WHIFF_PCT else under_factors).append(f"his whiff rate is {vs_avg} average")
+        direction = "over" if whiff > LEAGUE_AVG_WHIFF_PCT else "under"
+        factors.append({"category": "rate", "direction": direction, "short": "his whiff rate",
+                         "clause": f"his whiff rate is {vs_avg} average"})
 
     opp_kpct = r.get("opp_off_kpct")
     if pd.notna(opp_kpct):
         vs_avg = "above" if opp_kpct > LEAGUE_AVG_TEAM_KPCT else "below"
         stats.append(f"Opponent K% vs. his hand: **{opp_kpct:.1%}** ({vs_avg}-average)")
         if opp_kpct < LEAGUE_AVG_TEAM_KPCT:
-            under_factors.append("the opposing lineup makes contact at an above-average clip")
+            factors.append({"category": "opponent", "direction": "under", "short": "opponent contact rate",
+                             "clause": "the opposing lineup makes contact at an above-average clip"})
         else:
-            over_factors.append("the opposing lineup strikes out at an above-average clip")
+            factors.append({"category": "opponent", "direction": "over", "short": "opponent strikeout rate",
+                             "clause": "the opposing lineup strikes out at an above-average clip"})
 
     rest = r.get("days_rest")
     if pd.notna(rest):
@@ -87,16 +101,38 @@ def why_flagged(r: pd.Series) -> tuple[list[str], str] | None:
         stats.append(f"Model projects **{mu:.1f}** strikeouts vs. a line of **{line}** "
                      f"({side_prob:.0%} on the {bet_side})")
 
-    factors = under_factors if bet_side == "under" else over_factors
-    if len(factors) >= 2:
-        body = f"{factors[0]} and {factors[1]}"
-    elif len(factors) == 1:
-        body = factors[0]
+    matching = [f for f in factors if f["direction"] == bet_side]
+    if len(matching) >= 2:
+        body = f"{matching[0]['clause']} and {matching[1]['clause']}"
+    elif len(matching) == 1:
+        body = matching[0]["clause"]
     else:
         body = "the model's overall projection still clears the edge threshold"
     summary = f"For {short_name}, {body}, so the model sees the {bet_side} as more likely than the market prices."
 
-    return stats, summary
+    rate_matching = [f for f in factors if f["category"] == "rate" and f["direction"] == bet_side]
+    rate_opposite = [f for f in factors if f["category"] == "rate" and f["direction"] != bet_side]
+    caution = None
+    if not rate_matching and rate_opposite:
+        supporting = [f for f in factors if f["category"] != "rate" and f["direction"] == bet_side]
+        support_label = supporting[0]["short"] if supporting else "the model's projected workload/exposure"
+        caution = f"⚠️ mixed signals: rate stats point the other way, edge relies mainly on {support_label}."
+
+    return stats, summary, caution
+
+
+def reliability_tag(edge: float) -> str | None:
+    """Edge-size caution, carried over as a prior from the MONEYLINE model's backtest
+    (Session 2/2.1): its largest edge tier was its least reliable, ROI got worse as
+    claimed edge grew. Not yet independently verified for the K-props model -- we have
+    no historical strikeout-prop market odds to backtest edge-vs-market against, only
+    the naive-baseline CRPS/Brier comparison, which isn't edge-tiered. Treat this as a
+    reasonable caution, not a confirmed K-props-specific finding."""
+    if edge >= 0.20:
+        return "⚠️ large edge — historically less reliable"
+    if 0.05 <= edge <= 0.12:
+        return "✓ modest, stable edge"
+    return None
 
 st.set_page_config(page_title="K Props", page_icon="⚾", layout="centered")
 
@@ -144,6 +180,7 @@ else:
         model_p = r["model_p_over"] if r["bet_side"] == "over" else 1 - r["model_p_over"]
         market_p = r["over_prob_fair"] if r["bet_side"] == "over" else 1 - r["over_prob_fair"]
         price = r["over_odds"] if r["bet_side"] == "over" else r["under_odds"]
+        rel_tag = reliability_tag(r["bet_edge"])
         with st.container(border=True):
             c1, c2 = st.columns([3, 1])
             with c1:
@@ -154,11 +191,15 @@ else:
             st.markdown(f"**{r['bet_side'].upper()} {r['line']}** strikeouts &nbsp;&nbsp; "
                         f"model {model_p:.1%} vs. market {market_p:.1%}")
             st.caption(f"price {price:+.0f} · {r['n_books']} book(s) · "
-                       f"{'captured' if pd.notna(r['closing_over_odds']) else 'no closing line yet'}")
+                       f"{'captured' if pd.notna(r['closing_over_odds']) else 'no closing line yet'}"
+                       + (f" · {rel_tag}" if rel_tag else ""))
 
             why = why_flagged(r)
             if why:
-                stats, summary = why
+                stats, summary, caution = why
+                if caution:
+                    st.markdown(f"<span style='color:#fab219; font-size:0.9em;'>{caution}</span>",
+                                unsafe_allow_html=True)
                 with st.expander("Why?"):
                     for line_txt in stats:
                         st.markdown(f"- {line_txt}")
