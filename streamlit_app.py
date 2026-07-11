@@ -206,6 +206,46 @@ else:
                     st.caption(summary)
 
 # --------------------------------------------------------------------------- #
+# Pitcher lookup
+# --------------------------------------------------------------------------- #
+
+st.header("Pitcher lookup")
+scores_path = ROOT / "output" / "ks_daily_scores.csv"
+matched_path = ROOT / "output" / "ks_daily_matched.csv"
+
+if not scores_path.exists():
+    st.caption("No scoring data yet today -- check back after the morning pull runs.")
+else:
+    scores = pd.read_csv(scores_path)
+    matched = pd.read_csv(matched_path) if matched_path.exists() else pd.DataFrame()
+    scores_date = scores["date"].iloc[0] if len(scores) else None
+    if scores_date and scores_date != today_str:
+        st.caption(f"⚠ showing {scores_date}'s scores -- today's morning pull hasn't run yet.")
+
+    names = sorted(scores["name"].unique().tolist())
+    selected = st.selectbox("Search a starting pitcher", options=names,
+                             index=None, placeholder="Type a name...")
+    if selected:
+        row = scores[scores["name"] == selected].iloc[0]
+        st.caption(f"vs {row['opponent_name']}")
+        st.metric("Projected strikeouts", f"{row['mu']:.1f}")
+
+        pitcher_lines = matched[matched["name"] == selected] if not matched.empty else pd.DataFrame()
+        if len(pitcher_lines):
+            for _, m in pitcher_lines.sort_values("line").iterrows():
+                st.markdown(f"**Line {m['line']}** &nbsp; model {m['model_p_over']:.1%} over / "
+                            f"{1 - m['model_p_over']:.1%} under &nbsp;&nbsp; "
+                            f"market {m['over_prob_fair']:.1%} over / {1 - m['over_prob_fair']:.1%} under")
+                st.caption(f"price over {m['over_odds']:+.0f} / under {m['under_odds']:+.0f} · {m['n_books']} book(s)")
+        else:
+            st.caption("No market line matched today (no odds yet, or book doesn't offer this pitcher) -- "
+                       "model projection at standard lines:")
+            for line in [4.5, 5.5, 6.5]:
+                p = row.get(f"model_p_over_{line}")
+                if pd.notna(p):
+                    st.write(f"{line}: {p:.1%} over / {1 - p:.1%} under")
+
+# --------------------------------------------------------------------------- #
 # Ledger summary
 # --------------------------------------------------------------------------- #
 

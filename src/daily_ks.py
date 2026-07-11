@@ -37,6 +37,8 @@ OUTPUT = ROOT / "output"
 PROCESSED = ROOT / "data" / "processed"
 RAW = ROOT / "data" / "raw"
 LEDGER_PATH = OUTPUT / "ks_paper_ledger.csv"
+DAILY_SCORES_PATH = OUTPUT / "ks_daily_scores.csv"    # every probable starter, overwritten each run
+DAILY_MATCHED_PATH = OUTPUT / "ks_daily_matched.csv"  # every starter matched to real odds (not just flagged)
 
 EDGE_FLAG_THRESHOLD = 0.03
 PROP_LINES = [4.5, 5.5, 6.5]
@@ -161,6 +163,10 @@ def run(target_date: date, dry_run: bool):
     with pd.option_context("display.width", 160):
         print(scored[cols].sort_values("mu", ascending=False).to_string(index=False))
 
+    daily_scores = scored[cols].copy()
+    daily_scores.insert(0, "date", target_date.isoformat())
+    daily_scores.to_csv(DAILY_SCORES_PATH, index=False)
+
     if dry_run:
         print("\n--dry-run: skipping odds pull. Set ODDS_API_KEY and drop --dry-run to flag edges.")
         return
@@ -188,6 +194,11 @@ def run(target_date: date, dry_run: bool):
     matched["under_edge"] = (1 - matched["model_p_over"]) - (1 - matched["over_prob_fair"])
     matched["bet_side"] = np.where(matched["edge"] >= matched["under_edge"], "over", "under")
     matched["bet_edge"] = np.where(matched["bet_side"] == "over", matched["edge"], matched["under_edge"])
+
+    daily_matched = matched[["mlbID", "name", "opponent_name", "line", "model_p_over", "over_prob_fair",
+                              "over_odds", "under_odds", "n_books"]].copy()
+    daily_matched.insert(0, "date", target_date.isoformat())
+    daily_matched.to_csv(DAILY_MATCHED_PATH, index=False)
 
     flagged = matched[matched["bet_edge"] >= EDGE_FLAG_THRESHOLD].copy()
     print(f"\nmatched to odds: {len(matched)}  |  flagged (edge >= {EDGE_FLAG_THRESHOLD:.0%}): {len(flagged)}")
