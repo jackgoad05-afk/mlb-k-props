@@ -320,4 +320,76 @@ else:
         st.caption("Need at least 2 reconciled bets with a captured closing line for a trend.")
 
 st.divider()
+
+# --------------------------------------------------------------------------- #
+# Moneyline predictions (separate model, pure prediction -- no odds as an
+# input, no betting logic; see daily_ml.py). Deliberately does NOT show the
+# market favorite anywhere on this page -- that comparison is tracked
+# privately in output/ml_market_comparison.csv for direct inspection only.
+# --------------------------------------------------------------------------- #
+
+st.header("🏆 Moneyline Predictions")
+st.caption("Paper/tracking only · straight-up picks from team form, matchups, pitcher/bullpen "
+           "quality and park factor -- no odds used as a model input")
+
+ml_ledger_path = ROOT / "output" / "ml_predictions_ledger.csv"
+if not ml_ledger_path.exists():
+    st.caption("No predictions logged yet -- check back after the morning pull runs.")
+else:
+    ml_ledger = pd.read_csv(ml_ledger_path)
+    ml_ledger["correct"] = ml_ledger["correct"].astype("object")
+    ml_today = ml_ledger[ml_ledger["date"] == today_str].sort_values("predicted_win_prob", ascending=False)
+
+    st.subheader("Today's picks")
+    if ml_today.empty:
+        st.write("No predictions logged today.")
+    else:
+        for _, r in ml_today.iterrows():
+            with st.container(border=True):
+                c1, c2 = st.columns([3, 1])
+                with c1:
+                    st.markdown(f"**{r['predicted_winner']}**")
+                    st.caption(f"{r['away_team_name']} @ {r['home_team_name']}")
+                with c2:
+                    st.markdown(f"### {r['predicted_win_prob']:.1%}")
+                with st.expander("Why?"):
+                    for stat in str(r["why_stats"]).split(" | "):
+                        st.markdown(f"- {stat}")
+                    st.caption(r["why_summary"])
+
+    st.subheader("Leaderboard: straight-up accuracy")
+    ml_done = ml_ledger[ml_ledger["correct"].notna()].copy()
+    ml_done["correct"] = ml_done["correct"].astype(bool)
+    ml_pending = int(ml_ledger["correct"].isna().sum())
+    st.caption(f"{len(ml_ledger)} total predictions · {len(ml_done)} reconciled · {ml_pending} pending")
+
+    if ml_done.empty:
+        st.info("No reconciled predictions yet -- results fill in after games finish.")
+    else:
+        wins = int(ml_done["correct"].sum())
+        losses = len(ml_done) - wins
+        acc = wins / len(ml_done)
+        c1, c2 = st.columns(2)
+        c1.metric("Record", f"{wins}-{losses}")
+        c2.metric("Accuracy", f"{acc:.1%}")
+
+        by_date = ml_done.groupby("date")["correct"].agg(["sum", "count"]).reset_index()
+        by_date.columns = ["date", "wins", "n"]
+        by_date["accuracy"] = by_date["wins"] / by_date["n"]
+        by_date = by_date.sort_values("date")
+        by_date["cum_correct"] = ml_done.sort_values("date")["correct"].astype(int).cumsum().values
+        by_date["cum_n"] = by_date["n"].cumsum()
+        by_date["running_accuracy"] = by_date["cum_correct"] / by_date["cum_n"]
+
+        if len(by_date) >= 2:
+            chart = alt.Chart(by_date).mark_line(point=True, color="#3987e5").encode(
+                x=alt.X("date:N", title="date"),
+                y=alt.Y("running_accuracy:Q", title="running accuracy", axis=alt.Axis(format="%")),
+                tooltip=["date", "wins", "n", alt.Tooltip("accuracy:Q", format=".1%")],
+            ).properties(height=220).configure_axis(
+                gridColor="#2c2c2a", labelColor="#c3c2b7", titleColor="#c3c2b7"
+            ).configure_view(strokeWidth=0)
+            st.altair_chart(chart, use_container_width=True)
+
+st.divider()
 st.caption("Paper trading only. Not betting advice.")

@@ -33,12 +33,19 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: python src/daily_ks.py
 
+      - name: Run daily_ml.py
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python src/daily_ml.py
+
       - name: Commit and push outputs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add $(ls data/raw/pitcher_gamelogs_*.csv data/raw/pitcher_handedness.csv \
+                       data/raw/schedule_2026.csv \
                        output/ks_paper_ledger.csv output/odds_api_usage.csv \
-                       output/ks_daily_scores.csv output/ks_daily_matched.csv 2>/dev/null)
+                       output/ks_daily_scores.csv output/ks_daily_matched.csv \
+                       output/ml_predictions_ledger.csv output/ml_market_comparison.csv 2>/dev/null)
           git diff --staged --quiet || git commit -m "Morning pull: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push

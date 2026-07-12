@@ -21,11 +21,14 @@ data/processed/model_features_ml.parquet
 data/processed/model_features_ks.parquet
 data/processed/real_odds.parquet
 
-# Moneyline model artifacts -- not part of the live pipeline (Session 2 kill criteria:
-# doesn't bet, dashboard-only). Keep model_ks.joblib (below), drop the rest.
-output/model_ml.joblib
-output/calibrator_ml.joblib
-output/ml_*.csv
-output/ml_*.parquet
+# output/model_ml.joblib and output/calibrator_ml.joblib ARE tracked -- daily_ml.py's
+# pure-prediction pipeline (paper/tracking only, no betting) needs them at runtime on
+# a fresh Actions checkout. Same for output/ml_predictions_ledger.csv and
+# output/ml_market_comparison.csv (the leaderboard + private market-favorite log).
+# Everything else under output/ml_* is a one-off backtest artifact (Session 2/2.1/
+# Track 1) -- large, reproducible from model_ml.py, not needed at runtime.
+output/ml_*
+!output/ml_predictions_ledger.csv
+!output/ml_market_comparison.csv
 output/ks_holdout_predictions.parquet
 output/ks_prop_line_brier.csv

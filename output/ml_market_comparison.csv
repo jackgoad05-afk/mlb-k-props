@@ -1,0 +1,16 @@
+date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_prob,n_books,model_predicted_winner,model_agrees_with_favorite
+2026-07-12,823358,Pittsburgh Pirates,Milwaukee Brewers,Pittsburgh Pirates,0.9174878274347619,6,Pittsburgh Pirates,True
+2026-07-12,824814,Baltimore Orioles,Kansas City Royals,Baltimore Orioles,0.5799302587328672,9,Baltimore Orioles,True
+2026-07-12,822708,Washington Nationals,New York Yankees,Washington Nationals,0.5247088652853863,9,New York Yankees,False
+2026-07-12,823602,New York Mets,Boston Red Sox,Boston Red Sox,0.5089407510934031,9,Boston Red Sox,True
+2026-07-12,824491,Cincinnati Reds,Chicago Cubs,Chicago Cubs,0.5443973391486934,9,Chicago Cubs,True
+2026-07-12,823842,Miami Marlins,Cleveland Guardians,Cleveland Guardians,0.5051546105821226,9,Miami Marlins,False
+2026-07-12,824250,Detroit Tigers,Philadelphia Phillies,Detroit Tigers,0.5492252044298449,9,Detroit Tigers,True
+2026-07-12,822951,Tampa Bay Rays,Seattle Mariners,Tampa Bay Rays,0.5784159597394415,9,Tampa Bay Rays,True
+2026-07-12,824574,Chicago White Sox,Athletics,Chicago White Sox,0.5785386973627491,9,Athletics,False
+2026-07-12,823681,Minnesota Twins,Los Angeles Angels,Minnesota Twins,0.5457045587148481,9,Los Angeles Angels,False
+2026-07-12,823029,St. Louis Cardinals,Atlanta Braves,St. Louis Cardinals,0.5469676949791508,9,Atlanta Braves,False
+2026-07-12,822876,Texas Rangers,Houston Astros,Texas Rangers,0.5632894505513667,9,Texas Rangers,True
+2026-07-12,823199,San Francisco Giants,Colorado Rockies,San Francisco Giants,0.578950234732226,9,San Francisco Giants,True
+2026-07-12,823925,Los Angeles Dodgers,Arizona Diamondbacks,Los Angeles Dodgers,0.6669387319506325,9,Los Angeles Dodgers,True
+2026-07-12,823274,San Diego Padres,Toronto Blue Jays,Toronto Blue Jays,0.5434378647443551,9,Toronto Blue Jays,True

@@ -109,6 +109,44 @@ def get_event_odds(api_key: str, event_id: str, markets: str, sport: str = "base
     })
 
 
+def get_bulk_odds(api_key: str, markets: str = "h2h", sport: str = "baseball_mlb",
+                   regions: str = "us", odds_format: str = "american") -> list[dict]:
+    """Featured markets (h2h/spreads/totals) for ALL of today's games in one call.
+    Cost = markets x regions = 1 unit total regardless of how many games are returned
+    -- unlike player props, which need the per-event endpoint (get_event_odds) at
+    1 unit/event. Do not use this for pitcher_strikeouts or other additional markets;
+    they aren't included in the bulk response."""
+    return _request(f"{ODDS_API_BASE}/sports/{sport}/odds", {
+        "apiKey": api_key, "regions": regions, "markets": markets, "oddsFormat": odds_format,
+    })
+
+
+def h2h_consensus_favorite(game_odds: dict) -> dict | None:
+    """Best-effort no-vig consensus favorite for one bulk-odds game entry. Returns
+    {favorite_team, favorite_fair_prob, n_books} or None if no h2h data present."""
+    from fetch_odds import american_to_prob
+
+    home, away = game_odds.get("home_team"), game_odds.get("away_team")
+    home_probs, away_probs = [], []
+    for book in game_odds.get("bookmakers", []):
+        for market in book.get("markets", []):
+            if market["key"] != "h2h":
+                continue
+            prices = {o["name"]: o["price"] for o in market["outcomes"]}
+            if home in prices and away in prices:
+                h_raw, a_raw = american_to_prob(prices[home]), american_to_prob(prices[away])
+                vig = h_raw + a_raw
+                home_probs.append(h_raw / vig)
+                away_probs.append(a_raw / vig)
+    if not home_probs:
+        return None
+    home_fair = sum(home_probs) / len(home_probs)
+    away_fair = sum(away_probs) / len(away_probs)
+    if home_fair >= away_fair:
+        return {"favorite_team": home, "favorite_fair_prob": home_fair, "n_books": len(home_probs)}
+    return {"favorite_team": away, "favorite_fair_prob": away_fair, "n_books": len(away_probs)}
+
+
 def parse_pitcher_strikeouts_market(event_id: str, event_odds_json: dict) -> list[dict]:
     """Flatten one event's /odds response into per-book (player, line, over/under) rows."""
     rows = []
