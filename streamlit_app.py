@@ -377,7 +377,7 @@ else:
         by_date.columns = ["date", "wins", "n"]
         by_date["accuracy"] = by_date["wins"] / by_date["n"]
         by_date = by_date.sort_values("date")
-        by_date["cum_correct"] = ml_done.sort_values("date")["correct"].astype(int).cumsum().values
+        by_date["cum_correct"] = by_date["wins"].cumsum()
         by_date["cum_n"] = by_date["n"].cumsum()
         by_date["running_accuracy"] = by_date["cum_correct"] / by_date["cum_n"]
 
