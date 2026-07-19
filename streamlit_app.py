@@ -392,4 +392,90 @@ else:
             st.altair_chart(chart, use_container_width=True)
 
 st.divider()
+
+# --------------------------------------------------------------------------- #
+# Prediction markets (Polymarket + Kalshi vs. model_ml, sportsbook line shown
+# side by side for reference). Paper only -- see daily_pm.py's module docstring
+# for why this exists: model_ml already failed its kill criteria against real
+# SHARP sportsbook closes (CLAUDE.md, Track 1), this asks whether it finds real
+# edges against thinner prediction-market pricing instead. Moneyline only gets a
+# real model edge -- no totals model exists yet, so totals rows (if any show up
+# in pm_daily_matched.csv) aren't surfaced here.
+# --------------------------------------------------------------------------- #
+
+st.header("🔮 Prediction Markets")
+st.caption("Paper trading only · model vs. Polymarket/Kalshi vs. sportsbook · moneyline edges ≥3%, "
+           "$50+ depth required")
+
+pm_ledger_path = ROOT / "output" / "pm_paper_ledger.csv"
+if not pm_ledger_path.exists():
+    st.caption("No flags logged yet -- check back after the morning pull runs.")
+else:
+    pm_ledger = pd.read_csv(pm_ledger_path)
+    pm_ledger["correct"] = pm_ledger["correct"].astype("object")
+    pm_today = pm_ledger[pm_ledger["date"] == today_str].sort_values("edge", ascending=False)
+
+    st.subheader("Today's flags")
+    if pm_today.empty:
+        st.write("No edges flagged today.")
+    else:
+        for _, r in pm_today.iterrows():
+            with st.container(border=True):
+                c1, c2 = st.columns([3, 1])
+                with c1:
+                    team = r["home_team_name"] if r["side"] == "home" else r["away_team_name"]
+                    st.markdown(f"**{team}** ({r['market'].capitalize()})")
+                    st.caption(f"{r['away_team_name']} @ {r['home_team_name']}")
+                with c2:
+                    st.markdown(f"### +{r['edge']:.1%}")
+                st.markdown(f"model {r['model_prob']:.1%} vs. {r['market'].capitalize()} {r['pm_implied_prob']:.1%} "
+                            f"@ ${r['pm_price']:.2f}")
+                sb_txt = f"{r['sportsbook_prob']:.1%}" if pd.notna(r["sportsbook_prob"]) else "n/a"
+                st.caption(f"sportsbook consensus: {sb_txt} · ${r['depth_usd']:.0f} depth near quote")
+
+    st.subheader("Ledger")
+    pm_done = pm_ledger[pm_ledger["correct"].notna()].copy()
+    pm_pending = int(pm_ledger["correct"].isna().sum())
+    st.caption(f"{len(pm_ledger)} total flags · {len(pm_done)} reconciled · {pm_pending} pending")
+
+    if pm_done.empty:
+        st.info("No reconciled bets yet -- results fill in after games finish.")
+    else:
+        pm_done["correct"] = pm_done["correct"].astype(bool)
+        STAKE_USD = 50.0
+
+        def pm_tier_stats(df: pd.DataFrame) -> dict:
+            n = len(df)
+            w = int(df["correct"].sum())
+            roi = df["pnl"].sum() / (n * STAKE_USD) if n else float("nan")
+            return {"n": n, "record": f"{w}-{n - w}", "hit_rate": w / n if n else float("nan"),
+                    "roi": roi, "pnl": df["pnl"].sum()}
+
+        overall = pm_tier_stats(pm_done)
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Record", overall["record"])
+        c2.metric("Hit rate", f"{overall['hit_rate']:.1%}")
+        c3.metric("ROI", f"{overall['roi']:+.1%}")
+
+        st.caption("By edge tier")
+        tier_rows = []
+        for lo, hi in EDGE_TIER_BOUNDS:
+            tier = pm_done[(pm_done["edge"] >= lo) & (pm_done["edge"] < hi)]
+            if tier.empty:
+                continue
+            s = pm_tier_stats(tier)
+            label = f"{lo:.0%}-{hi:.0%}" if hi < 1 else f"{lo:.0%}+"
+            tier_rows.append({"tier": label, "n": s["n"], "record": s["record"],
+                               "hit rate": f"{s['hit_rate']:.1%}", "ROI": f"{s['roi']:+.1%}"})
+        st.dataframe(pd.DataFrame(tier_rows), hide_index=True, use_container_width=True)
+
+        st.caption("By platform")
+        platform_rows = []
+        for platform in sorted(pm_done["market"].unique()):
+            s = pm_tier_stats(pm_done[pm_done["market"] == platform])
+            platform_rows.append({"platform": platform.capitalize(), "n": s["n"], "record": s["record"],
+                                   "hit rate": f"{s['hit_rate']:.1%}", "ROI": f"{s['roi']:+.1%}"})
+        st.dataframe(pd.DataFrame(platform_rows), hide_index=True, use_container_width=True)
+
+st.divider()
 st.caption("Paper trading only. Not betting advice.")
