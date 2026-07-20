@@ -35,9 +35,13 @@ jobs:
         run: python src/reconcile_ks.py summary --by-tier
 
       - name: Run reconcile_ml.py
+        continue-on-error: true  # same reasoning as morning-pull.yml: don't let the
+                                  # unrelated moneyline reconciliation block committing
+                                  # reconcile_ks.py's real results
         run: python src/reconcile_ml.py reconcile
 
       - name: Print running summary (shows in the Actions log)
+        continue-on-error: true
         run: python src/reconcile_ml.py summary --vs-market
 
       - name: Commit and push outputs

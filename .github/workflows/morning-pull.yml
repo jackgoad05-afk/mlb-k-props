@@ -34,6 +34,9 @@ jobs:
         run: python src/daily_ks.py
 
       - name: Run daily_ml.py
+        continue-on-error: true  # moneyline is paper/tracking only (already failed its
+                                  # kill criteria, see CLAUDE.md) -- never let it block
+                                  # committing daily_ks.py's real K-props flags
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: python src/daily_ml.py
