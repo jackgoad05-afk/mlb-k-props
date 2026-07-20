@@ -27,7 +27,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from rolling import build_starter_k_form
+from rolling import build_starter_k_form, build_umpire_k_form
 
 ROOT = Path(__file__).resolve().parent.parent
 PROCESSED = ROOT / "data" / "processed"
@@ -53,7 +53,10 @@ def _load_all_game_logs() -> pd.DataFrame:
     return pd.concat(frames, ignore_index=True)
 
 
-def build_features() -> pd.DataFrame:
+UMPIRE_FEATURE_COL = "umpire_k_index"
+
+
+def build_features(include_umpire: bool = False) -> pd.DataFrame:
     game_logs = _load_all_game_logs()
     pitchers = pd.read_parquet(PROCESSED / "pitcher_season.parquet")
     teams = pd.read_parquet(PROCESSED / "team_season.parquet")
@@ -97,9 +100,24 @@ def build_features() -> pd.DataFrame:
     # naive baseline: trailing-3-start K rate x trailing IP/start, no other covariates
     df["naive_pred_k"] = df["trail_k_per9_3s"] * df["trail_ip_per_start"] / 9
 
-    out = df[ID_COLS + [TARGET_COL, "naive_pred_k"] + FEATURE_COLS].reset_index(drop=True)
-    out = out.dropna(subset=FEATURE_COLS)
-    out.to_parquet(PROCESSED / "model_features_ks.parquet", index=False)
+    feature_cols = list(FEATURE_COLS)
+    out_path = PROCESSED / "model_features_ks.parquet"
+    if include_umpire:
+        umpires = pd.read_csv(RAW / "game_umpires.csv")
+        games = pd.read_parquet(PROCESSED / "games.parquet")[["game_pk", "official_date"]]
+        umpire_games = umpires.merge(games, on="game_pk", how="inner")
+        ump_form = build_umpire_k_form(umpire_games)
+        df = df.merge(ump_form[["game_pk", UMPIRE_FEATURE_COL]], on="game_pk", how="left")
+        # a handful of starts' games may be missing officials data (rainout replay
+        # quirks, etc.) -- neutral fallback (league-average umpire) rather than
+        # dropping the start entirely.
+        df[UMPIRE_FEATURE_COL] = df[UMPIRE_FEATURE_COL].fillna(1.0)
+        feature_cols = feature_cols + [UMPIRE_FEATURE_COL]
+        out_path = PROCESSED / "model_features_ks_umpire.parquet"
+
+    out = df[ID_COLS + [TARGET_COL, "naive_pred_k"] + feature_cols].reset_index(drop=True)
+    out = out.dropna(subset=feature_cols)
+    out.to_parquet(out_path, index=False)
     return out
 
 

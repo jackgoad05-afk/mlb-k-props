@@ -311,3 +311,60 @@ def build_starter_k_form(game_logs: pd.DataFrame, pitcher_season_all: pd.DataFra
             last_date = date
 
     return pd.DataFrame(out_rows)
+
+
+# --------------------------------------------------------------------------- #
+# Umpire strikeout tendency (K model, one-factor-at-a-time addition)
+# --------------------------------------------------------------------------- #
+
+UMPIRE_SHRINK_K = 10       # "prior games" worth of weight given to the league-average rate
+LEAGUE_K_FALLBACK = 17.0   # combined-team game strikeouts, only used before any real history exists
+
+
+def build_umpire_k_form(games: pd.DataFrame) -> pd.DataFrame:
+    """
+    Per-game, as-of-date-BEFORE umpire K tendency, expressed as an index (1.0 =
+    league average that day; >1.0 = this umpire's games have run hotter for Ks so
+    far, <1.0 = colder).
+
+    games: one row per game_pk with official_date, hp_umpire_id, game_total_k
+      (both teams' strikeouts combined -- the standard way umpire strike-zone
+      tendency is measured, since it reflects the whole game's zone, not just one
+      pitcher's outcome).
+
+    Unlike pitcher/team rolling form, an umpire's tendency does NOT reset at season
+    boundaries -- there's no reason to discard a real umpire's history just because
+    the calendar flipped, so his running average carries continuously across the
+    whole 2021+ window. What DOES need to be as-of-date is the LEAGUE-average
+    reference itself (the sport's overall strikeout rate has drifted across
+    2021-2025), so both the umpire's own average and the league baseline it's
+    shrunk toward are both expanding, both computed strictly before each game.
+    """
+    g = games.dropna(subset=["hp_umpire_id", "game_total_k"]).copy()
+    g["hp_umpire_id"] = g["hp_umpire_id"].astype(int)
+    g = g.sort_values(["official_date", "game_pk"]).reset_index(drop=True)
+
+    ump_sum: dict[int, float] = {}
+    ump_n: dict[int, int] = {}
+    league_sum, league_n = 0.0, 0
+
+    out_rows = []
+    for _, row in g.iterrows():
+        ump_id = row["hp_umpire_id"]
+        league_avg = (league_sum / league_n) if league_n > 0 else LEAGUE_K_FALLBACK
+
+        u_sum = ump_sum.get(ump_id, 0.0)
+        u_n = ump_n.get(ump_id, 0)
+        shrunk_ump_avg = (u_sum + UMPIRE_SHRINK_K * league_avg) / (u_n + UMPIRE_SHRINK_K)
+        umpire_k_index = shrunk_ump_avg / league_avg if league_avg > 0 else 1.0
+
+        out_rows.append({"game_pk": row["game_pk"], "umpire_k_index": umpire_k_index,
+                          "umpire_n_games_seen": u_n})
+
+        k_total = row["game_total_k"]
+        ump_sum[ump_id] = u_sum + k_total
+        ump_n[ump_id] = u_n + 1
+        league_sum += k_total
+        league_n += 1
+
+    return pd.DataFrame(out_rows)

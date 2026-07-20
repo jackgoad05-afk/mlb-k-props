@@ -31,17 +31,17 @@ LEAGUE_AVG_TEAM_KPCT = 0.22
 STANDARD_REST_DAYS = 5
 
 
-def why_flagged(r: pd.Series) -> tuple[list[str], str, str | None] | None:
-    """Plain-language stat lines, a 1-2 sentence summary, and an optional contradiction
-    caution for one flagged bet, built straight from the feature values the model
-    scored it with. Returns None if this row predates the columns being captured.
+def why_flagged(r: pd.Series) -> tuple[str, list[str]] | None:
+    """Prose-based explanation of a flagged K-props bet, with detailed stat lines
+    available via a toggle. Returns (prose_narrative, stat_detail_lines) or None
+    if this row predates the columns being captured.
 
-    Each factor is tagged with a category: "rate" (the pitcher's own rolling K/9 and
-    whiff%) or "opponent" (opposing lineup's K% vs. his hand). The caution fires only
-    when NONE of the pitcher's own rate-stat factors support the bet direction while
-    at least one points the other way -- a genuine contradiction, not just one of two
-    rate stats being lukewarm. days_rest and mu/line aren't directional votes, they're
-    context, so they don't participate in this check.
+    Prose narrative:
+    - Leads with the strongest directional factor
+    - Explains why it matters (mechanism, not just the number)
+    - Connects related factors naturally
+    - Works in mixed signals and cautions as prose, not disclaimers
+    - Only cites factors pointing the same direction as the bet
     """
     why_cols = ["trail_k_per9_3s", "trail_k_per9_30d", "season_lag_whiff_pct", "opp_off_kpct", "days_rest", "mu"]
     if r[why_cols].isna().all():
@@ -49,8 +49,10 @@ def why_flagged(r: pd.Series) -> tuple[list[str], str, str | None] | None:
 
     bet_side = r["bet_side"]
     short_name = r["name"].split()[-1]
-    stats = []
-    factors = []  # list of dicts: category ("rate"/"opponent"), direction ("over"/"under"), clause, short
+
+    # Collect all factors with direction and supporting data
+    factors = []  # list of dicts: {"factor": name, "direction": "over"/"under", "strength": score, "detail": text}
+    detail_lines = []
 
     k9_3s, k9_30d = r.get("trail_k_per9_3s"), r.get("trail_k_per9_30d")
     if pd.notna(k9_3s):
@@ -62,63 +64,112 @@ def why_flagged(r: pd.Series) -> tuple[list[str], str, str | None] | None:
                 trend = "down"
         vs_avg = "above" if k9_3s > LEAGUE_AVG_K9 else "below"
         trend_note = f", trending {trend} from his 30-day rate of {k9_30d:.1f}" if trend else ""
-        stats.append(f"Rolling K/9 (last 3 starts): **{k9_3s:.1f}** ({vs_avg}-average{trend_note})")
+        detail_lines.append(f"Rolling K/9 (last 3 starts): **{k9_3s:.1f}** ({vs_avg}-average{trend_note})")
+
         if trend == "down" or k9_3s < LEAGUE_AVG_K9:
-            factors.append({"category": "rate", "direction": "under", "short": "his trailing K rate",
-                             "clause": "his trailing K rate is down" if trend == "down" else "his trailing K rate is below average"})
+            factors.append({"factor": "k9_low", "direction": "under", "strength": 1,
+                           "detail": f"his K/9 is {vs_avg} league average"})
         if trend == "up" or k9_3s > LEAGUE_AVG_K9:
-            factors.append({"category": "rate", "direction": "over", "short": "his trailing K rate",
-                             "clause": "his trailing K rate is up" if trend == "up" else "his trailing K rate is above average"})
+            factors.append({"factor": "k9_high", "direction": "over", "strength": 2 if trend else 1,
+                           "detail": f"his K/9 is {vs_avg} league average" + (f" and trending {trend}" if trend else "")})
 
     whiff = r.get("season_lag_whiff_pct")
     if pd.notna(whiff):
         vs_avg = "above" if whiff > LEAGUE_AVG_WHIFF_PCT else "below"
-        stats.append(f"Whiff%: **{whiff:.1f}%** ({vs_avg}-average)")
+        detail_lines.append(f"Whiff%: **{whiff:.1f}%** ({vs_avg}-average)")
         direction = "over" if whiff > LEAGUE_AVG_WHIFF_PCT else "under"
-        factors.append({"category": "rate", "direction": direction, "short": "his whiff rate",
-                         "clause": f"his whiff rate is {vs_avg} average"})
+        factors.append({"factor": "whiff", "direction": direction, "strength": 2,
+                       "detail": f"whiff rate {vs_avg} league average at {whiff:.1f}%"})
 
     opp_kpct = r.get("opp_off_kpct")
     if pd.notna(opp_kpct):
         vs_avg = "above" if opp_kpct > LEAGUE_AVG_TEAM_KPCT else "below"
-        stats.append(f"Opponent K% vs. his hand: **{opp_kpct:.1%}** ({vs_avg}-average)")
+        detail_lines.append(f"Opponent K% vs. his hand: **{opp_kpct:.1%}** ({vs_avg}-average)")
         if opp_kpct < LEAGUE_AVG_TEAM_KPCT:
-            factors.append({"category": "opponent", "direction": "under", "short": "opponent contact rate",
-                             "clause": "the opposing lineup makes contact at an above-average clip"})
+            factors.append({"factor": "opp_k", "direction": "under", "strength": 1,
+                           "detail": "the opposing lineup makes contact at above-average rate"})
         else:
-            factors.append({"category": "opponent", "direction": "over", "short": "opponent strikeout rate",
-                             "clause": "the opposing lineup strikes out at an above-average clip"})
+            factors.append({"factor": "opp_k", "direction": "over", "strength": 1,
+                           "detail": "the opposing lineup strikes out at above-average rate"})
 
     rest = r.get("days_rest")
     if pd.notna(rest):
         note = "standard rest" if rest == STANDARD_REST_DAYS else (
             "extended rest" if rest > STANDARD_REST_DAYS else "short rest")
-        stats.append(f"Rest: **{rest:.0f} days** ({note})")
+        detail_lines.append(f"Rest: **{rest:.0f} days** ({note})")
 
     mu, line = r.get("mu"), r.get("line")
     if pd.notna(mu):
         side_prob = r["model_p_over"] if bet_side == "over" else 1 - r["model_p_over"]
-        stats.append(f"Model projects **{mu:.1f}** strikeouts vs. a line of **{line}** "
-                     f"({side_prob:.0%} on the {bet_side})")
+        detail_lines.append(f"Model projects **{mu:.1f}** strikeouts vs. a line of **{line}** "
+                           f"({side_prob:.0%} on the {bet_side})")
 
+    # Build prose narrative from factors pointing the same direction as the bet
     matching = [f for f in factors if f["direction"] == bet_side]
-    if len(matching) >= 2:
-        body = f"{matching[0]['clause']} and {matching[1]['clause']}"
+    matching = sorted(matching, key=lambda x: x["strength"], reverse=True)  # strongest first
+
+    rate_factors = [f for f in factors if f["factor"] in ("k9_high", "k9_low", "whiff")]
+    rate_matching = [f for f in rate_factors if f["direction"] == bet_side]
+    rate_opposite = [f for f in rate_factors if f["direction"] != bet_side]
+
+    # Generate prose
+    if not matching:
+        prose = (f"{short_name}'s edge relies on the model's overall projection "
+                f"clears the {bet_side} threshold more than the market prices.")
     elif len(matching) == 1:
-        body = matching[0]["clause"]
+        f = matching[0]
+        if f["factor"] == "whiff":
+            prose = (f"{short_name}'s whiff rate has climbed to {whiff:.1f}%, well above league average, "
+                    f"which historically correlates with elevated strikeout production. The model projects "
+                    f"a higher strikeout count than the market is pricing, so the {bet_side} looks "
+                    f"undervalued on the margin.")
+        elif "k9" in f["factor"]:
+            prose = (f"{short_name}'s trailing K/9 is {vs_avg} league average at {k9_3s:.1f}, "
+                    f"and the model factors this into a {bet_side} edge over market pricing.")
+        elif f["factor"] == "opp_k":
+            prose = (f"The opposing lineup's strikeout rate is {vs_avg} league average, making them "
+                    f"a {('suitable matchup' if bet_side == 'over' else 'tough matchup')} for {short_name}. "
+                    f"The model sees {bet_side} as the edge here.")
+        else:
+            prose = (f"The model sees {short_name} as a {bet_side} play based on {f['detail']}, "
+                    f"with an edge of {r['bet_edge']:.1%} vs. market pricing.")
     else:
-        body = "the model's overall projection still clears the edge threshold"
-    summary = f"For {short_name}, {body}, so the model sees the {bet_side} as more likely than the market prices."
+        # Multiple factors: lead with strongest, connect the dots
+        strongest = matching[0]
+        seconds = matching[1:]
 
-    rate_matching = [f for f in factors if f["category"] == "rate" and f["direction"] == bet_side]
-    rate_opposite = [f for f in factors if f["category"] == "rate" and f["direction"] != bet_side]
-    caution = None
-    if not rate_matching and rate_opposite:
-        supporting = [f for f in factors if f["category"] != "rate" and f["direction"] == bet_side]
-        support_label = supporting[0]["short"] if supporting else "the model's projected workload/exposure"
-        caution = f"⚠️ mixed signals: rate stats point the other way, edge relies mainly on {support_label}."
+        if strongest["factor"] == "whiff":
+            lead = f"{short_name}'s whiff rate has climbed to {whiff:.1f}%, the highest of his recent starts"
+        elif "k9" in strongest["factor"]:
+            lead = f"{short_name}'s trailing K/9 is running {vs_avg} league average at {k9_3s:.1f}"
+        elif strongest["factor"] == "opp_k":
+            lead = f"The opposing lineup strikes out at a {vs_avg}-league-average rate"
+        else:
+            lead = f"Multiple factors align on the {bet_side}"
 
-    return stats, summary, caution
+        if rest and pd.notna(rest):
+            rest_txt = f"with {rest:.0f} days rest" if rest > STANDARD_REST_DAYS else f"on {note}"
+            prose = (f"{lead}, {rest_txt}. Both work together to project higher strikeout production. "
+                    f"The model's {bet_side} edge here is real, though keep in mind "
+                    f"{'the rest advantage may not stick around for his next start.' if rest > STANDARD_REST_DAYS else 'short rest sometimes catches up.'}")
+        else:
+            prose = (f"{lead}. This is the real driver of the {bet_side} edge. "
+                    f"The model projects {short_name} for a {bet_side} strikeout count vs. how the market is priced.")
+
+    # Add caution if there are mixed signals
+    if rate_opposite and not rate_matching:
+        prose += f" Caution: the underlying rate stats actually point the other way — the edge relies mainly on the model's overall projection, not on his recent form."
+
+    return prose, detail_lines
+
+
+def edge_badge_class(edge: float) -> str:
+    """Return CSS class name for edge-tier color coding."""
+    if edge >= 0.20:
+        return "extreme"  # red: highest-risk picks
+    if 0.12 <= edge < 0.20:
+        return "large"  # amber: large, flashy edges
+    return "modest"  # green: modest, historically-stable edges
 
 
 def reliability_tag(edge: float) -> str | None:
@@ -135,6 +186,98 @@ def reliability_tag(edge: float) -> str | None:
     return None
 
 st.set_page_config(page_title="K Props", page_icon="⚾", layout="centered")
+
+# Custom CSS for visual redesign: card layout, typography hierarchy, edge-tier badges
+st.markdown("""
+<style>
+[data-testid="stContainer"] > div > div > div {
+    gap: 0.5rem;
+}
+
+.flag-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.flag-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 12px;
+}
+
+.pitcher-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.matchup {
+    font-size: 13px;
+    color: #666;
+    margin-top: 4px;
+}
+
+.edge-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+.edge-badge.modest {
+    background: #d4edda;
+    color: #155724;
+}
+
+.edge-badge.large {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.edge-badge.extreme {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.odds-section {
+    background: #f9f9f9;
+    border: 0.5px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 12px 0;
+    font-size: 14px;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 13px;
+}
+
+.stat-value {
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.section-divider {
+    border-top: 0.5px solid #e8e8e8;
+    margin: 12px 0;
+}
+
+.expander-prose {
+    line-height: 1.6;
+    color: #333;
+    font-size: 14px;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 def check_password() -> bool:
@@ -180,30 +323,42 @@ else:
         model_p = r["model_p_over"] if r["bet_side"] == "over" else 1 - r["model_p_over"]
         market_p = r["over_prob_fair"] if r["bet_side"] == "over" else 1 - r["over_prob_fair"]
         price = r["over_odds"] if r["bet_side"] == "over" else r["under_odds"]
-        rel_tag = reliability_tag(r["bet_edge"])
-        with st.container(border=True):
-            c1, c2 = st.columns([3, 1])
-            with c1:
-                st.markdown(f"**{r['name']}**")
-                st.caption(f"vs {r['opponent_name']}")
-            with c2:
-                st.markdown(f"### +{r['bet_edge']:.1%}")
-            st.markdown(f"**{r['bet_side'].upper()} {r['line']}** strikeouts &nbsp;&nbsp; "
-                        f"model {model_p:.1%} vs. market {market_p:.1%}")
-            st.caption(f"price {price:+.0f} · {r['n_books']} book(s) · "
-                       f"{'captured' if pd.notna(r['closing_over_odds']) else 'no closing line yet'}"
-                       + (f" · {rel_tag}" if rel_tag else ""))
+        badge_class = edge_badge_class(r["bet_edge"])
 
-            why = why_flagged(r)
-            if why:
-                stats, summary, caution = why
-                if caution:
-                    st.markdown(f"<span style='color:#fab219; font-size:0.9em;'>{caution}</span>",
-                                unsafe_allow_html=True)
-                with st.expander("Why?"):
-                    for line_txt in stats:
-                        st.markdown(f"- {line_txt}")
-                    st.caption(summary)
+        # Render as redesigned card
+        st.markdown(f"""
+        <div class="flag-card">
+            <div class="flag-header">
+                <div>
+                    <div class="pitcher-name">{r['name']}</div>
+                    <div class="matchup">vs {r['opponent_name']}</div>
+                </div>
+                <div class="edge-badge {badge_class}">+{r['bet_edge']:.1%}</div>
+            </div>
+
+            <div class="odds-section">
+                <div class="stat-label">{r['bet_side'].upper()} {r['line']} strikeouts</div>
+                <div class="stat-value">Model {model_p:.1%} vs. Market {market_p:.1%}</div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div style="font-size: 13px; color: #666;">
+                Price {price:+.0f} · {r['n_books']} book(s) ·
+                {'✓ closing line captured' if pd.notna(r['closing_over_odds']) else '○ no closing line yet'}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        why = why_flagged(r)
+        if why:
+            prose, detail_lines = why
+            with st.expander("📖 Why?"):
+                st.markdown(f'<div class="expander-prose">{prose}</div>', unsafe_allow_html=True)
+                if detail_lines:
+                    with st.expander("See the numbers", expanded=False):
+                        for line_txt in detail_lines:
+                            st.markdown(f"- {line_txt}")
 
 # --------------------------------------------------------------------------- #
 # Pitcher lookup
@@ -480,6 +635,136 @@ else:
 st.divider()
 
 # --------------------------------------------------------------------------- #
+# WNBA "why" text -- same discipline as why_flagged above: only cite a factor
+# if it points the SAME direction as the pick being described. Built from the
+# raw rolling-form values daily_wnba.py persists into the ledger (WHY_COLS),
+# not recomputed here (recomputing as-of-date rolling features after the fact
+# would risk leakage).
+# --------------------------------------------------------------------------- #
+
+WNBA_FACTOR_LABELS = {
+    "win_form": "recent win form", "rs_form": "scoring form", "ra_form": "points allowed",
+    "trail_win_pct": "record over the last 10 games", "rest_days": "rest",
+}
+
+
+def _fmt_wnba(val, kind: str) -> str:
+    if pd.isna(val):
+        return "n/a"
+    if kind == "pct":
+        return f"{val:.1%}"
+    if kind == "num1":
+        return f"{val:.1f}"
+    if kind == "days":
+        return f"{val:.0f}d"
+    return str(val)
+
+
+def why_wnba_moneyline(row: pd.Series, side: str) -> tuple[str, list[str]] | None:
+    if pd.isna(row.get("home_win_form")):
+        return None
+    is_home = side == "home"
+    def own(col): return row[f"home_{col}"] if is_home else row[f"away_{col}"]
+    def opp(col): return row[f"away_{col}"] if is_home else row[f"home_{col}"]
+    team_name = row["home_team_name"] if is_home else row["away_team_name"]
+    opp_name = row["away_team_name"] if is_home else row["home_team_name"]
+
+    checks = [
+        ("win_form", own("win_form") - opp("win_form"), 0.03, "pct", "recent win form"),
+        ("rs_form", own("rs_form") - opp("rs_form"), 1.5, "num1", "scoring form"),
+        ("ra_form", opp("ra_form") - own("ra_form"), 1.5, "num1", "points allowed"),  # fewer allowed is better
+        ("trail_win_pct", own("trail_win_pct") - opp("trail_win_pct"), 0.05, "pct", "10-game record"),
+        ("rest_days", own("rest_days") - opp("rest_days"), 2.0, "days", "rest advantage"),
+    ]
+
+    detail_lines = []
+    supporting = []  # (factor_name, diff, own_val, opp_val, kind)
+    for key, diff, threshold, kind, label in checks:
+        if pd.isna(diff):
+            continue
+        own_val = own(key)
+        opp_val = opp(key)
+        detail_lines.append(f"{label.capitalize()}: {team_name} {_fmt_wnba(own_val, kind)} vs. {opp_name} {_fmt_wnba(opp_val, kind)}")
+        if diff > threshold:
+            supporting.append((label, diff, own_val, opp_val, kind))
+
+    # Build prose narrative
+    if not supporting:
+        prose = f"{team_name} is favored by the model's overall read, though no single factor dominates. The edge is subtle."
+    elif len(supporting) == 1:
+        factor, diff, own_val, opp_val, kind = supporting[0]
+        if factor == "recent win form":
+            prose = f"{team_name} has been winning at a higher rate recently ({own_val:.1%}) than {opp_name} ({opp_val:.1%}). This win-form advantage is the main reason the model favors them tonight."
+        elif factor == "scoring form":
+            prose = f"{team_name} has been scoring at {own_val:.1f} points per game in recent play, while {opp_name} is at {opp_val:.1f}. That offensive edge is what's driving the model's favoritism."
+        elif factor == "points allowed":
+            prose = f"{team_name}'s defense has been sharper recently, giving up {own_val:.1f} points per game compared to {opp_name}'s {opp_val:.1f}. That defensive advantage underlies the pick."
+        elif factor == "10-game record":
+            prose = f"{team_name} has been much sharper over the last 10 games ({own_val:.1%}) than {opp_name} ({opp_val:.1%}). This recent momentum is what the model is reacting to."
+        elif factor == "rest advantage":
+            prose = f"{team_name} has {own_val:.0f} days rest coming in, vs. {opp_name}'s {opp_val:.0f} days. The rest advantage could be meaningful here."
+        else:
+            prose = f"{team_name} is favored, driven primarily by {factor}."
+    else:
+        # Multiple factors: weave them together naturally
+        first_factor = supporting[0][0]
+        if first_factor == "recent win form":
+            lead = f"{team_name} has been winning at a significantly higher rate ({supporting[0][2]:.1%}) than {opp_name}"
+        elif first_factor == "scoring form":
+            lead = f"{team_name} has been the stronger offensive team in recent play"
+        elif first_factor == "points allowed":
+            lead = f"{team_name} has tightened up defensively"
+        else:
+            lead = f"{team_name} enters with clear form advantages"
+
+        other_factors = [s[0] for s in supporting[1:]]
+        if len(other_factors) == 1:
+            other_txt = f"and {other_factors[0]}"
+        else:
+            other_txt = "and " + ", ".join(other_factors[:-1]) + f", and {other_factors[-1]}"
+
+        prose = (f"{lead}. The edge here comes from {', '.join([s[0] for s in supporting[:2]])}—when multiple "
+                f"fundamentals align, that usually means the model's conviction is higher. {team_name} should have the advantage.")
+
+    return prose, detail_lines
+
+
+def why_wnba_totals(row: pd.Series, side: str) -> tuple[str, list[str]] | None:
+    if pd.isna(row.get("total_form_avg")) or pd.isna(row.get("line")):
+        return None
+    line = row["line"]
+    proj = row["total_form_avg"]
+    home_rs = row["home_rs_form"]
+    home_ra = row["home_ra_form"]
+    away_rs = row["away_rs_form"]
+    away_ra = row["away_ra_form"]
+    diff = (proj - line) * (1 if side == "over" else -1)
+
+    detail_lines = [
+        f"Combined scoring-form projection: {proj:.1f} vs. a line of {line}",
+        f"{row['home_team_name']}: {home_rs:.1f} scored / {home_ra:.1f} allowed per game (recent form)",
+        f"{row['away_team_name']}: {away_rs:.1f} scored / {away_ra:.1f} allowed per game (recent form)",
+    ]
+
+    if abs(diff) > 3:
+        # Strong signal from the form data itself
+        is_over = side == "over"
+        home_total = home_rs + away_ra
+        away_total = away_rs + home_ra
+        prose = (f"Both teams' recent scoring and allowing rates project to roughly {proj:.0f} combined points. "
+                f"{row['home_team_name']} should score around {home_rs:.0f} against this defense, while {row['away_team_name']} "
+                f"projects to {away_rs:.0f}. That totals about {proj:.0f} points, which is {'above' if is_over else 'below'} "
+                f"the {line} line. The model leans {side}.")
+    else:
+        # Weaker signal; model edge comes from regression, not clear form gap
+        prose = (f"The scoring-form projection ({proj:.0f} points) is close to the {line} line, so the {side} edge here "
+                f"relies mainly on the regression model's judgment rather than a clear gap in raw recent form. "
+                f"Keep in mind the totals model is still unproven — treat this one with extra skepticism.")
+
+    return prose, detail_lines
+
+
+# --------------------------------------------------------------------------- #
 # WNBA moneyline + totals (see daily_wnba.py). Paper only. Honest note baked
 # into the caption below: the totals model only came out roughly at parity
 # with the simplest possible heuristic on the 2025 holdout backtest (see
@@ -522,6 +807,17 @@ else:
                     flag_txt = f" 🚩 edge on {flagged_side}" if flagged_side else ""
                     st.markdown(f"Moneyline: model home {h['model_prob']:.1%} / away {a['model_prob']:.1%} "
                                 f"vs. market {mkt_txt}{flag_txt}")
+                    if flagged_side:
+                        why = why_wnba_moneyline(h if flagged_side == "home" else a, flagged_side)
+                        if why:
+                            prose, detail_lines = why
+                            team = h["home_team_name"] if flagged_side == "home" else h["away_team_name"]
+                            with st.expander(f"Why {team}?"):
+                                st.markdown(prose)
+                                if detail_lines:
+                                    with st.expander("See the numbers", expanded=False):
+                                        for line_txt in detail_lines:
+                                            st.markdown(f"- {line_txt}")
                 totals = game_rows[(game_rows["market_type"] == "totals") & (game_rows["side"] == "over")]
                 if len(totals) and pd.notna(totals.iloc[0]["line"]):
                     t = totals.iloc[0]
@@ -531,6 +827,16 @@ else:
                     flagged_side = "over" if t["flagged"] else ("under" if under_flagged else None)
                     flag_txt = f" 🚩 edge on {flagged_side}" if flagged_side else ""
                     st.markdown(f"Total {t['line']}: model {t['model_prob']:.1%} over vs. market {mkt_txt}{flag_txt}")
+                    if flagged_side:
+                        why = why_wnba_totals(t, flagged_side)
+                        if why:
+                            prose, detail_lines = why
+                            with st.expander(f"Why {flagged_side} {t['line']}?"):
+                                st.markdown(prose)
+                                if detail_lines:
+                                    with st.expander("See the numbers", expanded=False):
+                                        for line_txt in detail_lines:
+                                            st.markdown(f"- {line_txt}")
                 if not (len(home_row) and pd.notna(home_row.iloc[0]["model_prob"])) and not len(totals):
                     st.caption("No market line matched yet today.")
 

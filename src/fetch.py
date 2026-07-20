@@ -237,6 +237,57 @@ def fetch_starter_game_logs(season: int, pitcher_ids: list[int], refresh: bool =
 
 
 # --------------------------------------------------------------------------- #
+# Home-plate umpire assignment + game strikeout totals (K model umpire feature)
+# --------------------------------------------------------------------------- #
+
+def fetch_game_officials_and_k_totals(game_pks: list[int], refresh: bool = False, sleep: float = 0.05) -> pd.DataFrame:
+    """One row per game: home-plate umpire id/name + total strikeouts (both teams
+    combined) from the game's box score. Uses /game/{pk}/boxscore, not the full
+    /feed/live -- same officials data, ~163KB instead of the full play-by-play, and
+    already has both teams' batting strikeOuts totals in the same response."""
+    path = RAW / "game_umpires.csv"
+    cached = pd.read_csv(path) if path.exists() else pd.DataFrame()
+    game_pks = sorted(set(int(g) for g in game_pks))
+
+    if refresh:
+        to_fetch = game_pks
+        if not cached.empty:
+            cached = cached[~cached["game_pk"].isin(to_fetch)]
+    else:
+        have = set(cached["game_pk"]) if not cached.empty else set()
+        to_fetch = sorted(set(game_pks) - have)
+        if not to_fetch:
+            return cached
+
+    rows = []
+    CHECKPOINT_EVERY = 250
+    for i, pk in enumerate(to_fetch):
+        try:
+            d = _get(f"{STATSAPI_BASE}/game/{pk}/boxscore")
+            officials = d.get("officials", [])
+            hp = next((o for o in officials if o.get("officialType") == "Home Plate"), None)
+            teams = d.get("teams", {})
+            home_k = teams.get("home", {}).get("teamStats", {}).get("batting", {}).get("strikeOuts")
+            away_k = teams.get("away", {}).get("teamStats", {}).get("batting", {}).get("strikeOuts")
+            rows.append({
+                "game_pk": pk,
+                "hp_umpire_id": hp["official"]["id"] if hp else None,
+                "hp_umpire_name": hp["official"]["fullName"] if hp else None,
+                "game_total_k": (home_k or 0) + (away_k or 0) if home_k is not None and away_k is not None else None,
+            })
+        except (requests.exceptions.RequestException, KeyError, IndexError) as e:
+            print(f"  [warn] boxscore game_pk={pk}: {e}", file=sys.stderr)
+
+        if (i + 1) % CHECKPOINT_EVERY == 0 or (i + 1) == len(to_fetch):
+            checkpoint = pd.concat([cached, pd.DataFrame(rows)], ignore_index=True).drop_duplicates(subset=["game_pk"])
+            checkpoint.to_csv(path, index=False)
+            print(f"  ... {i + 1}/{len(to_fetch)} boxscores fetched, checkpoint saved ({len(checkpoint)} total rows)")
+        time.sleep(sleep)
+
+    return pd.concat([cached, pd.DataFrame(rows)], ignore_index=True).drop_duplicates(subset=["game_pk"])
+
+
+# --------------------------------------------------------------------------- #
 # Team hitting splits (overall, vs RHP, vs LHP)
 # --------------------------------------------------------------------------- #
 

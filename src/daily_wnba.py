@@ -40,6 +40,14 @@ OUTPUT = ROOT / "output"
 LEDGER_PATH = OUTPUT / "wnba_paper_ledger.csv"
 EDGE_FLAG_THRESHOLD = 0.03
 
+# Raw feature values persisted into every ledger row for a game, so the dashboard's
+# "why" text can be built straight from what the model actually scored with --
+# same convention as daily_ks.py's WHY_COLS (recomputing as-of-date rolling features
+# after the fact would risk leakage, so these are captured once, at scoring time).
+WHY_COLS = ["home_rs_form", "away_rs_form", "home_ra_form", "away_ra_form",
+            "home_win_form", "away_win_form", "home_trail_win_pct", "away_trail_win_pct",
+            "home_rest_days", "away_rest_days", "total_form_avg", "mu", "sigma"]
+
 
 def build_todays_features(target_date: date, todays_games: pd.DataFrame) -> pd.DataFrame:
     """Same as-of-date rolling mechanism as daily_ml.py's synthetic-"today"-row
@@ -180,7 +188,8 @@ def run(target_date: date, dry_run: bool):
         odds = odds_by_game.get(row["game_id"], {})
         base = {"date": target_date.isoformat(), "game_id": row["game_id"],
                 "home_team_name": row["home_team_name"], "away_team_name": row["away_team_name"],
-                "logged_at": datetime.now().isoformat(timespec="seconds")}
+                "logged_at": datetime.now().isoformat(timespec="seconds"),
+                **{c: row[c] for c in WHY_COLS}}
 
         for side, model_prob in [("home", row["home_win_prob"]), ("away", 1 - row["home_win_prob"])]:
             market_prob = odds.get(f"{side}_fair_prob")
