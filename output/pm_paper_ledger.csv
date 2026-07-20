@@ -1,0 +1,5 @@
+date,game_pk,home_team_name,away_team_name,market,market_type,side,line,model_prob,pm_price,pm_implied_prob,edge,depth_usd,sportsbook_prob,n_books,logged_at,actual_result,correct,pnl
+2026-07-20,822788,Toronto Blue Jays,Tampa Bay Rays,polymarket,moneyline,away,,0.4558823529411766,0.4,0.4,0.055882352941176605,328529.70279999997,0.5104162959527104,6,2026-07-20T18:00:50,,,
+2026-07-20,824736,Boston Red Sox,Baltimore Orioles,polymarket,moneyline,away,,0.5021645021645023,0.41,0.41,0.09216450216450228,33042.6831,0.40924860599502666,9,2026-07-20T18:00:50,,,
+2026-07-20,823436,Philadelphia Phillies,Los Angeles Dodgers,polymarket,moneyline,away,,0.540272614622057,0.43,0.43,0.11027261462205701,23376.4125,0.4465121590932971,3,2026-07-20T18:00:50,,,
+2026-07-20,823762,Milwaukee Brewers,New York Mets,polymarket,moneyline,away,,0.3816614420062696,0.34,0.34,0.04166144200626959,104156.11110000001,0.43364170760033804,6,2026-07-20T18:00:50,,,
