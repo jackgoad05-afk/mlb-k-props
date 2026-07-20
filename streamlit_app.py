@@ -1,12 +1,17 @@
 """
-K props paper-trading dashboard. Deployed on Streamlit Community Cloud, reading
-output/ks_paper_ledger.csv straight from this repo -- the GitHub Actions workflows
-(.github/workflows/) keep that file current, Streamlit Cloud auto-redeploys on every
-push, so this always reflects the latest committed ledger state with no separate
-data pipeline of its own.
+Sports model dashboard. Deployed on Streamlit Community Cloud, reading straight from
+this repo's output/*.csv ledgers -- the GitHub Actions workflows (.github/workflows/)
+keep those files current, Streamlit Cloud auto-redeploys on every push, so this always
+reflects the latest committed ledger state with no separate data pipeline of its own.
 
 Password gate: set an APP_PASSWORD secret in the Streamlit Cloud app's Settings ->
 Secrets (not in this repo). See the deploy walkthrough for exact steps.
+
+Layout: one Overview tab (at-a-glance status across all four systems) plus one tab per
+system (K Props, Moneyline, Prediction Markets, WNBA) -- replaces the old single long
+scrolling page. Theme is dark-native (see .streamlit/config.toml, base="dark"): card
+colors below are chosen to sit correctly on that background, not light-mode colors
+dropped onto a dark page.
 """
 from __future__ import annotations
 
@@ -46,6 +51,25 @@ def load_research_notes() -> dict:
             grouped[key] = []
         grouped[key].append((row["agent"], row["note"]))
     return grouped
+
+
+def research_notes_html(notes: list[tuple[str, str]]) -> str:
+    """Render research-agent notes as a distinct informational box -- deliberately
+    styled apart from the pick card itself, since these are context/caution the
+    agents attach to an already-made model call, never a new pick (see
+    research_agents.py's module docstring)."""
+    agent_labels = {"lineup": ("👥", "Lineup"), "injury_news": ("🏥", "Injury/news"),
+                    "line_movement": ("📊", "Line movement")}
+    rows = []
+    for agent, note in notes:
+        emoji, label = agent_labels.get(agent, ("ℹ️", agent.replace("_", " ").title()))
+        rows.append(f'<div class="research-row"><span class="research-tag">{emoji} {label}</span>{note}</div>')
+    return f"""
+    <div class="research-box">
+        <div class="research-header">Research check &middot; pre-closing context, not a new pick</div>
+        {''.join(rows)}
+    </div>
+    """
 
 
 def why_flagged(r: pd.Series) -> tuple[str, list[str]] | None:
@@ -155,7 +179,6 @@ def why_flagged(r: pd.Series) -> tuple[str, list[str]] | None:
     else:
         # Multiple factors: lead with strongest, connect the dots
         strongest = matching[0]
-        seconds = matching[1:]
 
         if strongest["factor"] == "whiff":
             lead = f"{short_name}'s whiff rate has climbed to {whiff:.1f}%, the highest of his recent starts"
@@ -179,7 +202,7 @@ def why_flagged(r: pd.Series) -> tuple[str, list[str]] | None:
 
     # Add caution if there are mixed signals
     if rate_opposite and not rate_matching:
-        prose += f" Caution: the underlying rate stats actually point the other way — the edge relies mainly on the model's overall projection, not on his recent form."
+        prose += " Caution: the underlying rate stats actually point the other way — the edge relies mainly on the model's overall projection, not on his recent form."
 
     return prose, detail_lines
 
@@ -191,6 +214,17 @@ def edge_badge_class(edge: float) -> str:
     if 0.12 <= edge < 0.20:
         return "large"  # amber: large, flashy edges
     return "modest"  # green: modest, historically-stable edges
+
+
+def confidence_badge_class(prob: float) -> str:
+    """Moneyline has no betting edge (deliberately excludes market comparison from
+    the dashboard -- see the Moneyline tab's caption), so its badge is colored by
+    raw model confidence instead of edge size."""
+    if prob >= 0.60:
+        return "modest"
+    if prob >= 0.53:
+        return "large"
+    return "extreme"
 
 
 def reliability_tag(edge: float) -> str | None:
@@ -206,41 +240,40 @@ def reliability_tag(edge: float) -> str | None:
         return "✓ modest, stable edge"
     return None
 
-st.set_page_config(page_title="K Props", page_icon="⚾", layout="centered")
 
-# Custom CSS for visual redesign: card layout, typography hierarchy, edge-tier badges
+st.set_page_config(page_title="Sports Model", page_icon="📊", layout="wide")
+
+# Dark-native design system -- matches .streamlit/config.toml's base="dark" theme
+# (backgroundColor #0d0d0d, secondaryBackgroundColor #1a1a19) rather than dropping
+# light-mode card colors onto a dark page.
 st.markdown("""
 <style>
-[data-testid="stContainer"] > div > div > div {
-    gap: 0.5rem;
-}
-
 .flag-card {
-    background: #ffffff;
-    border: 1px solid #e0e0e0;
+    background: #171716;
+    border: 1px solid #2c2c2a;
     border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 16px 18px;
+    margin-bottom: 14px;
 }
 
 .flag-header {
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start;
+    gap: 12px;
     margin-bottom: 12px;
 }
 
 .pitcher-name {
     font-size: 18px;
     font-weight: 600;
-    color: #1a1a1a;
+    color: #f2f2f0;
 }
 
 .matchup {
     font-size: 13px;
-    color: #666;
-    margin-top: 4px;
+    color: #9b9a92;
+    margin-top: 2px;
 }
 
 .edge-badge {
@@ -248,55 +281,112 @@ st.markdown("""
     padding: 6px 12px;
     border-radius: 6px;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 15px;
     white-space: nowrap;
 }
 
-.edge-badge.modest {
-    background: #d4edda;
-    color: #155724;
-}
-
-.edge-badge.large {
-    background: #fff3cd;
-    color: #856404;
-}
-
-.edge-badge.extreme {
-    background: #f8d7da;
-    color: #721c24;
-}
+.edge-badge.modest { background: #12271a; color: #4ade80; }
+.edge-badge.large  { background: #2e2308; color: #fbbf24; }
+.edge-badge.extreme { background: #301616; color: #f87171; }
 
 .odds-section {
-    background: #f9f9f9;
-    border: 0.5px solid #e8e8e8;
+    background: #1e1e1c;
+    border: 1px solid #2c2c2a;
     border-radius: 8px;
-    padding: 12px;
-    margin: 12px 0;
+    padding: 10px 12px;
+    margin: 10px 0;
     font-size: 14px;
 }
 
 .stat-label {
-    color: #666;
-    font-size: 13px;
+    color: #9b9a92;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 }
 
 .stat-value {
-    color: #1a1a1a;
+    color: #f2f2f0;
     font-weight: 600;
     font-size: 15px;
+    margin-top: 2px;
 }
 
 .section-divider {
-    border-top: 0.5px solid #e8e8e8;
-    margin: 12px 0;
+    border-top: 1px solid #2c2c2a;
+    margin: 10px 0;
+}
+
+.meta-line {
+    font-size: 13px;
+    color: #9b9a92;
 }
 
 .expander-prose {
     line-height: 1.6;
-    color: #333;
+    color: #d6d5cd;
     font-size: 14px;
 }
+
+.research-box {
+    background: #10202e;
+    border: 1px solid #1e3a52;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.research-header {
+    color: #7dd3fc;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 6px;
+}
+
+.research-row {
+    color: #c7d6de;
+    padding: 3px 0;
+    line-height: 1.5;
+}
+
+.research-tag {
+    color: #7dd3fc;
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+/* Overview tab: system-status cards */
+.sys-card {
+    background: #171716;
+    border: 1px solid #2c2c2a;
+    border-radius: 12px;
+    padding: 16px 18px;
+}
+
+.sys-card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #f2f2f0;
+    margin-bottom: 10px;
+}
+
+.sys-stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-size: 14px;
+    border-top: 1px solid #232322;
+}
+
+.sys-stat-row:first-of-type { border-top: none; }
+
+.sys-stat-label { color: #9b9a92; }
+.sys-stat-value { color: #f2f2f0; font-weight: 600; }
+.sys-stat-value.positive { color: #4ade80; }
+.sys-stat-value.negative { color: #f87171; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -304,7 +394,7 @@ st.markdown("""
 def check_password() -> bool:
     if st.session_state.get("authed"):
         return True
-    st.title("⚾ K Props")
+    st.title("📊 Sports Model")
     pw = st.text_input("Password", type="password", label_visibility="collapsed",
                         placeholder="Password")
     if pw:
@@ -319,392 +409,492 @@ def check_password() -> bool:
 if not check_password():
     st.stop()
 
-st.title("⚾ K Props")
-st.caption("Paper trading only · model vs. market strikeout props · " + date.today().strftime("%b %d, %Y"))
-
-if not LEDGER_PATH.exists():
-    st.info("No flags logged yet -- check back after the morning pull runs.")
-    st.stop()
-
-ledger = pd.read_csv(LEDGER_PATH)
-ledger["result"] = ledger["result"].astype("object")
 today_str = date.today().isoformat()
 
-# --------------------------------------------------------------------------- #
-# Today's flags
-# --------------------------------------------------------------------------- #
+st.title("📊 Sports Model")
+st.caption("Paper trading only · not betting advice · " + date.today().strftime("%b %d, %Y"))
 
-st.header("Today's flags")
-todays = ledger[ledger["date"] == today_str].sort_values("bet_edge", ascending=False)
+tab_overview, tab_ks, tab_ml, tab_pm, tab_wnba = st.tabs(
+    ["📊 Overview", "⚾ K Props", "🏆 Moneyline", "🔮 Prediction Markets", "🏀 WNBA"]
+)
 
-if todays.empty:
-    st.write("No edges flagged today.")
-else:
-    for _, r in todays.iterrows():
-        model_p = r["model_p_over"] if r["bet_side"] == "over" else 1 - r["model_p_over"]
-        market_p = r["over_prob_fair"] if r["bet_side"] == "over" else 1 - r["over_prob_fair"]
-        price = r["over_odds"] if r["bet_side"] == "over" else r["under_odds"]
-        badge_class = edge_badge_class(r["bet_edge"])
+# =============================================================================== #
+# Overview -- at-a-glance status across all four systems. Each system's numbers are
+# read independently here (small, cheap CSV reads) rather than threaded through from
+# the tabs below, so this tab stays decoupled and easy to reason about on its own.
+# =============================================================================== #
 
-        # Render as redesigned card
-        st.markdown(f"""
-        <div class="flag-card">
-            <div class="flag-header">
-                <div>
-                    <div class="pitcher-name">{r['name']}</div>
-                    <div class="matchup">vs {r['opponent_name']}</div>
-                </div>
-                <div class="edge-badge {badge_class}">+{r['bet_edge']:.1%}</div>
-            </div>
+with tab_overview:
+    st.subheader("System status")
 
-            <div class="odds-section">
-                <div class="stat-label">{r['bet_side'].upper()} {r['line']} strikeouts</div>
-                <div class="stat-value">Model {model_p:.1%} vs. Market {market_p:.1%}</div>
-            </div>
-
-            <div class="section-divider"></div>
-
-            <div style="font-size: 13px; color: #666;">
-                Price {price:+.0f} · {r['n_books']} book(s) ·
-                {'✓ closing line captured' if pd.notna(r['closing_over_odds']) else '○ no closing line yet'}
-            </div>
+    def sys_card(col, icon: str, name: str, rows: list[tuple[str, str, str]]):
+        """rows: list of (label, value, css_class_suffix or '')."""
+        row_html = "".join(
+            f'<div class="sys-stat-row"><span class="sys-stat-label">{label}</span>'
+            f'<span class="sys-stat-value {cls}">{value}</span></div>'
+            for label, value, cls in rows
+        )
+        col.markdown(f"""
+        <div class="sys-card">
+            <div class="sys-card-title">{icon} {name}</div>
+            {row_html}
         </div>
         """, unsafe_allow_html=True)
 
-        why = why_flagged(r)
-        if why:
-            prose, detail_lines = why
-            with st.expander("📖 Why?"):
-                st.markdown(f'<div class="expander-prose">{prose}</div>', unsafe_allow_html=True)
-                if detail_lines:
-                    with st.expander("See the numbers", expanded=False):
-                        for line_txt in detail_lines:
-                            st.markdown(f"- {line_txt}")
+    c1, c2, c3, c4 = st.columns(4)
 
-        # Display research agent notes if available
-        research_notes = load_research_notes()
-        notes_key = (str(r.get("game_id", "")), "strikeout_props", r["bet_side"])
-        if notes_key in research_notes:
-            st.caption("📋 **Research context** (pre-closing check):")
-            for agent, note in research_notes[notes_key]:
-                agent_emoji = {"lineup": "👥", "injury_news": "🏥", "line_movement": "📊"}.get(agent, "ℹ️")
-                st.caption(f"{agent_emoji} {note}")
-
-# --------------------------------------------------------------------------- #
-# Pitcher lookup
-# --------------------------------------------------------------------------- #
-
-st.header("Pitcher lookup")
-scores_path = ROOT / "output" / "ks_daily_scores.csv"
-matched_path = ROOT / "output" / "ks_daily_matched.csv"
-
-if not scores_path.exists():
-    st.caption("No scoring data yet today -- check back after the morning pull runs.")
-else:
-    scores = pd.read_csv(scores_path)
-    matched = pd.read_csv(matched_path) if matched_path.exists() else pd.DataFrame()
-    scores_date = scores["date"].iloc[0] if len(scores) else None
-    if scores_date and scores_date != today_str:
-        st.caption(f"⚠ showing {scores_date}'s scores -- today's morning pull hasn't run yet.")
-
-    names = sorted(scores["name"].unique().tolist())
-    selected = st.selectbox("Search a starting pitcher", options=names,
-                             index=None, placeholder="Type a name...")
-    if selected:
-        row = scores[scores["name"] == selected].iloc[0]
-        st.caption(f"vs {row['opponent_name']}")
-        st.metric("Projected strikeouts", f"{row['mu']:.1f}")
-
-        pitcher_lines = matched[matched["name"] == selected] if not matched.empty else pd.DataFrame()
-        if len(pitcher_lines):
-            for _, m in pitcher_lines.sort_values("line").iterrows():
-                st.markdown(f"**Line {m['line']}** &nbsp; model {m['model_p_over']:.1%} over / "
-                            f"{1 - m['model_p_over']:.1%} under &nbsp;&nbsp; "
-                            f"market {m['over_prob_fair']:.1%} over / {1 - m['over_prob_fair']:.1%} under")
-                st.caption(f"price over {m['over_odds']:+.0f} / under {m['under_odds']:+.0f} · {m['n_books']} book(s)")
+    # K Props
+    if LEDGER_PATH.exists():
+        ks_ledger = pd.read_csv(LEDGER_PATH)
+        ks_today_n = int((ks_ledger["date"] == today_str).sum())
+        ks_done = ks_ledger[ks_ledger["result"].notna()]
+        if len(ks_done):
+            roi = ks_done["pnl"].sum() / len(ks_done)
+            sys_card(c1, "⚾", "K Props", [
+                ("Today", str(ks_today_n), ""),
+                ("Reconciled", str(len(ks_done)), ""),
+                ("ROI", f"{roi:+.1%}", "positive" if roi >= 0 else "negative"),
+            ])
         else:
-            st.caption("No market line matched today (no odds yet, or book doesn't offer this pitcher) -- "
-                       "model projection at standard lines:")
-            for line in [4.5, 5.5, 6.5]:
-                p = row.get(f"model_p_over_{line}")
-                if pd.notna(p):
-                    st.write(f"{line}: {p:.1%} over / {1 - p:.1%} under")
-
-# --------------------------------------------------------------------------- #
-# Ledger summary
-# --------------------------------------------------------------------------- #
-
-st.header("Ledger")
-done = ledger[ledger["result"].notna()].copy()
-pending_n = int(ledger["result"].isna().sum())
-st.caption(f"{len(ledger)} total flags · {len(done)} reconciled · {pending_n} pending")
-
-if done.empty:
-    st.info("No reconciled bets yet -- results fill in after games finish (overnight reconciliation).")
-else:
-    def tier_stats(df: pd.DataFrame) -> dict:
-        n = len(df)
-        w = int((df["result"] == df["bet_side"]).sum())
-        l_ = int((df["pnl"] < 0).sum())
-        p = int((df["result"] == "push").sum())
-        roi = df["pnl"].sum() / n if n else float("nan")
-        clv = df["clv"].dropna()
-        return {"n": n, "record": f"{w}-{l_}-{p}", "roi": roi, "units": df["pnl"].sum(),
-                "avg_clv": clv.mean() if len(clv) else float("nan"), "clv_n": len(clv),
-                "beat_close": (clv > 0).mean() if len(clv) else float("nan")}
-
-    overall = tier_stats(done)
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Record", overall["record"])
-    c2.metric("ROI", f"{overall['roi']:+.1%}")
-    c3.metric("Units", f"{overall['units']:+.2f}u")
-    c1, c2 = st.columns(2)
-    c1.metric("Avg CLV", f"{overall['avg_clv']:+.2%}" if overall["clv_n"] else "n/a")
-    c2.metric("Beat close", f"{overall['beat_close']:.0%}" if overall["clv_n"] else "n/a")
-
-    st.subheader("By edge tier")
-    rows = []
-    for lo, hi in EDGE_TIER_BOUNDS:
-        tier = done[(done["bet_edge"] >= lo) & (done["bet_edge"] < hi)]
-        if tier.empty:
-            continue
-        s = tier_stats(tier)
-        label = f"{lo:.0%}-{hi:.0%}" if hi < 1 else f"{lo:.0%}+"
-        rows.append({"tier": label, "n": s["n"], "record": s["record"], "ROI": f"{s['roi']:+.1%}",
-                     "avg CLV": f"{s['avg_clv']:+.2%}" if s["clv_n"] else "n/a"})
-    st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
-
-    # ----------------------------------------------------------------------- #
-    # CLV trend
-    # ----------------------------------------------------------------------- #
-    with_clv = done.dropna(subset=["clv"]).sort_values("date").reset_index(drop=True)
-    if len(with_clv) >= 2:
-        st.subheader("CLV trend")
-        with_clv["bet_num"] = range(1, len(with_clv) + 1)
-        with_clv["rolling_clv"] = with_clv["clv"].expanding().mean()
-        with_clv["outcome"] = with_clv["result"].where(with_clv["result"] == with_clv["bet_side"], "loss")
-        with_clv.loc[with_clv["result"] == with_clv["bet_side"], "outcome"] = "win"
-
-        base = alt.Chart(with_clv).encode(x=alt.X("bet_num:Q", title="flagged bet #"))
-        zero_line = alt.Chart(pd.DataFrame({"y": [0]})).mark_rule(color="#898781", strokeDash=[3, 3]).encode(y="y:Q")
-        points = base.mark_circle(size=70, opacity=0.85).encode(
-            y=alt.Y("clv:Q", title="CLV", axis=alt.Axis(format="%")),
-            color=alt.Color("outcome:N", scale=alt.Scale(domain=["win", "loss", "push"],
-                                                           range=["#0ca30c", "#e66767", "#898781"]),
-                             legend=alt.Legend(title=None, orient="bottom")),
-            tooltip=["date", "name", alt.Tooltip("clv:Q", format="+.2%"), "result"],
-        )
-        trend = base.mark_line(color="#3987e5", strokeWidth=2.5).encode(
-            y=alt.Y("rolling_clv:Q", axis=alt.Axis(format="%")))
-        chart = (zero_line + points + trend).properties(height=280).configure_axis(
-            gridColor="#2c2c2a", labelColor="#c3c2b7", titleColor="#c3c2b7"
-        ).configure_view(strokeWidth=0)
-        st.altair_chart(chart, use_container_width=True)
-        st.caption("dots = each bet's CLV · line = running average CLV · dashed = break-even")
-    elif len(with_clv) == 1:
-        st.caption("Need at least 2 reconciled bets with a captured closing line for a trend.")
-
-st.divider()
-
-# --------------------------------------------------------------------------- #
-# Moneyline predictions (separate model, pure prediction -- no odds as an
-# input, no betting logic; see daily_ml.py). Deliberately does NOT show the
-# market favorite anywhere on this page -- that comparison is tracked
-# privately in output/ml_market_comparison.csv for direct inspection only.
-# --------------------------------------------------------------------------- #
-
-st.header("🏆 Moneyline Predictions")
-st.caption("Paper/tracking only · straight-up picks from team form, matchups, pitcher/bullpen "
-           "quality and park factor -- no odds used as a model input")
-
-ml_ledger_path = ROOT / "output" / "ml_predictions_ledger.csv"
-if not ml_ledger_path.exists():
-    st.caption("No predictions logged yet -- check back after the morning pull runs.")
-else:
-    ml_ledger = pd.read_csv(ml_ledger_path)
-    ml_ledger["correct"] = ml_ledger["correct"].astype("object")
-    ml_today = ml_ledger[ml_ledger["date"] == today_str].sort_values("predicted_win_prob", ascending=False)
-
-    st.subheader("Today's picks")
-    if ml_today.empty:
-        st.write("No predictions logged today.")
+            sys_card(c1, "⚾", "K Props", [("Today", str(ks_today_n), ""), ("Reconciled", "0", "")])
     else:
-        for _, r in ml_today.iterrows():
-            badge_class = edge_badge_class(r.get("predicted_edge", 0.05))  # Use edge if available, else default
-            away_team = r['away_team_name']
-            home_team = r['home_team_name']
+        sys_card(c1, "⚾", "K Props", [("Status", "not started", "")])
 
-            st.markdown(f"""
-            <div class="flag-card">
-                <div class="flag-header">
-                    <div>
-                        <div class="pitcher-name">{r['predicted_winner']}</div>
-                        <div class="matchup">{away_team} @ {home_team}</div>
+    # Moneyline
+    ml_path = ROOT / "output" / "ml_predictions_ledger.csv"
+    if ml_path.exists():
+        ml_ledger = pd.read_csv(ml_path)
+        ml_today_n = int((ml_ledger["date"] == today_str).sum())
+        ml_done = ml_ledger[ml_ledger["correct"].notna()]
+        if len(ml_done):
+            acc = ml_done["correct"].astype(bool).mean()
+            sys_card(c2, "🏆", "Moneyline", [
+                ("Today", str(ml_today_n), ""),
+                ("Reconciled", str(len(ml_done)), ""),
+                ("Accuracy", f"{acc:.1%}", "positive" if acc >= 0.5 else "negative"),
+            ])
+        else:
+            sys_card(c2, "🏆", "Moneyline", [("Today", str(ml_today_n), ""), ("Reconciled", "0", "")])
+    else:
+        sys_card(c2, "🏆", "Moneyline", [("Status", "not started", "")])
+
+    # Prediction Markets
+    pm_path = ROOT / "output" / "pm_paper_ledger.csv"
+    if pm_path.exists():
+        pm_ledger = pd.read_csv(pm_path)
+        pm_today_n = int((pm_ledger["date"] == today_str).sum())
+        pm_done = pm_ledger[pm_ledger["correct"].notna()]
+        if len(pm_done):
+            roi = pm_done["pnl"].sum() / (len(pm_done) * 50.0)
+            sys_card(c3, "🔮", "Prediction Mkts", [
+                ("Today", str(pm_today_n), ""),
+                ("Reconciled", str(len(pm_done)), ""),
+                ("ROI", f"{roi:+.1%}", "positive" if roi >= 0 else "negative"),
+            ])
+        else:
+            sys_card(c3, "🔮", "Prediction Mkts", [("Today", str(pm_today_n), ""), ("Reconciled", "0", "")])
+    else:
+        sys_card(c3, "🔮", "Prediction Mkts", [("Status", "not started", "")])
+
+    # WNBA
+    wnba_path = ROOT / "output" / "wnba_paper_ledger.csv"
+    if wnba_path.exists():
+        wnba_ledger = pd.read_csv(wnba_path)
+        wnba_today_n = int((wnba_ledger["date"] == today_str).sum())
+        wnba_flagged = wnba_ledger[wnba_ledger["flagged"] == True]  # noqa: E712
+        wnba_done = wnba_flagged[wnba_flagged["pnl"].notna()]
+        if len(wnba_done):
+            roi = wnba_done["pnl"].sum() / len(wnba_done)
+            sys_card(c4, "🏀", "WNBA", [
+                ("Today", str(wnba_today_n), ""),
+                ("Reconciled", str(len(wnba_done)), ""),
+                ("ROI", f"{roi:+.1%}", "positive" if roi >= 0 else "negative"),
+            ])
+        else:
+            sys_card(c4, "🏀", "WNBA", [("Today", str(wnba_today_n), ""), ("Reconciled", "0", "")])
+    else:
+        sys_card(c4, "🏀", "WNBA", [("Status", "not started", "")])
+
+    st.markdown("<div style='height: 8px'></div>", unsafe_allow_html=True)
+    st.caption("K Props and Prediction Markets track real paper ROI (1-unit / $50 stakes). "
+               "Moneyline tracks straight-up accuracy only, no betting logic. WNBA tracks "
+               "paper ROI on flagged moneyline + totals edges.")
+
+# =============================================================================== #
+# K Props
+# =============================================================================== #
+
+with tab_ks:
+    st.caption("Model vs. market strikeout props · edges ≥3% flagged")
+
+    if not LEDGER_PATH.exists():
+        st.info("No flags logged yet -- check back after the morning pull runs.")
+    else:
+        ledger = pd.read_csv(LEDGER_PATH)
+        ledger["result"] = ledger["result"].astype("object")
+
+        st.subheader("Today's flags")
+        todays = ledger[ledger["date"] == today_str].sort_values("bet_edge", ascending=False)
+
+        if todays.empty:
+            st.write("No edges flagged today.")
+        else:
+            research_notes = load_research_notes()
+            for _, r in todays.iterrows():
+                model_p = r["model_p_over"] if r["bet_side"] == "over" else 1 - r["model_p_over"]
+                market_p = r["over_prob_fair"] if r["bet_side"] == "over" else 1 - r["over_prob_fair"]
+                price = r["over_odds"] if r["bet_side"] == "over" else r["under_odds"]
+                badge_class = edge_badge_class(r["bet_edge"])
+
+                st.markdown(f"""
+                <div class="flag-card">
+                    <div class="flag-header">
+                        <div>
+                            <div class="pitcher-name">{r['name']}</div>
+                            <div class="matchup">vs {r['opponent_name']}</div>
+                        </div>
+                        <div class="edge-badge {badge_class}">+{r['bet_edge']:.1%}</div>
                     </div>
-                    <div class="edge-badge {badge_class}">{r['predicted_win_prob']:.1%}</div>
-                </div>
 
-                <div style="font-size: 13px; color: #666; padding: 8px 0;">
-                    Straight-up pick based on team form, matchups, pitching quality, and ballpark
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-
-            why_stats = str(r.get("why_stats", "")).split(" | ") if pd.notna(r.get("why_stats")) else []
-            why_summary = str(r.get("why_summary", ""))
-            if why_stats or why_summary:
-                with st.expander("📖 Why?"):
-                    if why_summary:
-                        st.markdown(f'<div class="expander-prose">{why_summary}</div>', unsafe_allow_html=True)
-                    if why_stats and why_stats[0]:
-                        with st.expander("See the numbers", expanded=False):
-                            for stat in why_stats:
-                                if stat.strip():
-                                    st.markdown(f"- {stat}")
-
-    st.subheader("Leaderboard: straight-up accuracy")
-    ml_done = ml_ledger[ml_ledger["correct"].notna()].copy()
-    ml_done["correct"] = ml_done["correct"].astype(bool)
-    ml_pending = int(ml_ledger["correct"].isna().sum())
-    st.caption(f"{len(ml_ledger)} total predictions · {len(ml_done)} reconciled · {ml_pending} pending")
-
-    if ml_done.empty:
-        st.info("No reconciled predictions yet -- results fill in after games finish.")
-    else:
-        wins = int(ml_done["correct"].sum())
-        losses = len(ml_done) - wins
-        acc = wins / len(ml_done)
-        c1, c2 = st.columns(2)
-        c1.metric("Record", f"{wins}-{losses}")
-        c2.metric("Accuracy", f"{acc:.1%}")
-
-        by_date = ml_done.groupby("date")["correct"].agg(["sum", "count"]).reset_index()
-        by_date.columns = ["date", "wins", "n"]
-        by_date["accuracy"] = by_date["wins"] / by_date["n"]
-        by_date = by_date.sort_values("date")
-        by_date["cum_correct"] = by_date["wins"].cumsum()
-        by_date["cum_n"] = by_date["n"].cumsum()
-        by_date["running_accuracy"] = by_date["cum_correct"] / by_date["cum_n"]
-
-        if len(by_date) >= 2:
-            chart = alt.Chart(by_date).mark_line(point=True, color="#3987e5").encode(
-                x=alt.X("date:N", title="date"),
-                y=alt.Y("running_accuracy:Q", title="running accuracy", axis=alt.Axis(format="%")),
-                tooltip=["date", "wins", "n", alt.Tooltip("accuracy:Q", format=".1%")],
-            ).properties(height=220).configure_axis(
-                gridColor="#2c2c2a", labelColor="#c3c2b7", titleColor="#c3c2b7"
-            ).configure_view(strokeWidth=0)
-            st.altair_chart(chart, use_container_width=True)
-
-st.divider()
-
-# --------------------------------------------------------------------------- #
-# Prediction markets (Polymarket + Kalshi vs. model_ml, sportsbook line shown
-# side by side for reference). Paper only -- see daily_pm.py's module docstring
-# for why this exists: model_ml already failed its kill criteria against real
-# SHARP sportsbook closes (CLAUDE.md, Track 1), this asks whether it finds real
-# edges against thinner prediction-market pricing instead. Moneyline only gets a
-# real model edge -- no totals model exists yet, so totals rows (if any show up
-# in pm_daily_matched.csv) aren't surfaced here.
-# --------------------------------------------------------------------------- #
-
-st.header("🔮 Prediction Markets")
-st.caption("Paper trading only · model vs. Polymarket/Kalshi vs. sportsbook · moneyline edges ≥3%, "
-           "$50+ depth required")
-
-pm_ledger_path = ROOT / "output" / "pm_paper_ledger.csv"
-if not pm_ledger_path.exists():
-    st.caption("No flags logged yet -- check back after the morning pull runs.")
-else:
-    pm_ledger = pd.read_csv(pm_ledger_path)
-    pm_ledger["correct"] = pm_ledger["correct"].astype("object")
-    pm_today = pm_ledger[pm_ledger["date"] == today_str].sort_values("edge", ascending=False)
-
-    st.subheader("Today's flags")
-    if pm_today.empty:
-        st.write("No edges flagged today.")
-    else:
-        for _, r in pm_today.iterrows():
-            badge_class = edge_badge_class(r['edge'])
-            team = r["home_team_name"] if r["side"] == "home" else r["away_team_name"]
-            market_name = r['market'].capitalize()
-
-            st.markdown(f"""
-            <div class="flag-card">
-                <div class="flag-header">
-                    <div>
-                        <div class="pitcher-name">{team} ({market_name})</div>
-                        <div class="matchup">{r['away_team_name']} @ {r['home_team_name']}</div>
+                    <div class="odds-section">
+                        <div class="stat-label">{r['bet_side'].upper()} {r['line']} strikeouts</div>
+                        <div class="stat-value">Model {model_p:.1%} vs. Market {market_p:.1%}</div>
                     </div>
-                    <div class="edge-badge {badge_class}">+{r['edge']:.1%}</div>
+
+                    <div class="section-divider"></div>
+
+                    <div class="meta-line">
+                        Price {price:+.0f} · {r['n_books']} book(s) ·
+                        {'✓ closing line captured' if pd.notna(r['closing_over_odds']) else '○ no closing line yet'}
+                    </div>
                 </div>
+                """, unsafe_allow_html=True)
 
-                <div class="odds-section">
-                    <div class="odds-label">{market_name} prediction market</div>
-                    <div class="odds-value">Model {r['model_prob']:.1%} vs. {market_name} {r['pm_implied_prob']:.1%} @ ${r['pm_price']:.2f}</div>
-                </div>
+                why = why_flagged(r)
+                if why:
+                    prose, detail_lines = why
+                    with st.expander("📖 Why?"):
+                        st.markdown(f'<div class="expander-prose">{prose}</div>', unsafe_allow_html=True)
+                        if detail_lines:
+                            with st.expander("See the numbers", expanded=False):
+                                for line_txt in detail_lines:
+                                    st.markdown(f"- {line_txt}")
 
-                <div class="section-divider"></div>
+                notes_key = (str(r.get("game_id", "")), "strikeout_props", r["bet_side"])
+                if notes_key in research_notes:
+                    st.markdown(research_notes_html(research_notes[notes_key]), unsafe_allow_html=True)
 
-                <div style="font-size: 13px; color: #666;">
-                    Sportsbook consensus: {"n/a" if pd.isna(r["sportsbook_prob"]) else f'{r["sportsbook_prob"]:.1%}'} · ${r['depth_usd']:.0f} depth near quote
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
+        st.divider()
 
-    st.subheader("Ledger")
-    pm_done = pm_ledger[pm_ledger["correct"].notna()].copy()
-    pm_pending = int(pm_ledger["correct"].isna().sum())
-    st.caption(f"{len(pm_ledger)} total flags · {len(pm_done)} reconciled · {pm_pending} pending")
+        # ----------------------------------------------------------------------- #
+        # Pitcher lookup
+        # ----------------------------------------------------------------------- #
 
-    if pm_done.empty:
-        st.info("No reconciled bets yet -- results fill in after games finish.")
+        st.subheader("Pitcher lookup")
+        scores_path = ROOT / "output" / "ks_daily_scores.csv"
+        matched_path = ROOT / "output" / "ks_daily_matched.csv"
+
+        if not scores_path.exists():
+            st.caption("No scoring data yet today -- check back after the morning pull runs.")
+        else:
+            scores = pd.read_csv(scores_path)
+            matched = pd.read_csv(matched_path) if matched_path.exists() else pd.DataFrame()
+            scores_date = scores["date"].iloc[0] if len(scores) else None
+            if scores_date and scores_date != today_str:
+                st.caption(f"⚠ showing {scores_date}'s scores -- today's morning pull hasn't run yet.")
+
+            names = sorted(scores["name"].unique().tolist())
+            selected = st.selectbox("Search a starting pitcher", options=names,
+                                     index=None, placeholder="Type a name...")
+            if selected:
+                row = scores[scores["name"] == selected].iloc[0]
+                st.caption(f"vs {row['opponent_name']}")
+                st.metric("Projected strikeouts", f"{row['mu']:.1f}")
+
+                pitcher_lines = matched[matched["name"] == selected] if not matched.empty else pd.DataFrame()
+                if len(pitcher_lines):
+                    for _, m in pitcher_lines.sort_values("line").iterrows():
+                        st.markdown(f"**Line {m['line']}** &nbsp; model {m['model_p_over']:.1%} over / "
+                                    f"{1 - m['model_p_over']:.1%} under &nbsp;&nbsp; "
+                                    f"market {m['over_prob_fair']:.1%} over / {1 - m['over_prob_fair']:.1%} under")
+                        st.caption(f"price over {m['over_odds']:+.0f} / under {m['under_odds']:+.0f} · {m['n_books']} book(s)")
+                else:
+                    st.caption("No market line matched today (no odds yet, or book doesn't offer this pitcher) -- "
+                               "model projection at standard lines:")
+                    for line in [4.5, 5.5, 6.5]:
+                        p = row.get(f"model_p_over_{line}")
+                        if pd.notna(p):
+                            st.write(f"{line}: {p:.1%} over / {1 - p:.1%} under")
+
+        st.divider()
+
+        # ----------------------------------------------------------------------- #
+        # Ledger summary
+        # ----------------------------------------------------------------------- #
+
+        st.subheader("Ledger")
+        done = ledger[ledger["result"].notna()].copy()
+        pending_n = int(ledger["result"].isna().sum())
+        st.caption(f"{len(ledger)} total flags · {len(done)} reconciled · {pending_n} pending")
+
+        if done.empty:
+            st.info("No reconciled bets yet -- results fill in after games finish (overnight reconciliation).")
+        else:
+            def tier_stats(df: pd.DataFrame) -> dict:
+                n = len(df)
+                w = int((df["result"] == df["bet_side"]).sum())
+                l_ = int((df["pnl"] < 0).sum())
+                p = int((df["result"] == "push").sum())
+                roi = df["pnl"].sum() / n if n else float("nan")
+                clv = df["clv"].dropna()
+                return {"n": n, "record": f"{w}-{l_}-{p}", "roi": roi, "units": df["pnl"].sum(),
+                        "avg_clv": clv.mean() if len(clv) else float("nan"), "clv_n": len(clv),
+                        "beat_close": (clv > 0).mean() if len(clv) else float("nan")}
+
+            overall = tier_stats(done)
+            c1, c2, c3 = st.columns(3)
+            c1.metric("Record", overall["record"])
+            c2.metric("ROI", f"{overall['roi']:+.1%}")
+            c3.metric("Units", f"{overall['units']:+.2f}u")
+            c1, c2 = st.columns(2)
+            c1.metric("Avg CLV", f"{overall['avg_clv']:+.2%}" if overall["clv_n"] else "n/a")
+            c2.metric("Beat close", f"{overall['beat_close']:.0%}" if overall["clv_n"] else "n/a")
+
+            st.markdown("**By edge tier**")
+            rows = []
+            for lo, hi in EDGE_TIER_BOUNDS:
+                tier = done[(done["bet_edge"] >= lo) & (done["bet_edge"] < hi)]
+                if tier.empty:
+                    continue
+                s = tier_stats(tier)
+                label = f"{lo:.0%}-{hi:.0%}" if hi < 1 else f"{lo:.0%}+"
+                rows.append({"tier": label, "n": s["n"], "record": s["record"], "ROI": f"{s['roi']:+.1%}",
+                             "avg CLV": f"{s['avg_clv']:+.2%}" if s["clv_n"] else "n/a"})
+            st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
+
+            # ------------------------------------------------------------------- #
+            # CLV trend
+            # ------------------------------------------------------------------- #
+            with_clv = done.dropna(subset=["clv"]).sort_values("date").reset_index(drop=True)
+            if len(with_clv) >= 2:
+                st.markdown("**CLV trend**")
+                with_clv["bet_num"] = range(1, len(with_clv) + 1)
+                with_clv["rolling_clv"] = with_clv["clv"].expanding().mean()
+                with_clv["outcome"] = with_clv["result"].where(with_clv["result"] == with_clv["bet_side"], "loss")
+                with_clv.loc[with_clv["result"] == with_clv["bet_side"], "outcome"] = "win"
+
+                base = alt.Chart(with_clv).encode(x=alt.X("bet_num:Q", title="flagged bet #"))
+                zero_line = alt.Chart(pd.DataFrame({"y": [0]})).mark_rule(color="#898781", strokeDash=[3, 3]).encode(y="y:Q")
+                points = base.mark_circle(size=70, opacity=0.85).encode(
+                    y=alt.Y("clv:Q", title="CLV", axis=alt.Axis(format="%")),
+                    color=alt.Color("outcome:N", scale=alt.Scale(domain=["win", "loss", "push"],
+                                                                   range=["#0ca30c", "#e66767", "#898781"]),
+                                     legend=alt.Legend(title=None, orient="bottom")),
+                    tooltip=["date", "name", alt.Tooltip("clv:Q", format="+.2%"), "result"],
+                )
+                trend = base.mark_line(color="#3987e5", strokeWidth=2.5).encode(
+                    y=alt.Y("rolling_clv:Q", axis=alt.Axis(format="%")))
+                chart = (zero_line + points + trend).properties(height=280).configure_axis(
+                    gridColor="#2c2c2a", labelColor="#c3c2b7", titleColor="#c3c2b7"
+                ).configure_view(strokeWidth=0)
+                st.altair_chart(chart, use_container_width=True)
+                st.caption("dots = each bet's CLV · line = running average CLV · dashed = break-even")
+            elif len(with_clv) == 1:
+                st.caption("Need at least 2 reconciled bets with a captured closing line for a trend.")
+
+# =============================================================================== #
+# Moneyline predictions (separate model, pure prediction -- no odds as an input, no
+# betting logic; see daily_ml.py). Deliberately does NOT show the market favorite
+# anywhere on this page -- that comparison is tracked privately in
+# output/ml_market_comparison.csv for direct inspection only.
+# =============================================================================== #
+
+with tab_ml:
+    st.caption("Paper/tracking only · straight-up picks from team form, matchups, pitcher/bullpen "
+               "quality and park factor -- no odds used as a model input")
+
+    ml_ledger_path = ROOT / "output" / "ml_predictions_ledger.csv"
+    if not ml_ledger_path.exists():
+        st.caption("No predictions logged yet -- check back after the morning pull runs.")
     else:
-        pm_done["correct"] = pm_done["correct"].astype(bool)
-        STAKE_USD = 50.0
+        ml_ledger = pd.read_csv(ml_ledger_path)
+        ml_ledger["correct"] = ml_ledger["correct"].astype("object")
+        ml_today = ml_ledger[ml_ledger["date"] == today_str].sort_values("predicted_win_prob", ascending=False)
 
-        def pm_tier_stats(df: pd.DataFrame) -> dict:
-            n = len(df)
-            w = int(df["correct"].sum())
-            roi = df["pnl"].sum() / (n * STAKE_USD) if n else float("nan")
-            return {"n": n, "record": f"{w}-{n - w}", "hit_rate": w / n if n else float("nan"),
-                    "roi": roi, "pnl": df["pnl"].sum()}
+        st.subheader("Today's picks")
+        if ml_today.empty:
+            st.write("No predictions logged today.")
+        else:
+            for _, r in ml_today.iterrows():
+                badge_class = confidence_badge_class(r["predicted_win_prob"])
+                away_team = r['away_team_name']
+                home_team = r['home_team_name']
 
-        overall = pm_tier_stats(pm_done)
-        c1, c2, c3 = st.columns(3)
-        c1.metric("Record", overall["record"])
-        c2.metric("Hit rate", f"{overall['hit_rate']:.1%}")
-        c3.metric("ROI", f"{overall['roi']:+.1%}")
+                st.markdown(f"""
+                <div class="flag-card">
+                    <div class="flag-header">
+                        <div>
+                            <div class="pitcher-name">{r['predicted_winner']}</div>
+                            <div class="matchup">{away_team} @ {home_team}</div>
+                        </div>
+                        <div class="edge-badge {badge_class}">{r['predicted_win_prob']:.1%}</div>
+                    </div>
+                    <div class="meta-line">
+                        Straight-up pick based on team form, matchups, pitching quality, and ballpark
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
 
-        st.caption("By edge tier")
-        tier_rows = []
-        for lo, hi in EDGE_TIER_BOUNDS:
-            tier = pm_done[(pm_done["edge"] >= lo) & (pm_done["edge"] < hi)]
-            if tier.empty:
-                continue
-            s = pm_tier_stats(tier)
-            label = f"{lo:.0%}-{hi:.0%}" if hi < 1 else f"{lo:.0%}+"
-            tier_rows.append({"tier": label, "n": s["n"], "record": s["record"],
-                               "hit rate": f"{s['hit_rate']:.1%}", "ROI": f"{s['roi']:+.1%}"})
-        st.dataframe(pd.DataFrame(tier_rows), hide_index=True, use_container_width=True)
+                why_stats = str(r.get("why_stats", "")).split(" | ") if pd.notna(r.get("why_stats")) else []
+                why_summary = str(r.get("why_summary", ""))
+                if why_stats or why_summary:
+                    with st.expander("📖 Why?"):
+                        if why_summary:
+                            st.markdown(f'<div class="expander-prose">{why_summary}</div>', unsafe_allow_html=True)
+                        if why_stats and why_stats[0]:
+                            with st.expander("See the numbers", expanded=False):
+                                for stat in why_stats:
+                                    if stat.strip():
+                                        st.markdown(f"- {stat}")
 
-        st.caption("By platform")
-        platform_rows = []
-        for platform in sorted(pm_done["market"].unique()):
-            s = pm_tier_stats(pm_done[pm_done["market"] == platform])
-            platform_rows.append({"platform": platform.capitalize(), "n": s["n"], "record": s["record"],
+        st.divider()
+        st.subheader("Leaderboard: straight-up accuracy")
+        ml_done = ml_ledger[ml_ledger["correct"].notna()].copy()
+        ml_done["correct"] = ml_done["correct"].astype(bool)
+        ml_pending = int(ml_ledger["correct"].isna().sum())
+        st.caption(f"{len(ml_ledger)} total predictions · {len(ml_done)} reconciled · {ml_pending} pending")
+
+        if ml_done.empty:
+            st.info("No reconciled predictions yet -- results fill in after games finish.")
+        else:
+            wins = int(ml_done["correct"].sum())
+            losses = len(ml_done) - wins
+            acc = wins / len(ml_done)
+            c1, c2 = st.columns(2)
+            c1.metric("Record", f"{wins}-{losses}")
+            c2.metric("Accuracy", f"{acc:.1%}")
+
+            by_date = ml_done.groupby("date")["correct"].agg(["sum", "count"]).reset_index()
+            by_date.columns = ["date", "wins", "n"]
+            by_date["accuracy"] = by_date["wins"] / by_date["n"]
+            by_date = by_date.sort_values("date")
+            by_date["cum_correct"] = by_date["wins"].cumsum()
+            by_date["cum_n"] = by_date["n"].cumsum()
+            by_date["running_accuracy"] = by_date["cum_correct"] / by_date["cum_n"]
+
+            if len(by_date) >= 2:
+                chart = alt.Chart(by_date).mark_line(point=True, color="#3987e5").encode(
+                    x=alt.X("date:N", title="date"),
+                    y=alt.Y("running_accuracy:Q", title="running accuracy", axis=alt.Axis(format="%")),
+                    tooltip=["date", "wins", "n", alt.Tooltip("accuracy:Q", format=".1%")],
+                ).properties(height=220).configure_axis(
+                    gridColor="#2c2c2a", labelColor="#c3c2b7", titleColor="#c3c2b7"
+                ).configure_view(strokeWidth=0)
+                st.altair_chart(chart, use_container_width=True)
+
+# =============================================================================== #
+# Prediction markets (Polymarket + Kalshi vs. model_ml, sportsbook line shown side by
+# side for reference). Paper only -- see daily_pm.py's module docstring for why this
+# exists: model_ml already failed its kill criteria against real SHARP sportsbook
+# closes (CLAUDE.md, Track 1), this asks whether it finds real edges against thinner
+# prediction-market pricing instead.
+# =============================================================================== #
+
+with tab_pm:
+    st.caption("Model vs. Polymarket/Kalshi vs. sportsbook · moneyline edges ≥3%, $50+ depth required")
+
+    pm_ledger_path = ROOT / "output" / "pm_paper_ledger.csv"
+    if not pm_ledger_path.exists():
+        st.caption("No flags logged yet -- check back after the morning pull runs.")
+    else:
+        pm_ledger = pd.read_csv(pm_ledger_path)
+        pm_ledger["correct"] = pm_ledger["correct"].astype("object")
+        pm_today = pm_ledger[pm_ledger["date"] == today_str].sort_values("edge", ascending=False)
+
+        st.subheader("Today's flags")
+        if pm_today.empty:
+            st.write("No edges flagged today.")
+        else:
+            for _, r in pm_today.iterrows():
+                badge_class = edge_badge_class(r['edge'])
+                team = r["home_team_name"] if r["side"] == "home" else r["away_team_name"]
+                market_name = r['market'].capitalize()
+
+                st.markdown(f"""
+                <div class="flag-card">
+                    <div class="flag-header">
+                        <div>
+                            <div class="pitcher-name">{team} ({market_name})</div>
+                            <div class="matchup">{r['away_team_name']} @ {r['home_team_name']}</div>
+                        </div>
+                        <div class="edge-badge {badge_class}">+{r['edge']:.1%}</div>
+                    </div>
+
+                    <div class="odds-section">
+                        <div class="stat-label">{market_name} prediction market</div>
+                        <div class="stat-value">Model {r['model_prob']:.1%} vs. {market_name} {r['pm_implied_prob']:.1%} @ ${r['pm_price']:.2f}</div>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <div class="meta-line">
+                        Sportsbook consensus: {"n/a" if pd.isna(r["sportsbook_prob"]) else f'{r["sportsbook_prob"]:.1%}'} · ${r['depth_usd']:.0f} depth near quote
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+
+        st.divider()
+        st.subheader("Ledger")
+        pm_done = pm_ledger[pm_ledger["correct"].notna()].copy()
+        pm_pending = int(pm_ledger["correct"].isna().sum())
+        st.caption(f"{len(pm_ledger)} total flags · {len(pm_done)} reconciled · {pm_pending} pending")
+
+        if pm_done.empty:
+            st.info("No reconciled bets yet -- results fill in after games finish.")
+        else:
+            pm_done["correct"] = pm_done["correct"].astype(bool)
+            STAKE_USD = 50.0
+
+            def pm_tier_stats(df: pd.DataFrame) -> dict:
+                n = len(df)
+                w = int(df["correct"].sum())
+                roi = df["pnl"].sum() / (n * STAKE_USD) if n else float("nan")
+                return {"n": n, "record": f"{w}-{n - w}", "hit_rate": w / n if n else float("nan"),
+                        "roi": roi, "pnl": df["pnl"].sum()}
+
+            overall = pm_tier_stats(pm_done)
+            c1, c2, c3 = st.columns(3)
+            c1.metric("Record", overall["record"])
+            c2.metric("Hit rate", f"{overall['hit_rate']:.1%}")
+            c3.metric("ROI", f"{overall['roi']:+.1%}")
+
+            st.markdown("**By edge tier**")
+            tier_rows = []
+            for lo, hi in EDGE_TIER_BOUNDS:
+                tier = pm_done[(pm_done["edge"] >= lo) & (pm_done["edge"] < hi)]
+                if tier.empty:
+                    continue
+                s = pm_tier_stats(tier)
+                label = f"{lo:.0%}-{hi:.0%}" if hi < 1 else f"{lo:.0%}+"
+                tier_rows.append({"tier": label, "n": s["n"], "record": s["record"],
                                    "hit rate": f"{s['hit_rate']:.1%}", "ROI": f"{s['roi']:+.1%}"})
-        st.dataframe(pd.DataFrame(platform_rows), hide_index=True, use_container_width=True)
+            st.dataframe(pd.DataFrame(tier_rows), hide_index=True, use_container_width=True)
 
-st.divider()
+            st.markdown("**By platform**")
+            platform_rows = []
+            for platform in sorted(pm_done["market"].unique()):
+                s = pm_tier_stats(pm_done[pm_done["market"] == platform])
+                platform_rows.append({"platform": platform.capitalize(), "n": s["n"], "record": s["record"],
+                                       "hit rate": f"{s['hit_rate']:.1%}", "ROI": f"{s['roi']:+.1%}"})
+            st.dataframe(pd.DataFrame(platform_rows), hide_index=True, use_container_width=True)
 
-# --------------------------------------------------------------------------- #
-# WNBA "why" text -- same discipline as why_flagged above: only cite a factor
-# if it points the SAME direction as the pick being described. Built from the
-# raw rolling-form values daily_wnba.py persists into the ledger (WHY_COLS),
-# not recomputed here (recomputing as-of-date rolling features after the fact
-# would risk leakage).
-# --------------------------------------------------------------------------- #
+# =============================================================================== #
+# WNBA "why" text -- same discipline as why_flagged above: only cite a factor if it
+# points the SAME direction as the pick being described. Built from the raw
+# rolling-form values daily_wnba.py persists into the ledger (WHY_COLS), not
+# recomputed here (recomputing as-of-date rolling features after the fact would risk
+# leakage).
+# =============================================================================== #
 
 WNBA_FACTOR_LABELS = {
     "win_form": "recent win form", "rs_form": "scoring form", "ra_form": "points allowed",
@@ -781,12 +971,6 @@ def why_wnba_moneyline(row: pd.Series, side: str) -> tuple[str, list[str]] | Non
         else:
             lead = f"{team_name} enters with clear form advantages"
 
-        other_factors = [s[0] for s in supporting[1:]]
-        if len(other_factors) == 1:
-            other_txt = f"and {other_factors[0]}"
-        else:
-            other_txt = "and " + ", ".join(other_factors[:-1]) + f", and {other_factors[-1]}"
-
         prose = (f"{lead}. The edge here comes from {', '.join([s[0] for s in supporting[:2]])}—when multiple "
                 f"fundamentals align, that usually means the model's conviction is higher. {team_name} should have the advantage.")
 
@@ -811,16 +995,12 @@ def why_wnba_totals(row: pd.Series, side: str) -> tuple[str, list[str]] | None:
     ]
 
     if abs(diff) > 3:
-        # Strong signal from the form data itself
         is_over = side == "over"
-        home_total = home_rs + away_ra
-        away_total = away_rs + home_ra
         prose = (f"Both teams' recent scoring and allowing rates project to roughly {proj:.0f} combined points. "
                 f"{row['home_team_name']} should score around {home_rs:.0f} against this defense, while {row['away_team_name']} "
                 f"projects to {away_rs:.0f}. That totals about {proj:.0f} points, which is {'above' if is_over else 'below'} "
                 f"the {line} line. The model leans {side}.")
     else:
-        # Weaker signal; model edge comes from regression, not clear form gap
         prose = (f"The scoring-form projection ({proj:.0f} points) is close to the {line} line, so the {side} edge here "
                 f"relies mainly on the regression model's judgment rather than a clear gap in raw recent form. "
                 f"Keep in mind the totals model is still unproven — treat this one with extra skepticism.")
@@ -828,134 +1008,132 @@ def why_wnba_totals(row: pd.Series, side: str) -> tuple[str, list[str]] | None:
     return prose, detail_lines
 
 
-# --------------------------------------------------------------------------- #
-# WNBA moneyline + totals (see daily_wnba.py). Paper only. Honest note baked
-# into the caption below: the totals model only came out roughly at parity
-# with the simplest possible heuristic on the 2025 holdout backtest (see
-# model_wnba_totals.py) -- not a confirmed edge yet, unlike moneyline, which
-# did beat its proxy. Every game is logged regardless of whether it clears the
-# 3% flag threshold, so the ledger's "flagged" bets are the ones actually
-# being paper-tracked for ROI.
-# --------------------------------------------------------------------------- #
+# =============================================================================== #
+# WNBA moneyline + totals (see daily_wnba.py). Paper only. Honest note baked into the
+# caption below: the totals model only came out roughly at parity with the simplest
+# possible heuristic on the 2025 holdout backtest (see model_wnba_totals.py) -- not a
+# confirmed edge yet, unlike moneyline, which did beat its proxy. Every game is logged
+# regardless of whether it clears the 3% flag threshold, so the ledger's "flagged"
+# bets are the ones actually being paper-tracked for ROI.
+# =============================================================================== #
 
-st.header("🏀 WNBA")
-st.caption("Paper trading only · moneyline + totals vs. sportsbook consensus · edges ≥3% flagged. "
-           "Totals model is unproven (roughly ties a simple heuristic in backtest) -- treat those "
-           "edges with more skepticism than moneyline.")
+with tab_wnba:
+    st.caption("Moneyline + totals vs. sportsbook consensus · edges ≥3% flagged. "
+               "Totals model is unproven (roughly ties a simple heuristic in backtest) -- treat those "
+               "edges with more skepticism than moneyline.")
 
-wnba_ledger_path = ROOT / "output" / "wnba_paper_ledger.csv"
-if not wnba_ledger_path.exists():
-    st.caption("No predictions logged yet -- check back after the morning pull runs.")
-else:
-    wnba_ledger = pd.read_csv(wnba_ledger_path)
-    wnba_ledger["correct"] = wnba_ledger["correct"].astype("object")
-    wnba_today = wnba_ledger[wnba_ledger["date"] == today_str]
-
-    st.subheader("Today's picks")
-    if wnba_today.empty:
-        st.write("No games today.")
+    wnba_ledger_path = ROOT / "output" / "wnba_paper_ledger.csv"
+    if not wnba_ledger_path.exists():
+        st.caption("No predictions logged yet -- check back after the morning pull runs.")
     else:
-        games_today = wnba_today[["home_team_name", "away_team_name"]].drop_duplicates()
-        for _, gm in games_today.iterrows():
-            game_rows = wnba_today[(wnba_today["home_team_name"] == gm["home_team_name"]) &
-                                    (wnba_today["away_team_name"] == gm["away_team_name"])]
+        wnba_ledger = pd.read_csv(wnba_ledger_path)
+        wnba_ledger["correct"] = wnba_ledger["correct"].astype("object")
+        wnba_today = wnba_ledger[wnba_ledger["date"] == today_str]
 
-            # Render as single game card containing moneyline + totals
-            st.markdown(f"""
-            <div class="flag-card">
-                <div class="flag-header">
-                    <div class="pitcher-info">
-                        <div class="pitcher-name">{gm['away_team_name']}</div>
-                        <div class="matchup">@ {gm['home_team_name']}</div>
+        st.subheader("Today's picks")
+        if wnba_today.empty:
+            st.write("No games today.")
+        else:
+            games_today = wnba_today[["home_team_name", "away_team_name"]].drop_duplicates()
+            for _, gm in games_today.iterrows():
+                game_rows = wnba_today[(wnba_today["home_team_name"] == gm["home_team_name"]) &
+                                        (wnba_today["away_team_name"] == gm["away_team_name"])]
+
+                st.markdown(f"""
+                <div class="flag-card">
+                    <div class="flag-header">
+                        <div>
+                            <div class="pitcher-name">{gm['away_team_name']}</div>
+                            <div class="matchup">@ {gm['home_team_name']}</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            """, unsafe_allow_html=True)
+                """, unsafe_allow_html=True)
 
-            ml = game_rows[game_rows["market_type"] == "moneyline"]
-            home_row, away_row = ml[ml["side"] == "home"], ml[ml["side"] == "away"]
-            if len(home_row) and pd.notna(home_row.iloc[0]["model_prob"]):
-                h, a = home_row.iloc[0], away_row.iloc[0]
-                mkt_txt = (f"home {h['market_prob']:.1%} / away {a['market_prob']:.1%}"
-                           if pd.notna(h["market_prob"]) else "n/a")
-                flagged_side = "home" if h["flagged"] else ("away" if a["flagged"] else None)
-                flag_emoji = " 🚩" if flagged_side else ""
-                st.markdown(f"**Moneyline{flag_emoji}** — model home {h['model_prob']:.1%} / away {a['model_prob']:.1%} vs. market {mkt_txt}")
-                if flagged_side:
-                    why = why_wnba_moneyline(h if flagged_side == "home" else a, flagged_side)
-                    if why:
-                        prose, detail_lines = why
-                        team = h["home_team_name"] if flagged_side == "home" else h["away_team_name"]
-                        with st.expander(f"📖 Why {team}?"):
-                            st.markdown(f'<div class="expander-prose">{prose}</div>', unsafe_allow_html=True)
-                            if detail_lines:
-                                with st.expander("See the numbers", expanded=False):
-                                    for line_txt in detail_lines:
-                                        st.markdown(f"- {line_txt}")
+                ml = game_rows[game_rows["market_type"] == "moneyline"]
+                home_row, away_row = ml[ml["side"] == "home"], ml[ml["side"] == "away"]
+                if len(home_row) and pd.notna(home_row.iloc[0]["model_prob"]):
+                    h, a = home_row.iloc[0], away_row.iloc[0]
+                    mkt_txt = (f"home {h['market_prob']:.1%} / away {a['market_prob']:.1%}"
+                               if pd.notna(h["market_prob"]) else "n/a")
+                    flagged_side = "home" if h["flagged"] else ("away" if a["flagged"] else None)
+                    flag_emoji = " 🚩" if flagged_side else ""
+                    st.markdown(f"**Moneyline{flag_emoji}** — model home {h['model_prob']:.1%} / away {a['model_prob']:.1%} vs. market {mkt_txt}")
+                    if flagged_side:
+                        why = why_wnba_moneyline(h if flagged_side == "home" else a, flagged_side)
+                        if why:
+                            prose, detail_lines = why
+                            team = h["home_team_name"] if flagged_side == "home" else h["away_team_name"]
+                            with st.expander(f"📖 Why {team}?"):
+                                st.markdown(f'<div class="expander-prose">{prose}</div>', unsafe_allow_html=True)
+                                if detail_lines:
+                                    with st.expander("See the numbers", expanded=False):
+                                        for line_txt in detail_lines:
+                                            st.markdown(f"- {line_txt}")
 
-            totals = game_rows[(game_rows["market_type"] == "totals") & (game_rows["side"] == "over")]
-            if len(totals) and pd.notna(totals.iloc[0]["line"]):
-                t = totals.iloc[0]
-                under_row = game_rows[(game_rows["market_type"] == "totals") & (game_rows["side"] == "under")]
-                under_flagged = len(under_row) and bool(under_row.iloc[0]["flagged"])
-                mkt_txt = f"{t['market_prob']:.1%}" if pd.notna(t["market_prob"]) else "n/a"
-                flagged_side = "over" if t["flagged"] else ("under" if under_flagged else None)
-                flag_emoji = " 🚩" if flagged_side else ""
-                st.markdown(f"**Total {t['line']}{flag_emoji}** — model {t['model_prob']:.1%} over vs. market {mkt_txt}")
-                if flagged_side:
-                    why = why_wnba_totals(t, flagged_side)
-                    if why:
-                        prose, detail_lines = why
-                        with st.expander(f"📖 Why {flagged_side} {t['line']}?"):
-                            st.markdown(f'<div class="expander-prose">{prose}</div>', unsafe_allow_html=True)
-                            if detail_lines:
-                                with st.expander("See the numbers", expanded=False):
-                                    for line_txt in detail_lines:
-                                        st.markdown(f"- {line_txt}")
+                totals = game_rows[(game_rows["market_type"] == "totals") & (game_rows["side"] == "over")]
+                if len(totals) and pd.notna(totals.iloc[0]["line"]):
+                    t = totals.iloc[0]
+                    under_row = game_rows[(game_rows["market_type"] == "totals") & (game_rows["side"] == "under")]
+                    under_flagged = len(under_row) and bool(under_row.iloc[0]["flagged"])
+                    mkt_txt = f"{t['market_prob']:.1%}" if pd.notna(t["market_prob"]) else "n/a"
+                    flagged_side = "over" if t["flagged"] else ("under" if under_flagged else None)
+                    flag_emoji = " 🚩" if flagged_side else ""
+                    st.markdown(f"**Total {t['line']}{flag_emoji}** — model {t['model_prob']:.1%} over vs. market {mkt_txt}")
+                    if flagged_side:
+                        why = why_wnba_totals(t, flagged_side)
+                        if why:
+                            prose, detail_lines = why
+                            with st.expander(f"📖 Why {flagged_side} {t['line']}?"):
+                                st.markdown(f'<div class="expander-prose">{prose}</div>', unsafe_allow_html=True)
+                                if detail_lines:
+                                    with st.expander("See the numbers", expanded=False):
+                                        for line_txt in detail_lines:
+                                            st.markdown(f"- {line_txt}")
 
-            if not (len(home_row) and pd.notna(home_row.iloc[0]["model_prob"])) and not len(totals):
-                st.caption("No market line matched yet today.")
+                if not (len(home_row) and pd.notna(home_row.iloc[0]["model_prob"])) and not len(totals):
+                    st.caption("No market line matched yet today.")
 
-            st.divider()
+                st.divider()
 
-    st.subheader("Ledger (flagged bets only)")
-    wnba_flagged = wnba_ledger[wnba_ledger["flagged"] == True].copy()  # noqa: E712
-    wnba_done = wnba_flagged[wnba_flagged["pnl"].notna()].copy()
-    wnba_pending = len(wnba_flagged) - len(wnba_done)
-    st.caption(f"{len(wnba_flagged)} total flagged · {len(wnba_done)} reconciled · {wnba_pending} pending")
+        st.subheader("Ledger (flagged bets only)")
+        wnba_flagged = wnba_ledger[wnba_ledger["flagged"] == True].copy()  # noqa: E712
+        wnba_done = wnba_flagged[wnba_flagged["pnl"].notna()].copy()
+        wnba_pending = len(wnba_flagged) - len(wnba_done)
+        st.caption(f"{len(wnba_flagged)} total flagged · {len(wnba_done)} reconciled · {wnba_pending} pending")
 
-    if wnba_done.empty:
-        st.info("No reconciled flagged bets yet -- results fill in after games finish.")
-    else:
-        def wnba_tier_stats(df: pd.DataFrame) -> dict:
-            n = len(df)
-            w = int((df["correct"] == True).sum())  # noqa: E712
-            roi = df["pnl"].sum() / n if n else float("nan")
-            return {"n": n, "record": f"{w}-{n - w}", "roi": roi, "pnl": df["pnl"].sum()}
+        if wnba_done.empty:
+            st.info("No reconciled flagged bets yet -- results fill in after games finish.")
+        else:
+            def wnba_tier_stats(df: pd.DataFrame) -> dict:
+                n = len(df)
+                w = int((df["correct"] == True).sum())  # noqa: E712
+                roi = df["pnl"].sum() / n if n else float("nan")
+                return {"n": n, "record": f"{w}-{n - w}", "roi": roi, "pnl": df["pnl"].sum()}
 
-        overall = wnba_tier_stats(wnba_done)
-        c1, c2, c3 = st.columns(3)
-        c1.metric("Record", overall["record"])
-        c2.metric("ROI", f"{overall['roi']:+.1%}")
-        c3.metric("Units", f"{overall['pnl']:+.2f}u")
+            overall = wnba_tier_stats(wnba_done)
+            c1, c2, c3 = st.columns(3)
+            c1.metric("Record", overall["record"])
+            c2.metric("ROI", f"{overall['roi']:+.1%}")
+            c3.metric("Units", f"{overall['pnl']:+.2f}u")
 
-        st.caption("By market type")
-        mt_rows = []
-        for mt in sorted(wnba_done["market_type"].unique()):
-            s = wnba_tier_stats(wnba_done[wnba_done["market_type"] == mt])
-            mt_rows.append({"market": mt.capitalize(), "n": s["n"], "record": s["record"], "ROI": f"{s['roi']:+.1%}"})
-        st.dataframe(pd.DataFrame(mt_rows), hide_index=True, use_container_width=True)
+            st.markdown("**By market type**")
+            mt_rows = []
+            for mt in sorted(wnba_done["market_type"].unique()):
+                s = wnba_tier_stats(wnba_done[wnba_done["market_type"] == mt])
+                mt_rows.append({"market": mt.capitalize(), "n": s["n"], "record": s["record"], "ROI": f"{s['roi']:+.1%}"})
+            st.dataframe(pd.DataFrame(mt_rows), hide_index=True, use_container_width=True)
 
-        st.caption("By edge tier")
-        wnba_tier_rows = []
-        for lo, hi in EDGE_TIER_BOUNDS:
-            tier = wnba_done[(wnba_done["edge"] >= lo) & (wnba_done["edge"] < hi)]
-            if tier.empty:
-                continue
-            s = wnba_tier_stats(tier)
-            label = f"{lo:.0%}-{hi:.0%}" if hi < 1 else f"{lo:.0%}+"
-            wnba_tier_rows.append({"tier": label, "n": s["n"], "record": s["record"], "ROI": f"{s['roi']:+.1%}"})
-        st.dataframe(pd.DataFrame(wnba_tier_rows), hide_index=True, use_container_width=True)
+            st.markdown("**By edge tier**")
+            wnba_tier_rows = []
+            for lo, hi in EDGE_TIER_BOUNDS:
+                tier = wnba_done[(wnba_done["edge"] >= lo) & (wnba_done["edge"] < hi)]
+                if tier.empty:
+                    continue
+                s = wnba_tier_stats(tier)
+                label = f"{lo:.0%}-{hi:.0%}" if hi < 1 else f"{lo:.0%}+"
+                wnba_tier_rows.append({"tier": label, "n": s["n"], "record": s["record"], "ROI": f"{s['roi']:+.1%}"})
+            st.dataframe(pd.DataFrame(wnba_tier_rows), hide_index=True, use_container_width=True)
 
 st.divider()
 st.caption("Paper trading only. Not betting advice.")
