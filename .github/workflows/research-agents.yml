@@ -1,0 +1,51 @@
+name: Research Agents (Pre-Closing)
+
+on:
+  schedule:
+    # 3pm-5pm ET = 7pm-9pm UTC. Run at 7:30pm UTC to catch mid-window updates
+    - cron: '30 19 * * 1-6'  # Mon-Sat, 7:30pm UTC (3:30pm ET)
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Target date (YYYY-MM-DD), default today'
+        required: false
+        type: string
+
+jobs:
+  research_agents:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-actions.txt
+
+      - name: Run research agents
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          TARGET_DATE="${{ github.event.inputs.date }}"
+          if [ -z "$TARGET_DATE" ]; then
+            TARGET_DATE=$(date -u +%Y-%m-%d)
+          fi
+          python src/research_agents.py "$TARGET_DATE"
+
+      - name: Commit research notes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          if git diff --quiet; then
+            echo "No changes to commit (no notes generated)."
+          else
+            git add output/research_agents_notes.csv
+            git commit -m "Research agents: ${{ github.event.inputs.date || 'daily run' }}"
+            git push
+          fi

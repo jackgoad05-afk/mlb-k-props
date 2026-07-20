@@ -29,6 +29,23 @@ LEAGUE_AVG_K9 = 8.5
 LEAGUE_AVG_WHIFF_PCT = 25.0
 LEAGUE_AVG_TEAM_KPCT = 0.22
 STANDARD_REST_DAYS = 5
+RESEARCH_NOTES_PATH = ROOT / "output" / "research_agents_notes.csv"
+
+
+def load_research_notes() -> dict:
+    """Load research agent notes by (game_id, market_type, side).
+    Returns {(game_id, market_type, side): [(agent, note), ...]}.
+    """
+    if not RESEARCH_NOTES_PATH.exists():
+        return {}
+    notes_df = pd.read_csv(RESEARCH_NOTES_PATH)
+    grouped = {}
+    for _, row in notes_df.iterrows():
+        key = (str(row["game_id"]), row["market_type"], row["side"])
+        if key not in grouped:
+            grouped[key] = []
+        grouped[key].append((row["agent"], row["note"]))
+    return grouped
 
 
 def why_flagged(r: pd.Series) -> tuple[str, list[str]] | None:
@@ -363,6 +380,15 @@ else:
                     with st.expander("See the numbers", expanded=False):
                         for line_txt in detail_lines:
                             st.markdown(f"- {line_txt}")
+
+        # Display research agent notes if available
+        research_notes = load_research_notes()
+        notes_key = (str(r.get("game_id", "")), "strikeout_props", r["bet_side"])
+        if notes_key in research_notes:
+            st.caption("📋 **Research context** (pre-closing check):")
+            for agent, note in research_notes[notes_key]:
+                agent_emoji = {"lineup": "👥", "injury_news": "🏥", "line_movement": "📊"}.get(agent, "ℹ️")
+                st.caption(f"{agent_emoji} {note}")
 
 # --------------------------------------------------------------------------- #
 # Pitcher lookup
