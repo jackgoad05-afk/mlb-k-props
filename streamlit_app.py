@@ -26,6 +26,20 @@ ROOT = Path(__file__).resolve().parent
 LEDGER_PATH = ROOT / "output" / "ks_paper_ledger.csv"
 EDGE_TIER_BOUNDS = [(0.03, 0.05), (0.05, 0.10), (0.10, 1.01)]
 
+
+def _html(s: str) -> str:
+    """Strip leading whitespace from every line of a multi-line HTML string before
+    it reaches st.markdown(..., unsafe_allow_html=True). Markdown treats 4+ leading
+    spaces on a line as an indented code block -- harmless when the HTML f-string
+    sits at column 0, but this codebase builds cards inside several levels of
+    nested Python indentation (for loops inside if/else inside with-tab blocks),
+    so the raw f-string's lines inherit 8-30+ spaces of leading whitespace from
+    the surrounding code and get rendered as literal text instead of parsed HTML.
+    A plain textwrap.dedent() only removes the SHARED prefix across lines, which
+    isn't enough here since nested <div> tags are indented relative to each other
+    within the same string -- stripping every line individually is what's needed."""
+    return "\n".join(line.lstrip() for line in s.strip("\n").split("\n"))
+
 # Rough, stable MLB-wide reference points -- used only to characterize a raw feature
 # value as "above/below average" in plain language. Not recomputed per-day; the raw
 # feature values themselves (trail_k_per9_3s, etc.) are the real, precise numbers the
@@ -64,12 +78,12 @@ def research_notes_html(notes: list[tuple[str, str]]) -> str:
     for agent, note in notes:
         emoji, label = agent_labels.get(agent, ("ℹ️", agent.replace("_", " ").title()))
         rows.append(f'<div class="research-row"><span class="research-tag">{emoji} {label}</span>{note}</div>')
-    return f"""
+    return _html(f"""
     <div class="research-box">
         <div class="research-header">Research check &middot; pre-closing context, not a new pick</div>
         {''.join(rows)}
     </div>
-    """
+    """)
 
 
 def why_flagged(r: pd.Series) -> tuple[str, list[str]] | None:
@@ -434,12 +448,12 @@ with tab_overview:
             f'<span class="sys-stat-value {cls}">{value}</span></div>'
             for label, value, cls in rows
         )
-        col.markdown(f"""
+        col.markdown(_html(f"""
         <div class="sys-card">
             <div class="sys-card-title">{icon} {name}</div>
             {row_html}
         </div>
-        """, unsafe_allow_html=True)
+        """), unsafe_allow_html=True)
 
     c1, c2, c3, c4 = st.columns(4)
 
@@ -546,7 +560,7 @@ with tab_ks:
                 price = r["over_odds"] if r["bet_side"] == "over" else r["under_odds"]
                 badge_class = edge_badge_class(r["bet_edge"])
 
-                st.markdown(f"""
+                st.markdown(_html(f"""
                 <div class="flag-card">
                     <div class="flag-header">
                         <div>
@@ -568,7 +582,7 @@ with tab_ks:
                         {'✓ closing line captured' if pd.notna(r['closing_over_odds']) else '○ no closing line yet'}
                     </div>
                 </div>
-                """, unsafe_allow_html=True)
+                """), unsafe_allow_html=True)
 
                 why = why_flagged(r)
                 if why:
@@ -730,7 +744,7 @@ with tab_ml:
                 away_team = r['away_team_name']
                 home_team = r['home_team_name']
 
-                st.markdown(f"""
+                st.markdown(_html(f"""
                 <div class="flag-card">
                     <div class="flag-header">
                         <div>
@@ -743,7 +757,7 @@ with tab_ml:
                         Straight-up pick based on team form, matchups, pitching quality, and ballpark
                     </div>
                 </div>
-                """, unsafe_allow_html=True)
+                """), unsafe_allow_html=True)
 
                 why_stats = str(r.get("why_stats", "")).split(" | ") if pd.notna(r.get("why_stats")) else []
                 why_summary = str(r.get("why_summary", ""))
@@ -820,7 +834,7 @@ with tab_pm:
                 team = r["home_team_name"] if r["side"] == "home" else r["away_team_name"]
                 market_name = r['market'].capitalize()
 
-                st.markdown(f"""
+                st.markdown(_html(f"""
                 <div class="flag-card">
                     <div class="flag-header">
                         <div>
@@ -841,7 +855,7 @@ with tab_pm:
                         Sportsbook consensus: {"n/a" if pd.isna(r["sportsbook_prob"]) else f'{r["sportsbook_prob"]:.1%}'} · ${r['depth_usd']:.0f} depth near quote
                     </div>
                 </div>
-                """, unsafe_allow_html=True)
+                """), unsafe_allow_html=True)
 
         st.divider()
         st.subheader("Ledger")
@@ -1039,7 +1053,7 @@ with tab_wnba:
                 game_rows = wnba_today[(wnba_today["home_team_name"] == gm["home_team_name"]) &
                                         (wnba_today["away_team_name"] == gm["away_team_name"])]
 
-                st.markdown(f"""
+                st.markdown(_html(f"""
                 <div class="flag-card">
                     <div class="flag-header">
                         <div>
@@ -1048,7 +1062,7 @@ with tab_wnba:
                         </div>
                     </div>
                 </div>
-                """, unsafe_allow_html=True)
+                """), unsafe_allow_html=True)
 
                 ml = game_rows[game_rows["market_type"] == "moneyline"]
                 home_row, away_row = ml[ml["side"] == "home"], ml[ml["side"] == "away"]
