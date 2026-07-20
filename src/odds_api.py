@@ -147,6 +147,36 @@ def h2h_consensus_favorite(game_odds: dict) -> dict | None:
     return {"favorite_team": away, "favorite_fair_prob": away_fair, "n_books": len(away_probs)}
 
 
+def team_totals_consensus(game_odds: dict) -> dict | None:
+    """Best-effort no-vig consensus over/under for one bulk-odds game's `totals`
+    market (team-game totals, e.g. WNBA -- differently shaped from h2h: outcomes
+    are {"name": "Over"/"Under", "point": line, "price": ...}). Books occasionally
+    quote different lines by half a point; this picks whichever line the most
+    books agree on rather than splitting fair-prob across near-duplicate lines.
+    Returns {line, over_fair_prob, n_books} or None if no totals data present."""
+    from fetch_odds import american_to_prob
+
+    per_line: dict[float, list[float]] = {}
+    for book in game_odds.get("bookmakers", []):
+        for market in book.get("markets", []):
+            if market["key"] != "totals":
+                continue
+            prices = {o["name"]: o for o in market["outcomes"]}
+            if "Over" not in prices or "Under" not in prices:
+                continue
+            point = prices["Over"]["point"]
+            over_raw = american_to_prob(prices["Over"]["price"])
+            under_raw = american_to_prob(prices["Under"]["price"])
+            vig = over_raw + under_raw
+            per_line.setdefault(point, []).append(over_raw / vig)
+
+    if not per_line:
+        return None
+    line = max(per_line, key=lambda p: len(per_line[p]))
+    over_probs = per_line[line]
+    return {"line": line, "over_fair_prob": sum(over_probs) / len(over_probs), "n_books": len(over_probs)}
+
+
 def parse_pitcher_strikeouts_market(event_id: str, event_odds_json: dict) -> list[dict]:
     """Flatten one event's /odds response into per-book (player, line, over/under) rows."""
     rows = []

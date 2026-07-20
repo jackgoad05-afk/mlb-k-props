@@ -1,0 +1,13 @@
+date,game_id,home_team_name,away_team_name,logged_at,market_type,side,line,model_prob,market_prob,edge,price,n_books,flagged,actual_result,correct,pnl,closing_price
+2026-07-19,401857080,Dallas Wings,Los Angeles Sparks,2026-07-19T19:58:32,moneyline,home,,0.8194444444444444,,,,,False,,,,
+2026-07-19,401857080,Dallas Wings,Los Angeles Sparks,2026-07-19T19:58:32,moneyline,away,,0.18055555555555558,,,,,False,,,,
+2026-07-19,401857080,Dallas Wings,Los Angeles Sparks,2026-07-19T19:58:32,totals,over,,,,,,,False,,,,
+2026-07-19,401857080,Dallas Wings,Los Angeles Sparks,2026-07-19T19:58:32,totals,under,,,,,,,False,,,,
+2026-07-19,401857081,Atlanta Dream,Chicago Sky,2026-07-19T19:58:32,moneyline,home,,0.648,,,,,False,,,,
+2026-07-19,401857081,Atlanta Dream,Chicago Sky,2026-07-19T19:58:32,moneyline,away,,0.352,,,,,False,,,,
+2026-07-19,401857081,Atlanta Dream,Chicago Sky,2026-07-19T19:58:32,totals,over,,,,,,,False,,,,
+2026-07-19,401857081,Atlanta Dream,Chicago Sky,2026-07-19T19:58:32,totals,under,,,,,,,False,,,,
+2026-07-19,401857082,Phoenix Mercury,Connecticut Sun,2026-07-19T19:58:32,moneyline,home,,0.5700934579439252,0.8240621846705493,-0.25396872672662407,-732.1,6.0,False,,,,
+2026-07-19,401857082,Phoenix Mercury,Connecticut Sun,2026-07-19T19:58:32,moneyline,away,,0.4299065420560748,0.17593781532945074,0.25396872672662407,437.5,6.0,True,,,,
+2026-07-19,401857082,Phoenix Mercury,Connecticut Sun,2026-07-19T19:58:32,totals,over,154.5,0.8169735524424333,0.4954832474606284,0.3214903049818049,-112.4,4.0,True,,,,
+2026-07-19,401857082,Phoenix Mercury,Connecticut Sun,2026-07-19T19:58:32,totals,under,154.5,0.1830264475575667,0.5045167525393717,-0.321490304981805,-115.3,4.0,False,,,,

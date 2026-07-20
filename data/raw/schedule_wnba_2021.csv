@@ -1,0 +1,194 @@
+game_id,official_date,home_team_id,home_team_name,away_team_id,away_team_name,home_score,away_score,completed,season
+401320565,2021-05-14,9,New York Liberty,5,Indiana Fever,90,87,True,2021
+401320566,2021-05-14,20,Atlanta Dream,18,Connecticut Sun,67,78,True,2021
+401320567,2021-05-15,8,Minnesota Lynx,11,Phoenix Mercury,75,77,True,2021
+401320568,2021-05-15,6,Los Angeles Sparks,3,Dallas Wings,71,94,True,2021
+401320569,2021-05-15,16,Washington Mystics,19,Chicago Sky,56,70,True,2021
+401320570,2021-05-15,14,Seattle Storm,17,Las Vegas Aces,97,83,True,2021
+401320571,2021-05-16,5,Indiana Fever,9,New York Liberty,65,73,True,2021
+401320572,2021-05-16,18,Connecticut Sun,11,Phoenix Mercury,86,78,True,2021
+401320573,2021-05-18,9,New York Liberty,8,Minnesota Lynx,86,75,True,2021
+401320574,2021-05-19,16,Washington Mystics,11,Phoenix Mercury,70,91,True,2021
+401320575,2021-05-19,14,Seattle Storm,17,Las Vegas Aces,80,96,True,2021
+401320576,2021-05-19,20,Atlanta Dream,19,Chicago Sky,77,85,True,2021
+401320577,2021-05-19,18,Connecticut Sun,5,Indiana Fever,88,67,True,2021
+401320578,2021-05-21,8,Minnesota Lynx,14,Seattle Storm,78,90,True,2021
+401320579,2021-05-21,5,Indiana Fever,20,Atlanta Dream,79,83,True,2021
+401320580,2021-05-21,16,Washington Mystics,9,New York Liberty,101,72,True,2021
+401320581,2021-05-22,11,Phoenix Mercury,18,Connecticut Sun,67,84,True,2021
+401320582,2021-05-22,17,Las Vegas Aces,6,Los Angeles Sparks,97,69,True,2021
+401320583,2021-05-23,3,Dallas Wings,14,Seattle Storm,97,100,True,2021
+401320584,2021-05-23,19,Chicago Sky,9,New York Liberty,85,93,True,2021
+401320585,2021-05-23,5,Indiana Fever,16,Washington Mystics,89,77,True,2021
+401320586,2021-05-23,17,Las Vegas Aces,18,Connecticut Sun,65,72,True,2021
+401320588,2021-05-24,9,New York Liberty,3,Dallas Wings,88,81,True,2021
+401320587,2021-05-25,5,Indiana Fever,16,Washington Mystics,69,85,True,2021
+401320589,2021-05-26,19,Chicago Sky,20,Atlanta Dream,83,90,True,2021
+401320590,2021-05-26,14,Seattle Storm,18,Connecticut Sun,90,87,True,2021
+401320591,2021-05-27,11,Phoenix Mercury,17,Las Vegas Aces,79,85,True,2021
+401320592,2021-05-27,20,Atlanta Dream,3,Dallas Wings,101,95,True,2021
+401320593,2021-05-28,18,Connecticut Sun,16,Washington Mystics,86,81,True,2021
+401320594,2021-05-29,19,Chicago Sky,6,Los Angeles Sparks,61,76,True,2021
+401320595,2021-05-29,14,Seattle Storm,8,Minnesota Lynx,82,72,True,2021
+401320596,2021-05-29,17,Las Vegas Aces,5,Indiana Fever,113,77,True,2021
+401320597,2021-05-29,9,New York Liberty,20,Atlanta Dream,87,90,True,2021
+401320598,2021-05-30,3,Dallas Wings,11,Phoenix Mercury,85,89,True,2021
+401320599,2021-05-30,19,Chicago Sky,6,Los Angeles Sparks,79,82,True,2021
+401320600,2021-05-30,17,Las Vegas Aces,5,Indiana Fever,101,78,True,2021
+401320601,2021-05-30,8,Minnesota Lynx,18,Connecticut Sun,79,74,True,2021
+401320602,2021-06-01,18,Connecticut Sun,17,Las Vegas Aces,74,67,True,2021
+401320604,2021-06-02,3,Dallas Wings,6,Los Angeles Sparks,79,69,True,2021
+401320603,2021-06-02,19,Chicago Sky,11,Phoenix Mercury,83,84,True,2021
+401320605,2021-06-02,14,Seattle Storm,5,Indiana Fever,88,73,True,2021
+401320606,2021-06-03,9,New York Liberty,17,Las Vegas Aces,82,94,True,2021
+401320607,2021-06-04,11,Phoenix Mercury,19,Chicago Sky,77,74,True,2021
+401320608,2021-06-04,6,Los Angeles Sparks,5,Indiana Fever,98,63,True,2021
+401320609,2021-06-05,8,Minnesota Lynx,20,Atlanta Dream,86,84,True,2021
+401320610,2021-06-05,14,Seattle Storm,3,Dallas Wings,105,102,True,2021
+401320611,2021-06-05,16,Washington Mystics,17,Las Vegas Aces,93,96,True,2021
+401320612,2021-06-05,6,Los Angeles Sparks,19,Chicago Sky,68,63,True,2021
+401320613,2021-06-05,18,Connecticut Sun,9,New York Liberty,85,64,True,2021
+401320614,2021-06-06,8,Minnesota Lynx,20,Atlanta Dream,100,80,True,2021
+401320615,2021-06-06,14,Seattle Storm,3,Dallas Wings,67,68,True,2021
+401320616,2021-06-08,16,Washington Mystics,8,Minnesota Lynx,85,81,True,2021
+401320619,2021-06-09,11,Phoenix Mercury,3,Dallas Wings,81,85,True,2021
+401320617,2021-06-09,20,Atlanta Dream,14,Seattle Storm,71,95,True,2021
+401320618,2021-06-10,19,Chicago Sky,5,Indiana Fever,92,76,True,2021
+401320620,2021-06-10,16,Washington Mystics,6,Los Angeles Sparks,89,71,True,2021
+401320621,2021-06-12,20,Atlanta Dream,14,Seattle Storm,75,86,True,2021
+401320622,2021-06-12,11,Phoenix Mercury,3,Dallas Wings,59,77,True,2021
+401320623,2021-06-12,5,Indiana Fever,19,Chicago Sky,79,83,True,2021
+401320624,2021-06-13,8,Minnesota Lynx,6,Los Angeles Sparks,80,64,True,2021
+401320625,2021-06-13,18,Connecticut Sun,14,Seattle Storm,66,89,True,2021
+401320626,2021-06-13,20,Atlanta Dream,16,Washington Mystics,101,78,True,2021
+401320627,2021-06-13,17,Las Vegas Aces,3,Dallas Wings,85,78,True,2021
+401320628,2021-06-13,11,Phoenix Mercury,9,New York Liberty,83,85,True,2021
+401320629,2021-06-15,5,Indiana Fever,14,Seattle Storm,70,87,True,2021
+401320630,2021-06-16,8,Minnesota Lynx,19,Chicago Sky,89,105,True,2021
+401320631,2021-06-16,17,Las Vegas Aces,9,New York Liberty,100,78,True,2021
+401320632,2021-06-17,6,Los Angeles Sparks,11,Phoenix Mercury,85,80,True,2021
+401320633,2021-06-17,5,Indiana Fever,14,Seattle Storm,69,79,True,2021
+401320634,2021-06-17,16,Washington Mystics,20,Atlanta Dream,96,93,True,2021
+401320635,2021-06-18,19,Chicago Sky,18,Connecticut Sun,81,75,True,2021
+401320636,2021-06-18,3,Dallas Wings,8,Minnesota Lynx,73,85,True,2021
+401320637,2021-06-18,17,Las Vegas Aces,9,New York Liberty,103,76,True,2021
+401320638,2021-06-19,6,Los Angeles Sparks,11,Phoenix Mercury,66,80,True,2021
+401320639,2021-06-19,19,Chicago Sky,18,Connecticut Sun,91,81,True,2021
+401320640,2021-06-19,16,Washington Mystics,5,Indiana Fever,82,77,True,2021
+401320641,2021-06-20,3,Dallas Wings,8,Minnesota Lynx,95,77,True,2021
+401320642,2021-06-20,6,Los Angeles Sparks,9,New York Liberty,73,76,True,2021
+401320643,2021-06-22,18,Connecticut Sun,3,Dallas Wings,80,70,True,2021
+401320644,2021-06-22,9,New York Liberty,19,Chicago Sky,72,92,True,2021
+401320645,2021-06-23,14,Seattle Storm,16,Washington Mystics,83,87,True,2021
+401320646,2021-06-23,20,Atlanta Dream,8,Minnesota Lynx,85,87,True,2021
+401320647,2021-06-24,5,Indiana Fever,3,Dallas Wings,64,89,True,2021
+401320648,2021-06-24,9,New York Liberty,19,Chicago Sky,68,91,True,2021
+401320649,2021-06-25,6,Los Angeles Sparks,16,Washington Mystics,89,82,True,2021
+401320650,2021-06-26,8,Minnesota Lynx,17,Las Vegas Aces,90,89,True,2021
+401320651,2021-06-26,3,Dallas Wings,16,Washington Mystics,85,74,True,2021
+401320652,2021-06-26,20,Atlanta Dream,9,New York Liberty,78,101,True,2021
+401320654,2021-06-27,18,Connecticut Sun,19,Chicago Sky,74,58,True,2021
+401320655,2021-06-27,17,Las Vegas Aces,14,Seattle Storm,95,92,True,2021
+401320653,2021-06-27,11,Phoenix Mercury,6,Los Angeles Sparks,88,79,True,2021
+401320656,2021-06-29,20,Atlanta Dream,9,New York Liberty,73,69,True,2021
+401320657,2021-06-29,16,Washington Mystics,18,Connecticut Sun,71,90,True,2021
+401320658,2021-07-01,3,Dallas Wings,19,Chicago Sky,81,91,True,2021
+401320659,2021-07-01,11,Phoenix Mercury,8,Minnesota Lynx,76,82,True,2021
+401320660,2021-07-01,6,Los Angeles Sparks,17,Las Vegas Aces,75,99,True,2021
+401320661,2021-07-01,5,Indiana Fever,18,Connecticut Sun,80,86,True,2021
+401320662,2021-07-03,3,Dallas Wings,19,Chicago Sky,100,91,True,2021
+401320663,2021-07-03,6,Los Angeles Sparks,17,Las Vegas Aces,58,66,True,2021
+401320665,2021-07-03,14,Seattle Storm,20,Atlanta Dream,91,88,True,2021
+401320666,2021-07-03,5,Indiana Fever,18,Connecticut Sun,73,67,True,2021
+401320667,2021-07-03,9,New York Liberty,16,Washington Mystics,82,79,True,2021
+401320664,2021-07-04,11,Phoenix Mercury,8,Minnesota Lynx,68,99,True,2021
+401320668,2021-07-04,17,Las Vegas Aces,20,Atlanta Dream,118,95,True,2021
+401320669,2021-07-05,6,Los Angeles Sparks,14,Seattle Storm,74,84,True,2021
+401320670,2021-07-05,9,New York Liberty,3,Dallas Wings,99,96,True,2021
+401320671,2021-07-08,8,Minnesota Lynx,3,Dallas Wings,85,79,True,2021
+401320672,2021-07-08,17,Las Vegas Aces,11,Phoenix Mercury,90,99,True,2021
+401320673,2021-07-08,14,Seattle Storm,6,Los Angeles Sparks,71,62,True,2021
+401320674,2021-07-09,18,Connecticut Sun,20,Atlanta Dream,84,72,True,2021
+401320675,2021-07-09,5,Indiana Fever,9,New York Liberty,82,69,True,2021
+401320676,2021-07-10,11,Phoenix Mercury,14,Seattle Storm,85,77,True,2021
+401320677,2021-07-10,17,Las Vegas Aces,8,Minnesota Lynx,67,77,True,2021
+401320678,2021-07-11,19,Chicago Sky,16,Washington Mystics,85,89,True,2021
+401320679,2021-07-11,3,Dallas Wings,17,Las Vegas Aces,79,95,True,2021
+401320680,2021-07-11,9,New York Liberty,18,Connecticut Sun,54,71,True,2021
+401320681,2021-07-11,20,Atlanta Dream,5,Indiana Fever,68,79,True,2021
+401320682,2021-07-11,14,Seattle Storm,11,Phoenix Mercury,82,75,True,2021
+401320683,2021-07-12,6,Los Angeles Sparks,8,Minnesota Lynx,61,86,True,2021
+401353913,2021-08-13,14,Seattle Storm,18,Connecticut Sun,79,57,True,2021
+401320684,2021-08-15,19,Chicago Sky,14,Seattle Storm,87,85,True,2021
+401320685,2021-08-15,3,Dallas Wings,18,Connecticut Sun,59,80,True,2021
+401320686,2021-08-15,17,Las Vegas Aces,16,Washington Mystics,84,83,True,2021
+401320687,2021-08-15,11,Phoenix Mercury,20,Atlanta Dream,92,81,True,2021
+401320688,2021-08-15,8,Minnesota Lynx,9,New York Liberty,88,78,True,2021
+401320689,2021-08-16,6,Los Angeles Sparks,5,Indiana Fever,75,70,True,2021
+401320690,2021-08-17,18,Connecticut Sun,8,Minnesota Lynx,72,60,True,2021
+401320691,2021-08-18,19,Chicago Sky,3,Dallas Wings,76,80,True,2021
+401320692,2021-08-18,17,Las Vegas Aces,16,Washington Mystics,93,83,True,2021
+401320693,2021-08-18,11,Phoenix Mercury,5,Indiana Fever,84,80,True,2021
+401320694,2021-08-18,6,Los Angeles Sparks,20,Atlanta Dream,85,80,True,2021
+401320695,2021-08-18,9,New York Liberty,14,Seattle Storm,83,79,True,2021
+401320696,2021-08-19,18,Connecticut Sun,8,Minnesota Lynx,82,71,True,2021
+401320697,2021-08-20,11,Phoenix Mercury,16,Washington Mystics,77,64,True,2021
+401320698,2021-08-20,6,Los Angeles Sparks,20,Atlanta Dream,66,64,True,2021
+401320699,2021-08-20,9,New York Liberty,14,Seattle Storm,83,99,True,2021
+401320700,2021-08-21,3,Dallas Wings,5,Indiana Fever,81,83,True,2021
+401320701,2021-08-21,20,Atlanta Dream,11,Phoenix Mercury,69,84,True,2021
+401320702,2021-08-22,19,Chicago Sky,8,Minnesota Lynx,95,101,True,2021
+401320703,2021-08-22,9,New York Liberty,6,Los Angeles Sparks,83,86,True,2021
+401320704,2021-08-22,16,Washington Mystics,14,Seattle Storm,78,85,True,2021
+401320705,2021-08-24,8,Minnesota Lynx,14,Seattle Storm,76,70,True,2021
+401320706,2021-08-24,20,Atlanta Dream,19,Chicago Sky,79,86,True,2021
+401320707,2021-08-24,18,Connecticut Sun,17,Las Vegas Aces,76,62,True,2021
+401320708,2021-08-24,16,Washington Mystics,6,Los Angeles Sparks,78,68,True,2021
+401320709,2021-08-25,9,New York Liberty,11,Phoenix Mercury,79,106,True,2021
+401320710,2021-08-26,20,Atlanta Dream,17,Las Vegas Aces,71,78,True,2021
+401320711,2021-08-26,18,Connecticut Sun,6,Los Angeles Sparks,76,72,True,2021
+401320712,2021-08-26,16,Washington Mystics,3,Dallas Wings,77,82,True,2021
+401320713,2021-08-28,9,New York Liberty,11,Phoenix Mercury,64,80,True,2021
+401320714,2021-08-28,14,Seattle Storm,19,Chicago Sky,69,73,True,2021
+401320715,2021-08-28,5,Indiana Fever,17,Las Vegas Aces,71,87,True,2021
+401320716,2021-08-28,18,Connecticut Sun,6,Los Angeles Sparks,76,61,True,2021
+401320717,2021-08-28,16,Washington Mystics,3,Dallas Wings,76,75,True,2021
+401320718,2021-08-29,14,Seattle Storm,19,Chicago Sky,75,107,True,2021
+401320719,2021-08-31,5,Indiana Fever,6,Los Angeles Sparks,74,72,True,2021
+401320720,2021-08-31,16,Washington Mystics,18,Connecticut Sun,75,85,True,2021
+401320721,2021-09-01,8,Minnesota Lynx,9,New York Liberty,74,66,True,2021
+401320722,2021-09-01,11,Phoenix Mercury,19,Chicago Sky,103,83,True,2021
+401320723,2021-09-03,3,Dallas Wings,20,Atlanta Dream,72,68,True,2021
+401320724,2021-09-03,8,Minnesota Lynx,6,Los Angeles Sparks,66,57,True,2021
+401320725,2021-09-03,17,Las Vegas Aces,19,Chicago Sky,90,83,True,2021
+401320726,2021-09-03,14,Seattle Storm,9,New York Liberty,85,75,True,2021
+401320727,2021-09-04,5,Indiana Fever,11,Phoenix Mercury,65,87,True,2021
+401320728,2021-09-05,8,Minnesota Lynx,16,Washington Mystics,93,75,True,2021
+401320729,2021-09-05,19,Chicago Sky,17,Las Vegas Aces,92,84,True,2021
+401320730,2021-09-05,3,Dallas Wings,20,Atlanta Dream,64,69,True,2021
+401320731,2021-09-06,5,Indiana Fever,11,Phoenix Mercury,81,86,True,2021
+401320732,2021-09-08,3,Dallas Wings,18,Connecticut Sun,56,83,True,2021
+401320733,2021-09-08,14,Seattle Storm,16,Washington Mystics,105,71,True,2021
+401320734,2021-09-08,20,Atlanta Dream,11,Phoenix Mercury,75,76,True,2021
+401320735,2021-09-09,17,Las Vegas Aces,8,Minnesota Lynx,102,81,True,2021
+401320736,2021-09-10,6,Los Angeles Sparks,18,Connecticut Sun,57,75,True,2021
+401320737,2021-09-10,16,Washington Mystics,20,Atlanta Dream,82,74,True,2021
+401320738,2021-09-11,8,Minnesota Lynx,5,Indiana Fever,89,72,True,2021
+401320739,2021-09-12,3,Dallas Wings,9,New York Liberty,77,76,True,2021
+401320740,2021-09-12,11,Phoenix Mercury,18,Connecticut Sun,67,76,True,2021
+401320741,2021-09-12,19,Chicago Sky,16,Washington Mystics,71,79,True,2021
+401320742,2021-09-12,8,Minnesota Lynx,5,Indiana Fever,90,80,True,2021
+401320743,2021-09-13,6,Los Angeles Sparks,14,Seattle Storm,81,53,True,2021
+401320744,2021-09-13,17,Las Vegas Aces,3,Dallas Wings,85,75,True,2021
+401320745,2021-09-14,20,Atlanta Dream,5,Indiana Fever,85,78,True,2021
+401320746,2021-09-15,18,Connecticut Sun,9,New York Liberty,98,69,True,2021
+401320747,2021-09-16,20,Atlanta Dream,6,Los Angeles Sparks,68,74,True,2021
+401320748,2021-09-17,5,Indiana Fever,8,Minnesota Lynx,73,92,True,2021
+401320749,2021-09-17,9,New York Liberty,16,Washington Mystics,91,80,True,2021
+401320750,2021-09-18,19,Chicago Sky,17,Las Vegas Aces,70,103,True,2021
+401320751,2021-09-18,14,Seattle Storm,11,Phoenix Mercury,94,85,True,2021
+401320752,2021-09-19,18,Connecticut Sun,20,Atlanta Dream,84,64,True,2021
+401320753,2021-09-19,11,Phoenix Mercury,17,Las Vegas Aces,83,84,True,2021
+401320754,2021-09-19,16,Washington Mystics,8,Minnesota Lynx,77,83,True,2021
+401320755,2021-09-19,3,Dallas Wings,6,Los Angeles Sparks,87,84,True,2021
+401320756,2021-09-19,19,Chicago Sky,5,Indiana Fever,98,87,True,2021

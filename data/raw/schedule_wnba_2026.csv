@@ -1,0 +1,193 @@
+game_id,official_date,home_team_id,home_team_name,away_team_id,away_team_name,home_score,away_score,completed,season
+401856890,2026-05-08,9,New York Liberty,18,Connecticut Sun,106,75,True,2026
+401856891,2026-05-08,131935,Toronto Tempo,16,Washington Mystics,65,68,True,2026
+401856892,2026-05-09,14,Seattle Storm,129689,Golden State Valkyries,80,91,True,2026
+401856893,2026-05-09,5,Indiana Fever,3,Dallas Wings,104,107,True,2026
+401856894,2026-05-09,17,Las Vegas Aces,11,Phoenix Mercury,66,99,True,2026
+401856899,2026-05-10,8,Minnesota Lynx,20,Atlanta Dream,90,91,True,2026
+401856895,2026-05-10,132052,Portland Fire,19,Chicago Sky,83,98,True,2026
+401856896,2026-05-10,18,Connecticut Sun,14,Seattle Storm,82,89,True,2026
+401856897,2026-05-10,16,Washington Mystics,9,New York Liberty,93,98,True,2026
+401856898,2026-05-10,6,Los Angeles Sparks,17,Las Vegas Aces,78,105,True,2026
+401856900,2026-05-11,129689,Golden State Valkyries,11,Phoenix Mercury,95,79,True,2026
+401856901,2026-05-13,3,Dallas Wings,20,Atlanta Dream,72,77,True,2026
+401856902,2026-05-13,11,Phoenix Mercury,8,Minnesota Lynx,84,88,True,2026
+401856903,2026-05-13,132052,Portland Fire,9,New York Liberty,98,96,True,2026
+401856904,2026-05-13,131935,Toronto Tempo,14,Seattle Storm,86,73,True,2026
+401856905,2026-05-14,18,Connecticut Sun,17,Las Vegas Aces,69,98,True,2026
+401856906,2026-05-14,129689,Golden State Valkyries,19,Chicago Sky,63,69,True,2026
+401856907,2026-05-14,6,Los Angeles Sparks,5,Indiana Fever,78,87,True,2026
+401856908,2026-05-15,3,Dallas Wings,8,Minnesota Lynx,86,90,True,2026
+401856909,2026-05-15,132052,Portland Fire,9,New York Liberty,82,100,True,2026
+401856910,2026-05-15,18,Connecticut Sun,17,Las Vegas Aces,94,101,True,2026
+401856911,2026-05-15,5,Indiana Fever,16,Washington Mystics,102,104,True,2026
+401856912,2026-05-16,6,Los Angeles Sparks,131935,Toronto Tempo,99,95,True,2026
+401856913,2026-05-16,11,Phoenix Mercury,19,Chicago Sky,91,83,True,2026
+401856915,2026-05-17,20,Atlanta Dream,17,Las Vegas Aces,84,85,True,2026
+401856916,2026-05-17,5,Indiana Fever,14,Seattle Storm,89,78,True,2026
+401856914,2026-05-17,8,Minnesota Lynx,19,Chicago Sky,79,86,True,2026
+401856917,2026-05-17,6,Los Angeles Sparks,131935,Toronto Tempo,96,106,True,2026
+401856918,2026-05-19,3,Dallas Wings,16,Washington Mystics,92,69,True,2026
+401856919,2026-05-19,132052,Portland Fire,18,Connecticut Sun,83,82,True,2026
+401856920,2026-05-20,11,Phoenix Mercury,131935,Toronto Tempo,90,98,True,2026
+401856921,2026-05-20,5,Indiana Fever,132052,Portland Fire,90,73,True,2026
+401856922,2026-05-21,19,Chicago Sky,3,Dallas Wings,89,99,True,2026
+401856923,2026-05-21,14,Seattle Storm,18,Connecticut Sun,78,80,True,2026
+401856924,2026-05-22,9,New York Liberty,129689,Golden State Valkyries,70,87,True,2026
+401856925,2026-05-22,8,Minnesota Lynx,131935,Toronto Tempo,100,72,True,2026
+401856926,2026-05-22,11,Phoenix Mercury,6,Los Angeles Sparks,88,97,True,2026
+401856927,2026-05-22,20,Atlanta Dream,3,Dallas Wings,86,69,True,2026
+401856928,2026-05-22,5,Indiana Fever,129689,Golden State Valkyries,90,82,True,2026
+401856929,2026-05-23,14,Seattle Storm,18,Connecticut Sun,77,59,True,2026
+401856930,2026-05-23,19,Chicago Sky,8,Minnesota Lynx,75,85,True,2026
+401856931,2026-05-23,131935,Toronto Tempo,132052,Portland Fire,80,99,True,2026
+401856932,2026-05-24,17,Las Vegas Aces,6,Los Angeles Sparks,95,101,True,2026
+401856933,2026-05-24,20,Atlanta Dream,11,Phoenix Mercury,82,80,True,2026
+401856934,2026-05-24,9,New York Liberty,3,Dallas Wings,76,91,True,2026
+401856935,2026-05-24,14,Seattle Storm,16,Washington Mystics,97,85,True,2026
+401856936,2026-05-26,9,New York Liberty,132052,Portland Fire,74,81,True,2026
+401856937,2026-05-26,129689,Golden State Valkyries,18,Connecticut Sun,97,70,True,2026
+401856938,2026-05-27,9,New York Liberty,11,Phoenix Mercury,84,74,True,2026
+401856939,2026-05-28,19,Chicago Sky,131935,Toronto Tempo,104,111,True,2026
+401856940,2026-05-28,8,Minnesota Lynx,20,Atlanta Dream,96,81,True,2026
+401856941,2026-05-28,132052,Portland Fire,18,Connecticut Sun,71,61,True,2026
+401856942,2026-05-28,14,Seattle Storm,16,Washington Mystics,64,78,True,2026
+401856943,2026-05-29,3,Dallas Wings,17,Las Vegas Aces,95,87,True,2026
+401856944,2026-05-29,129689,Golden State Valkyries,5,Indiana Fever,90,88,True,2026
+401856945,2026-05-29,9,New York Liberty,11,Phoenix Mercury,75,68,True,2026
+401856946,2026-05-29,16,Washington Mystics,6,Los Angeles Sparks,87,92,True,2026
+401856947,2026-05-29,19,Chicago Sky,8,Minnesota Lynx,58,79,True,2026
+401856948,2026-05-30,132052,Portland Fire,20,Atlanta Dream,66,86,True,2026
+401856949,2026-05-30,131935,Toronto Tempo,14,Seattle Storm,93,72,True,2026
+401856950,2026-05-30,18,Connecticut Sun,6,Los Angeles Sparks,84,81,True,2026
+401856951,2026-05-31,132052,Portland Fire,5,Indiana Fever,100,84,True,2026
+401856952,2026-05-31,129689,Golden State Valkyries,17,Las Vegas Aces,81,91,True,2026
+401856953,2026-06-02,3,Dallas Wings,14,Seattle Storm,79,56,True,2026
+401856954,2026-06-02,11,Phoenix Mercury,8,Minnesota Lynx,77,111,True,2026
+401856955,2026-06-02,20,Atlanta Dream,18,Connecticut Sun,91,75,True,2026
+401856956,2026-06-02,16,Washington Mystics,19,Chicago Sky,90,72,True,2026
+401856957,2026-06-03,129689,Golden State Valkyries,132052,Portland Fire,95,77,True,2026
+401856958,2026-06-03,6,Los Angeles Sparks,17,Las Vegas Aces,69,79,True,2026
+401856959,2026-06-03,9,New York Liberty,131935,Toronto Tempo,97,82,True,2026
+401856960,2026-06-04,14,Seattle Storm,11,Phoenix Mercury,68,72,True,2026
+401856961,2026-06-04,5,Indiana Fever,20,Atlanta Dream,83,71,True,2026
+401856962,2026-06-05,8,Minnesota Lynx,129689,Golden State Valkyries,87,84,True,2026
+401856963,2026-06-05,19,Chicago Sky,18,Connecticut Sun,85,80,True,2026
+401856964,2026-06-06,6,Los Angeles Sparks,3,Dallas Wings,96,104,True,2026
+401856965,2026-06-06,132052,Portland Fire,11,Phoenix Mercury,72,78,True,2026
+401856966,2026-06-06,8,Minnesota Lynx,14,Seattle Storm,88,68,True,2026
+401856967,2026-06-06,17,Las Vegas Aces,129689,Golden State Valkyries,84,79,True,2026
+401856968,2026-06-06,20,Atlanta Dream,16,Washington Mystics,109,77,True,2026
+401856969,2026-06-07,9,New York Liberty,5,Indiana Fever,83,75,True,2026
+401856970,2026-06-07,131935,Toronto Tempo,19,Chicago Sky,85,68,True,2026
+401856971,2026-06-07,6,Los Angeles Sparks,132052,Portland Fire,89,72,True,2026
+401856972,2026-06-08,18,Connecticut Sun,9,New York Liberty,80,89,True,2026
+401856973,2026-06-08,16,Washington Mystics,5,Indiana Fever,76,78,True,2026
+401856974,2026-06-09,17,Las Vegas Aces,14,Seattle Storm,101,91,True,2026
+401856975,2026-06-09,19,Chicago Sky,20,Atlanta Dream,75,82,True,2026
+401856976,2026-06-10,8,Minnesota Lynx,3,Dallas Wings,100,76,True,2026
+401856977,2026-06-10,129689,Golden State Valkyries,11,Phoenix Mercury,87,81,True,2026
+401856978,2026-06-10,131935,Toronto Tempo,18,Connecticut Sun,106,102,True,2026
+401856979,2026-06-11,14,Seattle Storm,6,Los Angeles Sparks,83,88,True,2026
+401856980,2026-06-11,5,Indiana Fever,19,Chicago Sky,114,106,True,2026
+401856981,2026-06-11,20,Atlanta Dream,9,New York Liberty,90,104,True,2026
+401856982,2026-06-12,3,Dallas Wings,11,Phoenix Mercury,85,70,True,2026
+401856983,2026-06-12,132052,Portland Fire,17,Las Vegas Aces,89,105,True,2026
+401856984,2026-06-12,16,Washington Mystics,131935,Toronto Tempo,86,85,True,2026
+401856985,2026-06-13,14,Seattle Storm,129689,Golden State Valkyries,72,76,True,2026
+401856986,2026-06-13,18,Connecticut Sun,5,Indiana Fever,75,85,True,2026
+401856987,2026-06-14,17,Las Vegas Aces,8,Minnesota Lynx,100,97,True,2026
+401856988,2026-06-14,132052,Portland Fire,3,Dallas Wings,84,83,True,2026
+401856989,2026-06-14,11,Phoenix Mercury,6,Los Angeles Sparks,102,111,True,2026
+401856990,2026-06-14,9,New York Liberty,16,Washington Mystics,86,64,True,2026
+401856991,2026-06-14,131935,Toronto Tempo,20,Atlanta Dream,77,102,True,2026
+401856992,2026-06-16,3,Dallas Wings,17,Las Vegas Aces,96,66,True,2026
+401856993,2026-06-16,8,Minnesota Lynx,132052,Portland Fire,107,74,True,2026
+401856994,2026-06-16,129689,Golden State Valkyries,6,Los Angeles Sparks,78,58,True,2026
+401856995,2026-06-16,5,Indiana Fever,131935,Toronto Tempo,113,91,True,2026
+401856996,2026-06-17,18,Connecticut Sun,16,Washington Mystics,81,88,True,2026
+401856997,2026-06-18,19,Chicago Sky,9,New York Liberty,95,96,True,2026
+401856998,2026-06-18,129689,Golden State Valkyries,3,Dallas Wings,91,80,True,2026
+401856999,2026-06-18,6,Los Angeles Sparks,8,Minnesota Lynx,83,99,True,2026
+401857000,2026-06-18,11,Phoenix Mercury,17,Las Vegas Aces,76,86,True,2026
+401857001,2026-06-18,132052,Portland Fire,14,Seattle Storm,94,89,True,2026
+401857002,2026-06-18,5,Indiana Fever,20,Atlanta Dream,101,108,True,2026
+401857003,2026-06-19,18,Connecticut Sun,131935,Toronto Tempo,97,101,True,2026
+401857004,2026-06-19,9,New York Liberty,16,Washington Mystics,83,86,True,2026
+401857005,2026-06-20,129689,Golden State Valkyries,8,Minnesota Lynx,75,81,True,2026
+401857006,2026-06-20,20,Atlanta Dream,5,Indiana Fever,113,96,True,2026
+401857007,2026-06-20,11,Phoenix Mercury,14,Seattle Storm,93,73,True,2026
+401857008,2026-06-21,3,Dallas Wings,19,Chicago Sky,93,92,True,2026
+401857009,2026-06-21,17,Las Vegas Aces,129689,Golden State Valkyries,92,73,True,2026
+401857010,2026-06-21,8,Minnesota Lynx,16,Washington Mystics,79,84,True,2026
+401857011,2026-06-22,6,Los Angeles Sparks,9,New York Liberty,98,97,True,2026
+401857012,2026-06-22,18,Connecticut Sun,19,Chicago Sky,92,63,True,2026
+401857013,2026-06-22,20,Atlanta Dream,131935,Toronto Tempo,94,87,True,2026
+401857014,2026-06-23,5,Indiana Fever,11,Phoenix Mercury,86,77,True,2026
+401857015,2026-06-23,14,Seattle Storm,3,Dallas Wings,110,112,True,2026
+401857016,2026-06-24,17,Las Vegas Aces,9,New York Liberty,76,87,True,2026
+401857017,2026-06-24,5,Indiana Fever,11,Phoenix Mercury,109,111,True,2026
+401857018,2026-06-24,16,Washington Mystics,8,Minnesota Lynx,76,78,True,2026
+401857019,2026-06-25,19,Chicago Sky,132052,Portland Fire,101,78,True,2026
+401857020,2026-06-25,129689,Golden State Valkyries,20,Atlanta Dream,77,66,True,2026
+401857021,2026-06-25,131935,Toronto Tempo,6,Los Angeles Sparks,125,97,True,2026
+401857022,2026-06-26,17,Las Vegas Aces,3,Dallas Wings,99,84,True,2026
+401857023,2026-06-26,14,Seattle Storm,9,New York Liberty,99,88,True,2026
+401857024,2026-06-26,18,Connecticut Sun,16,Washington Mystics,68,57,True,2026
+401857025,2026-06-26,19,Chicago Sky,132052,Portland Fire,124,94,True,2026
+401857026,2026-06-27,129689,Golden State Valkyries,20,Atlanta Dream,78,75,True,2026
+401857027,2026-06-27,131935,Toronto Tempo,11,Phoenix Mercury,80,89,True,2026
+401857028,2026-06-28,5,Indiana Fever,6,Los Angeles Sparks,111,87,True,2026
+401857029,2026-06-28,14,Seattle Storm,20,Atlanta Dream,105,90,True,2026
+401857030,2026-06-28,3,Dallas Wings,8,Minnesota Lynx,77,85,True,2026
+401857031,2026-06-28,16,Washington Mystics,132052,Portland Fire,124,123,True,2026
+401857032,2026-06-28,19,Chicago Sky,17,Las Vegas Aces,99,107,True,2026
+401857033,2026-06-28,129689,Golden State Valkyries,9,New York Liberty,76,67,True,2026
+401857321,2026-06-30,9,New York Liberty,17,Las Vegas Aces,93,85,True,2026
+401857034,2026-07-02,16,Washington Mystics,20,Atlanta Dream,81,76,True,2026
+401857035,2026-07-03,18,Connecticut Sun,3,Dallas Wings,83,86,True,2026
+401857036,2026-07-03,11,Phoenix Mercury,14,Seattle Storm,90,67,True,2026
+401857037,2026-07-03,9,New York Liberty,8,Minnesota Lynx,99,86,True,2026
+401857038,2026-07-04,17,Las Vegas Aces,19,Chicago Sky,98,90,True,2026
+401857039,2026-07-04,20,Atlanta Dream,129689,Golden State Valkyries,83,88,True,2026
+401857040,2026-07-05,14,Seattle Storm,132052,Portland Fire,72,77,True,2026
+401857041,2026-07-05,131935,Toronto Tempo,3,Dallas Wings,76,89,True,2026
+401857042,2026-07-05,17,Las Vegas Aces,5,Indiana Fever,68,84,True,2026
+401857043,2026-07-06,16,Washington Mystics,129689,Golden State Valkyries,49,62,True,2026
+401857044,2026-07-07,8,Minnesota Lynx,18,Connecticut Sun,89,90,True,2026
+401857045,2026-07-07,6,Los Angeles Sparks,14,Seattle Storm,64,82,True,2026
+401857046,2026-07-08,9,New York Liberty,3,Dallas Wings,77,88,True,2026
+401857047,2026-07-08,11,Phoenix Mercury,19,Chicago Sky,66,77,True,2026
+401857048,2026-07-08,131935,Toronto Tempo,129689,Golden State Valkyries,75,83,True,2026
+401857049,2026-07-08,18,Connecticut Sun,8,Minnesota Lynx,80,86,True,2026
+401857050,2026-07-09,6,Los Angeles Sparks,5,Indiana Fever,106,92,True,2026
+401857051,2026-07-10,20,Atlanta Dream,14,Seattle Storm,89,78,True,2026
+401857052,2026-07-10,11,Phoenix Mercury,5,Indiana Fever,89,92,True,2026
+401857053,2026-07-10,132052,Portland Fire,17,Las Vegas Aces,80,88,True,2026
+401857054,2026-07-10,18,Connecticut Sun,129689,Golden State Valkyries,64,79,True,2026
+401857055,2026-07-10,131935,Toronto Tempo,3,Dallas Wings,95,108,True,2026
+401857056,2026-07-11,6,Los Angeles Sparks,19,Chicago Sky,102,87,True,2026
+401857057,2026-07-11,8,Minnesota Lynx,9,New York Liberty,90,85,True,2026
+401857059,2026-07-11,20,Atlanta Dream,132052,Portland Fire,92,102,True,2026
+401857058,2026-07-11,17,Las Vegas Aces,11,Phoenix Mercury,106,58,True,2026
+401857060,2026-07-12,131935,Toronto Tempo,9,New York Liberty,93,91,True,2026
+401857061,2026-07-12,16,Washington Mystics,14,Seattle Storm,84,79,True,2026
+401857062,2026-07-12,3,Dallas Wings,19,Chicago Sky,96,91,True,2026
+401857063,2026-07-13,17,Las Vegas Aces,5,Indiana Fever,75,109,True,2026
+401857064,2026-07-13,20,Atlanta Dream,6,Los Angeles Sparks,101,92,True,2026
+401857065,2026-07-14,8,Minnesota Lynx,11,Phoenix Mercury,104,100,True,2026
+401857066,2026-07-14,18,Connecticut Sun,132052,Portland Fire,90,87,True,2026
+401857067,2026-07-14,131935,Toronto Tempo,16,Washington Mystics,62,79,True,2026
+401857068,2026-07-15,19,Chicago Sky,14,Seattle Storm,95,90,True,2026
+401857069,2026-07-15,8,Minnesota Lynx,6,Los Angeles Sparks,96,87,True,2026
+401857070,2026-07-16,5,Indiana Fever,129689,Golden State Valkyries,75,88,True,2026
+401857071,2026-07-16,16,Washington Mystics,132052,Portland Fire,56,75,True,2026
+401857073,2026-07-17,5,Indiana Fever,14,Seattle Storm,110,107,True,2026
+401857074,2026-07-17,131935,Toronto Tempo,20,Atlanta Dream,92,111,True,2026
+401857075,2026-07-17,19,Chicago Sky,6,Los Angeles Sparks,96,82,True,2026
+401857076,2026-07-18,11,Phoenix Mercury,18,Connecticut Sun,83,96,True,2026
+401857077,2026-07-19,5,Indiana Fever,9,New York Liberty,108,88,True,2026
+401857078,2026-07-19,8,Minnesota Lynx,132052,Portland Fire,101,93,True,2026
+401857079,2026-07-19,129689,Golden State Valkyries,16,Washington Mystics,74,69,True,2026
+401857080,2026-07-19,3,Dallas Wings,6,Los Angeles Sparks,90,82,True,2026
+401857081,2026-07-19,20,Atlanta Dream,19,Chicago Sky,93,91,True,2026

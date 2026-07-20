@@ -1,0 +1,218 @@
+game_id,official_date,home_team_id,home_team_name,away_team_id,away_team_name,home_score,away_score,completed,season
+401391650,2022-05-06,16,Washington Mystics,5,Indiana Fever,84,70,True,2022
+401391651,2022-05-07,19,Chicago Sky,6,Los Angeles Sparks,91,98,True,2022
+401391652,2022-05-07,11,Phoenix Mercury,17,Las Vegas Aces,88,106,True,2022
+401391653,2022-05-07,14,Seattle Storm,8,Minnesota Lynx,97,74,True,2022
+401391654,2022-05-07,9,New York Liberty,18,Connecticut Sun,81,79,True,2022
+401391655,2022-05-08,3,Dallas Wings,20,Atlanta Dream,59,66,True,2022
+401391656,2022-05-08,5,Indiana Fever,6,Los Angeles Sparks,77,87,True,2022
+401391658,2022-05-09,8,Minnesota Lynx,16,Washington Mystics,66,78,True,2022
+401391657,2022-05-09,17,Las Vegas Aces,14,Seattle Storm,85,74,True,2022
+401391659,2022-05-10,16,Washington Mystics,17,Las Vegas Aces,89,76,True,2022
+401391660,2022-05-10,5,Indiana Fever,8,Minnesota Lynx,82,76,True,2022
+401391661,2022-05-11,20,Atlanta Dream,6,Los Angeles Sparks,77,75,True,2022
+401391662,2022-05-12,19,Chicago Sky,9,New York Liberty,83,50,True,2022
+401391663,2022-05-12,11,Phoenix Mercury,14,Seattle Storm,97,77,True,2022
+401391664,2022-05-13,16,Washington Mystics,3,Dallas Wings,86,94,True,2022
+401391665,2022-05-13,20,Atlanta Dream,17,Las Vegas Aces,73,96,True,2022
+401391666,2022-05-14,9,New York Liberty,5,Indiana Fever,86,92,True,2022
+401391667,2022-05-14,14,Seattle Storm,11,Phoenix Mercury,64,69,True,2022
+401391668,2022-05-14,18,Connecticut Sun,6,Los Angeles Sparks,77,60,True,2022
+401391669,2022-05-15,8,Minnesota Lynx,19,Chicago Sky,78,82,True,2022
+401391670,2022-05-15,9,New York Liberty,3,Dallas Wings,71,81,True,2022
+401391671,2022-05-15,5,Indiana Fever,20,Atlanta Dream,79,85,True,2022
+401391672,2022-05-17,9,New York Liberty,18,Connecticut Sun,65,92,True,2022
+401391673,2022-05-17,5,Indiana Fever,20,Atlanta Dream,79,101,True,2022
+401391674,2022-05-18,3,Dallas Wings,16,Washington Mystics,68,84,True,2022
+401391675,2022-05-18,17,Las Vegas Aces,11,Phoenix Mercury,86,74,True,2022
+401391676,2022-05-18,6,Los Angeles Sparks,8,Minnesota Lynx,84,87,True,2022
+401391677,2022-05-19,14,Seattle Storm,19,Chicago Sky,74,71,True,2022
+401391678,2022-05-20,17,Las Vegas Aces,8,Minnesota Lynx,93,87,True,2022
+401391679,2022-05-20,11,Phoenix Mercury,3,Dallas Wings,84,94,True,2022
+401391680,2022-05-20,18,Connecticut Sun,5,Indiana Fever,94,85,True,2022
+401391681,2022-05-20,20,Atlanta Dream,16,Washington Mystics,73,78,True,2022
+401391682,2022-05-21,14,Seattle Storm,6,Los Angeles Sparks,83,80,True,2022
+401391683,2022-05-21,17,Las Vegas Aces,11,Phoenix Mercury,100,80,True,2022
+401391684,2022-05-22,3,Dallas Wings,8,Minnesota Lynx,94,78,True,2022
+401391685,2022-05-22,5,Indiana Fever,18,Connecticut Sun,70,92,True,2022
+401391686,2022-05-22,16,Washington Mystics,19,Chicago Sky,73,82,True,2022
+401391687,2022-05-24,17,Las Vegas Aces,6,Los Angeles Sparks,104,76,True,2022
+401391688,2022-05-24,18,Connecticut Sun,3,Dallas Wings,77,85,True,2022
+401391689,2022-05-24,16,Washington Mystics,20,Atlanta Dream,70,50,True,2022
+401391690,2022-05-25,19,Chicago Sky,5,Indiana Fever,95,90,True,2022
+401391691,2022-05-25,8,Minnesota Lynx,9,New York Liberty,84,78,True,2022
+401391692,2022-05-26,6,Los Angeles Sparks,11,Phoenix Mercury,99,94,True,2022
+401391693,2022-05-26,18,Connecticut Sun,3,Dallas Wings,99,68,True,2022
+401391694,2022-05-27,5,Indiana Fever,6,Los Angeles Sparks,101,96,True,2022
+401391695,2022-05-28,14,Seattle Storm,9,New York Liberty,79,71,True,2022
+401391696,2022-05-28,19,Chicago Sky,17,Las Vegas Aces,76,83,True,2022
+401391697,2022-05-28,18,Connecticut Sun,16,Washington Mystics,79,71,True,2022
+401391698,2022-05-29,20,Atlanta Dream,11,Phoenix Mercury,81,54,True,2022
+401391699,2022-05-29,14,Seattle Storm,9,New York Liberty,92,61,True,2022
+401391700,2022-05-29,8,Minnesota Lynx,6,Los Angeles Sparks,83,85,True,2022
+401391701,2022-05-31,5,Indiana Fever,16,Washington Mystics,75,87,True,2022
+401391702,2022-05-31,19,Chicago Sky,11,Phoenix Mercury,73,70,True,2022
+401391703,2022-06-01,17,Las Vegas Aces,18,Connecticut Sun,89,81,True,2022
+401391704,2022-06-01,6,Los Angeles Sparks,3,Dallas Wings,93,91,True,2022
+401391705,2022-06-01,20,Atlanta Dream,8,Minnesota Lynx,84,76,True,2022
+401391706,2022-06-01,9,New York Liberty,5,Indiana Fever,87,74,True,2022
+401391707,2022-06-03,17,Las Vegas Aces,18,Connecticut Sun,90,97,True,2022
+401391708,2022-06-03,16,Washington Mystics,9,New York Liberty,70,74,True,2022
+401391709,2022-06-03,20,Atlanta Dream,19,Chicago Sky,65,73,True,2022
+401391710,2022-06-04,11,Phoenix Mercury,18,Connecticut Sun,88,92,True,2022
+401391711,2022-06-04,14,Seattle Storm,3,Dallas Wings,51,68,True,2022
+401391712,2022-06-05,9,New York Liberty,8,Minnesota Lynx,77,84,True,2022
+401391713,2022-06-05,20,Atlanta Dream,5,Indiana Fever,75,66,True,2022
+401391714,2022-06-05,19,Chicago Sky,16,Washington Mystics,91,82,True,2022
+401391715,2022-06-05,17,Las Vegas Aces,3,Dallas Wings,84,78,True,2022
+401391716,2022-06-05,11,Phoenix Mercury,6,Los Angeles Sparks,81,74,True,2022
+401391717,2022-06-05,14,Seattle Storm,18,Connecticut Sun,86,93,True,2022
+401391718,2022-06-08,9,New York Liberty,8,Minnesota Lynx,88,69,True,2022
+401391719,2022-06-08,14,Seattle Storm,20,Atlanta Dream,72,60,True,2022
+401391720,2022-06-08,18,Connecticut Sun,5,Indiana Fever,88,69,True,2022
+401391721,2022-06-09,16,Washington Mystics,19,Chicago Sky,84,82,True,2022
+401391722,2022-06-10,18,Connecticut Sun,19,Chicago Sky,79,83,True,2022
+401391723,2022-06-10,5,Indiana Fever,9,New York Liberty,83,97,True,2022
+401391724,2022-06-11,3,Dallas Wings,14,Seattle Storm,88,89,True,2022
+401391725,2022-06-11,8,Minnesota Lynx,16,Washington Mystics,59,76,True,2022
+401391726,2022-06-11,11,Phoenix Mercury,20,Atlanta Dream,90,88,True,2022
+401391727,2022-06-12,6,Los Angeles Sparks,17,Las Vegas Aces,72,89,True,2022
+401391728,2022-06-12,9,New York Liberty,19,Chicago Sky,86,88,True,2022
+401391729,2022-06-12,3,Dallas Wings,14,Seattle Storm,79,84,True,2022
+401391730,2022-06-12,16,Washington Mystics,11,Phoenix Mercury,90,99,True,2022
+401391731,2022-06-12,8,Minnesota Lynx,5,Indiana Fever,80,84,True,2022
+401391732,2022-06-14,16,Washington Mystics,11,Phoenix Mercury,83,65,True,2022
+401391733,2022-06-15,8,Minnesota Lynx,14,Seattle Storm,79,81,True,2022
+401391734,2022-06-15,3,Dallas Wings,17,Las Vegas Aces,84,92,True,2022
+401391735,2022-06-15,18,Connecticut Sun,20,Atlanta Dream,105,92,True,2022
+401391736,2022-06-15,5,Indiana Fever,11,Phoenix Mercury,80,93,True,2022
+401391737,2022-06-16,9,New York Liberty,16,Washington Mystics,77,65,True,2022
+401391738,2022-06-17,18,Connecticut Sun,14,Seattle Storm,82,71,True,2022
+401391739,2022-06-18,3,Dallas Wings,11,Phoenix Mercury,93,88,True,2022
+401391740,2022-06-18,19,Chicago Sky,20,Atlanta Dream,106,100,True,2022
+401391741,2022-06-19,9,New York Liberty,14,Seattle Storm,72,81,True,2022
+401391743,2022-06-19,16,Washington Mystics,18,Connecticut Sun,71,63,True,2022
+401391742,2022-06-19,5,Indiana Fever,19,Chicago Sky,89,87,True,2022
+401391744,2022-06-19,3,Dallas Wings,6,Los Angeles Sparks,92,82,True,2022
+401391745,2022-06-19,17,Las Vegas Aces,8,Minnesota Lynx,96,95,True,2022
+401391746,2022-06-21,20,Atlanta Dream,3,Dallas Wings,80,75,True,2022
+401391747,2022-06-22,17,Las Vegas Aces,19,Chicago Sky,95,104,True,2022
+401391748,2022-06-22,11,Phoenix Mercury,8,Minnesota Lynx,71,84,True,2022
+401391749,2022-06-22,6,Los Angeles Sparks,16,Washington Mystics,84,82,True,2022
+401391750,2022-06-22,18,Connecticut Sun,9,New York Liberty,77,81,True,2022
+401391751,2022-06-24,3,Dallas Wings,5,Indiana Fever,94,68,True,2022
+401391752,2022-06-24,8,Minnesota Lynx,11,Phoenix Mercury,100,88,True,2022
+401391753,2022-06-24,14,Seattle Storm,16,Washington Mystics,85,71,True,2022
+401391754,2022-06-24,6,Los Angeles Sparks,19,Chicago Sky,59,82,True,2022
+401391755,2022-06-24,20,Atlanta Dream,9,New York Liberty,77,89,True,2022
+401391756,2022-06-26,3,Dallas Wings,11,Phoenix Mercury,72,83,True,2022
+401391757,2022-06-26,14,Seattle Storm,6,Los Angeles Sparks,77,85,True,2022
+401391758,2022-06-26,17,Las Vegas Aces,16,Washington Mystics,86,87,True,2022
+401391759,2022-06-26,20,Atlanta Dream,18,Connecticut Sun,61,72,True,2022
+401391760,2022-06-26,19,Chicago Sky,8,Minnesota Lynx,88,85,True,2022
+401391761,2022-06-28,11,Phoenix Mercury,5,Indiana Fever,83,71,True,2022
+401391762,2022-06-28,6,Los Angeles Sparks,17,Las Vegas Aces,73,79,True,2022
+401391763,2022-06-28,16,Washington Mystics,20,Atlanta Dream,92,74,True,2022
+401391764,2022-06-29,8,Minnesota Lynx,3,Dallas Wings,92,64,True,2022
+401391765,2022-06-29,19,Chicago Sky,18,Connecticut Sun,91,83,True,2022
+401391766,2022-06-30,11,Phoenix Mercury,5,Indiana Fever,99,78,True,2022
+401391767,2022-06-30,14,Seattle Storm,17,Las Vegas Aces,88,78,True,2022
+401391768,2022-06-30,9,New York Liberty,20,Atlanta Dream,81,92,True,2022
+401391769,2022-07-02,3,Dallas Wings,6,Los Angeles Sparks,89,97,True,2022
+401391770,2022-07-02,8,Minnesota Lynx,17,Las Vegas Aces,85,91,True,2022
+401391771,2022-07-02,14,Seattle Storm,5,Indiana Fever,73,57,True,2022
+401391772,2022-07-02,19,Chicago Sky,11,Phoenix Mercury,91,75,True,2022
+401391773,2022-07-03,18,Connecticut Sun,16,Washington Mystics,74,72,True,2022
+401391774,2022-07-03,20,Atlanta Dream,14,Seattle Storm,90,76,True,2022
+401391776,2022-07-03,6,Los Angeles Sparks,9,New York Liberty,84,74,True,2022
+401391775,2022-07-03,8,Minnesota Lynx,17,Las Vegas Aces,102,71,True,2022
+401391777,2022-07-04,6,Los Angeles Sparks,11,Phoenix Mercury,78,75,True,2022
+401391778,2022-07-05,5,Indiana Fever,14,Seattle Storm,73,95,True,2022
+401391779,2022-07-06,3,Dallas Wings,18,Connecticut Sun,82,71,True,2022
+401391780,2022-07-06,8,Minnesota Lynx,19,Chicago Sky,81,78,True,2022
+401391781,2022-07-07,20,Atlanta Dream,16,Washington Mystics,66,85,True,2022
+401391782,2022-07-07,17,Las Vegas Aces,9,New York Liberty,107,116,True,2022
+401391783,2022-07-07,5,Indiana Fever,19,Chicago Sky,84,93,True,2022
+401391784,2022-07-08,11,Phoenix Mercury,9,New York Liberty,84,81,True,2022
+401391785,2022-07-08,6,Los Angeles Sparks,14,Seattle Storm,69,106,True,2022
+401391786,2022-07-12,14,Seattle Storm,3,Dallas Wings,83,74,True,2022
+401391787,2022-07-12,9,New York Liberty,17,Las Vegas Aces,101,107,True,2022
+401391788,2022-07-13,19,Chicago Sky,20,Atlanta Dream,90,75,True,2022
+401391789,2022-07-13,8,Minnesota Lynx,11,Phoenix Mercury,118,107,True,2022
+401391790,2022-07-13,6,Los Angeles Sparks,16,Washington Mystics,81,94,True,2022
+401391791,2022-07-13,5,Indiana Fever,18,Connecticut Sun,81,89,True,2022
+401391792,2022-07-14,9,New York Liberty,17,Las Vegas Aces,74,108,True,2022
+401391793,2022-07-15,8,Minnesota Lynx,3,Dallas Wings,87,92,True,2022
+401391794,2022-07-15,11,Phoenix Mercury,16,Washington Mystics,80,75,True,2022
+401391795,2022-07-15,6,Los Angeles Sparks,19,Chicago Sky,68,80,True,2022
+401391796,2022-07-15,5,Indiana Fever,8,Minnesota Lynx,77,87,True,2022
+401391797,2022-07-15,20,Atlanta Dream,18,Connecticut Sun,68,93,True,2022
+401391798,2022-07-17,3,Dallas Wings,19,Chicago Sky,81,89,True,2022
+401391799,2022-07-17,18,Connecticut Sun,17,Las Vegas Aces,83,91,True,2022
+401391800,2022-07-17,16,Washington Mystics,8,Minnesota Lynx,70,57,True,2022
+401391801,2022-07-17,11,Phoenix Mercury,20,Atlanta Dream,75,85,True,2022
+401391802,2022-07-17,14,Seattle Storm,5,Indiana Fever,81,65,True,2022
+401391803,2022-07-19,18,Connecticut Sun,9,New York Liberty,82,63,True,2022
+401391804,2022-07-20,17,Las Vegas Aces,20,Atlanta Dream,76,92,True,2022
+401391805,2022-07-20,6,Los Angeles Sparks,5,Indiana Fever,86,79,True,2022
+401391806,2022-07-20,19,Chicago Sky,14,Seattle Storm,78,74,True,2022
+401391807,2022-07-21,16,Washington Mystics,9,New York Liberty,78,69,True,2022
+401391808,2022-07-21,6,Los Angeles Sparks,20,Atlanta Dream,85,78,True,2022
+401391809,2022-07-22,17,Las Vegas Aces,5,Indiana Fever,90,77,True,2022
+401391810,2022-07-23,8,Minnesota Lynx,18,Connecticut Sun,84,94,True,2022
+401391811,2022-07-23,19,Chicago Sky,3,Dallas Wings,89,83,True,2022
+401391812,2022-07-23,11,Phoenix Mercury,14,Seattle Storm,94,78,True,2022
+401391813,2022-07-23,9,New York Liberty,19,Chicago Sky,83,80,True,2022
+401391814,2022-07-24,17,Las Vegas Aces,6,Los Angeles Sparks,84,66,True,2022
+401391815,2022-07-24,5,Indiana Fever,3,Dallas Wings,86,96,True,2022
+401391816,2022-07-24,14,Seattle Storm,20,Atlanta Dream,82,72,True,2022
+401391817,2022-07-24,8,Minnesota Lynx,18,Connecticut Sun,79,86,True,2022
+401430112,2022-07-27,19,Chicago Sky,17,Las Vegas Aces,83,93,True,2022
+401391818,2022-07-28,20,Atlanta Dream,8,Minnesota Lynx,85,92,True,2022
+401391819,2022-07-28,18,Connecticut Sun,14,Seattle Storm,88,83,True,2022
+401391820,2022-07-29,3,Dallas Wings,16,Washington Mystics,77,87,True,2022
+401391821,2022-07-29,11,Phoenix Mercury,6,Los Angeles Sparks,90,80,True,2022
+401391822,2022-07-29,5,Indiana Fever,17,Las Vegas Aces,72,93,True,2022
+401391823,2022-07-30,19,Chicago Sky,9,New York Liberty,89,81,True,2022
+401391824,2022-07-30,16,Washington Mystics,14,Seattle Storm,77,82,True,2022
+401391825,2022-07-30,20,Atlanta Dream,3,Dallas Wings,68,81,True,2022
+401391826,2022-07-31,18,Connecticut Sun,19,Chicago Sky,92,95,True,2022
+401391827,2022-07-31,9,New York Liberty,11,Phoenix Mercury,89,69,True,2022
+401391828,2022-07-31,5,Indiana Fever,17,Las Vegas Aces,69,94,True,2022
+401391829,2022-07-31,16,Washington Mystics,14,Seattle Storm,78,75,True,2022
+401391830,2022-07-31,6,Los Angeles Sparks,8,Minnesota Lynx,77,84,True,2022
+401391831,2022-08-02,18,Connecticut Sun,11,Phoenix Mercury,87,63,True,2022
+401391832,2022-08-02,9,New York Liberty,6,Los Angeles Sparks,102,73,True,2022
+401391833,2022-08-02,16,Washington Mystics,17,Las Vegas Aces,83,73,True,2022
+401391834,2022-08-03,19,Chicago Sky,3,Dallas Wings,78,84,True,2022
+401391835,2022-08-03,20,Atlanta Dream,5,Indiana Fever,91,81,True,2022
+401391836,2022-08-03,9,New York Liberty,6,Los Angeles Sparks,64,61,True,2022
+401391837,2022-08-04,14,Seattle Storm,8,Minnesota Lynx,89,77,True,2022
+401391838,2022-08-04,18,Connecticut Sun,11,Phoenix Mercury,77,64,True,2022
+401391839,2022-08-05,3,Dallas Wings,17,Las Vegas Aces,82,80,True,2022
+401391840,2022-08-05,20,Atlanta Dream,6,Los Angeles Sparks,88,86,True,2022
+401391841,2022-08-06,19,Chicago Sky,16,Washington Mystics,93,83,True,2022
+401391842,2022-08-07,3,Dallas Wings,5,Indiana Fever,95,91,True,2022
+401391843,2022-08-07,11,Phoenix Mercury,9,New York Liberty,76,62,True,2022
+401391844,2022-08-07,19,Chicago Sky,18,Connecticut Sun,94,91,True,2022
+401391845,2022-08-07,16,Washington Mystics,6,Los Angeles Sparks,76,79,True,2022
+401391846,2022-08-07,14,Seattle Storm,17,Las Vegas Aces,81,89,True,2022
+401391847,2022-08-07,8,Minnesota Lynx,20,Atlanta Dream,81,71,True,2022
+401391848,2022-08-09,3,Dallas Wings,9,New York Liberty,86,77,True,2022
+401391849,2022-08-10,19,Chicago Sky,14,Seattle Storm,100,111,True,2022
+401391850,2022-08-10,17,Las Vegas Aces,20,Atlanta Dream,97,90,True,2022
+401391851,2022-08-10,6,Los Angeles Sparks,18,Connecticut Sun,71,97,True,2022
+401391852,2022-08-11,3,Dallas Wings,9,New York Liberty,73,91,True,2022
+401391853,2022-08-11,11,Phoenix Mercury,8,Minnesota Lynx,77,86,True,2022
+401391854,2022-08-12,17,Las Vegas Aces,19,Chicago Sky,89,78,True,2022
+401391855,2022-08-12,6,Los Angeles Sparks,18,Connecticut Sun,69,93,True,2022
+401391856,2022-08-12,5,Indiana Fever,16,Washington Mystics,70,82,True,2022
+401391857,2022-08-12,20,Atlanta Dream,9,New York Liberty,70,80,True,2022
+401391858,2022-08-13,8,Minnesota Lynx,14,Seattle Storm,69,96,True,2022
+401391859,2022-08-13,11,Phoenix Mercury,3,Dallas Wings,86,74,True,2022
+401391860,2022-08-14,18,Connecticut Sun,8,Minnesota Lynx,90,83,True,2022
+401391861,2022-08-14,9,New York Liberty,20,Atlanta Dream,87,83,True,2022
+401391862,2022-08-14,16,Washington Mystics,5,Indiana Fever,95,83,True,2022
+401391864,2022-08-14,17,Las Vegas Aces,14,Seattle Storm,109,100,True,2022
+401391863,2022-08-14,11,Phoenix Mercury,19,Chicago Sky,67,82,True,2022
+401391865,2022-08-14,6,Los Angeles Sparks,3,Dallas Wings,88,116,True,2022

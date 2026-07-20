@@ -478,4 +478,100 @@ else:
         st.dataframe(pd.DataFrame(platform_rows), hide_index=True, use_container_width=True)
 
 st.divider()
+
+# --------------------------------------------------------------------------- #
+# WNBA moneyline + totals (see daily_wnba.py). Paper only. Honest note baked
+# into the caption below: the totals model only came out roughly at parity
+# with the simplest possible heuristic on the 2025 holdout backtest (see
+# model_wnba_totals.py) -- not a confirmed edge yet, unlike moneyline, which
+# did beat its proxy. Every game is logged regardless of whether it clears the
+# 3% flag threshold, so the ledger's "flagged" bets are the ones actually
+# being paper-tracked for ROI.
+# --------------------------------------------------------------------------- #
+
+st.header("🏀 WNBA")
+st.caption("Paper trading only · moneyline + totals vs. sportsbook consensus · edges ≥3% flagged. "
+           "Totals model is unproven (roughly ties a simple heuristic in backtest) -- treat those "
+           "edges with more skepticism than moneyline.")
+
+wnba_ledger_path = ROOT / "output" / "wnba_paper_ledger.csv"
+if not wnba_ledger_path.exists():
+    st.caption("No predictions logged yet -- check back after the morning pull runs.")
+else:
+    wnba_ledger = pd.read_csv(wnba_ledger_path)
+    wnba_ledger["correct"] = wnba_ledger["correct"].astype("object")
+    wnba_today = wnba_ledger[wnba_ledger["date"] == today_str]
+
+    st.subheader("Today's picks")
+    if wnba_today.empty:
+        st.write("No games today.")
+    else:
+        games_today = wnba_today[["home_team_name", "away_team_name"]].drop_duplicates()
+        for _, gm in games_today.iterrows():
+            game_rows = wnba_today[(wnba_today["home_team_name"] == gm["home_team_name"]) &
+                                    (wnba_today["away_team_name"] == gm["away_team_name"])]
+            with st.container(border=True):
+                st.markdown(f"**{gm['away_team_name']} @ {gm['home_team_name']}**")
+                ml = game_rows[game_rows["market_type"] == "moneyline"]
+                home_row, away_row = ml[ml["side"] == "home"], ml[ml["side"] == "away"]
+                if len(home_row) and pd.notna(home_row.iloc[0]["model_prob"]):
+                    h, a = home_row.iloc[0], away_row.iloc[0]
+                    mkt_txt = (f"home {h['market_prob']:.1%} / away {a['market_prob']:.1%}"
+                               if pd.notna(h["market_prob"]) else "n/a")
+                    flagged_side = "home" if h["flagged"] else ("away" if a["flagged"] else None)
+                    flag_txt = f" 🚩 edge on {flagged_side}" if flagged_side else ""
+                    st.markdown(f"Moneyline: model home {h['model_prob']:.1%} / away {a['model_prob']:.1%} "
+                                f"vs. market {mkt_txt}{flag_txt}")
+                totals = game_rows[(game_rows["market_type"] == "totals") & (game_rows["side"] == "over")]
+                if len(totals) and pd.notna(totals.iloc[0]["line"]):
+                    t = totals.iloc[0]
+                    under_row = game_rows[(game_rows["market_type"] == "totals") & (game_rows["side"] == "under")]
+                    under_flagged = len(under_row) and bool(under_row.iloc[0]["flagged"])
+                    mkt_txt = f"{t['market_prob']:.1%}" if pd.notna(t["market_prob"]) else "n/a"
+                    flagged_side = "over" if t["flagged"] else ("under" if under_flagged else None)
+                    flag_txt = f" 🚩 edge on {flagged_side}" if flagged_side else ""
+                    st.markdown(f"Total {t['line']}: model {t['model_prob']:.1%} over vs. market {mkt_txt}{flag_txt}")
+                if not (len(home_row) and pd.notna(home_row.iloc[0]["model_prob"])) and not len(totals):
+                    st.caption("No market line matched yet today.")
+
+    st.subheader("Ledger (flagged bets only)")
+    wnba_flagged = wnba_ledger[wnba_ledger["flagged"] == True].copy()  # noqa: E712
+    wnba_done = wnba_flagged[wnba_flagged["pnl"].notna()].copy()
+    wnba_pending = len(wnba_flagged) - len(wnba_done)
+    st.caption(f"{len(wnba_flagged)} total flagged · {len(wnba_done)} reconciled · {wnba_pending} pending")
+
+    if wnba_done.empty:
+        st.info("No reconciled flagged bets yet -- results fill in after games finish.")
+    else:
+        def wnba_tier_stats(df: pd.DataFrame) -> dict:
+            n = len(df)
+            w = int((df["correct"] == True).sum())  # noqa: E712
+            roi = df["pnl"].sum() / n if n else float("nan")
+            return {"n": n, "record": f"{w}-{n - w}", "roi": roi, "pnl": df["pnl"].sum()}
+
+        overall = wnba_tier_stats(wnba_done)
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Record", overall["record"])
+        c2.metric("ROI", f"{overall['roi']:+.1%}")
+        c3.metric("Units", f"{overall['pnl']:+.2f}u")
+
+        st.caption("By market type")
+        mt_rows = []
+        for mt in sorted(wnba_done["market_type"].unique()):
+            s = wnba_tier_stats(wnba_done[wnba_done["market_type"] == mt])
+            mt_rows.append({"market": mt.capitalize(), "n": s["n"], "record": s["record"], "ROI": f"{s['roi']:+.1%}"})
+        st.dataframe(pd.DataFrame(mt_rows), hide_index=True, use_container_width=True)
+
+        st.caption("By edge tier")
+        wnba_tier_rows = []
+        for lo, hi in EDGE_TIER_BOUNDS:
+            tier = wnba_done[(wnba_done["edge"] >= lo) & (wnba_done["edge"] < hi)]
+            if tier.empty:
+                continue
+            s = wnba_tier_stats(tier)
+            label = f"{lo:.0%}-{hi:.0%}" if hi < 1 else f"{lo:.0%}+"
+            wnba_tier_rows.append({"tier": label, "n": s["n"], "record": s["record"], "ROI": f"{s['roi']:+.1%}"})
+        st.dataframe(pd.DataFrame(wnba_tier_rows), hide_index=True, use_container_width=True)
+
+st.divider()
 st.caption("Paper trading only. Not betting advice.")
