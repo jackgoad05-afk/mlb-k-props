@@ -1,0 +1,52 @@
+game_id,market_type,side,agent,note,timestamp
+824736,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976487
+824736,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976495
+824736,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976497
+823436,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976498
+823522,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976499
+823522,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976501
+823762,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976502
+823762,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976505
+824898,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976506
+824898,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976507
+824087,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976509
+824087,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976510
+822788,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976511
+822788,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976512
+822788,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976513
+824410,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976514
+824410,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-20T23:50:59.976516
+824736,strikeout_props,under,injury_news,I'll search for recent news about Payton Tolle's health and role ahead of his start today.,2026-07-20T23:52:20.657126
+824736,strikeout_props,over,injury_news,"Based on the most recent available information, I found no material health or workload concerns for Shane Baz ahead of his July 20 start.",2026-07-20T23:52:20.657141
+824736,strikeout_props,over,injury_news,"Based on the most recent available information, I found no material health or workload concerns for Shane Baz ahead of his July 20 start.",2026-07-20T23:52:20.657143
+823436,strikeout_props,under,injury_news,"I found no material news from the last 2-3 days (July 18-20, 2026) about Emmet Sheehan's health, workload, or role ahead of a July 20 start. The most recent substantive reporting is from July 12 (one week prior) on his 2026 performance struggles, with earlier reports from late June regarding his improved start against the Padres.",2026-07-20T23:52:20.657144
+823522,strikeout_props,under,injury_news,Let me search for more recent news specifically about his workload or pitch count ahead of July 20.,2026-07-20T23:52:20.657146
+823522,strikeout_props,under,injury_news,Let me search for more recent news from the last few days specifically about Ryan Weathers.,2026-07-20T23:52:20.657148
+823762,strikeout_props,under,injury_news,"I found nothing material. The search results contain general season statistics and past performance commentary, but no recent news (from today or the last 2-3 days) about specific injury concerns, velocity drops, pitch count limits, or role changes ahead of Peralta's July 20 start.",2026-07-20T23:52:20.657149
+823762,strikeout_props,over,injury_news,"The Brewers are managing Misiorowski's workload carefully and have no plans to aggressively increase his usage, taking a careful approach with their young ace to ensure he remains healthy for the stretch run.",2026-07-20T23:52:20.657150
+824898,strikeout_props,under,injury_news,"Over his last four starts, Bryce Elder has averaged just over four innings with a 11.00 ERA and only 15 strikeouts against 7 walks",2026-07-20T23:52:20.657151
+824898,strikeout_props,under,injury_news,"I found nothing material in recent news about JP Sears's health, injury concerns, velocity drop, pitch count limits, or role changes ahead of his July 20 start. The available search results reference his earlier 2026 performance and general rotation uncertainty but contain no current alerts or updates from the last 2–3 days.",2026-07-20T23:52:20.657152
+824087,strikeout_props,over,injury_news,Let me search with more recent/specific terms for July 2026.,2026-07-20T23:52:20.657153
+824087,strikeout_props,under,injury_news,"I found no material news about Trevor McDonald's health, workload, or role concerns ahead of his July 20, 2026 start against Kansas City. The most recent search results confirm he is scheduled to start today but contain no reports of injury, velocity drop, pitch count limits, or role changes.",2026-07-20T23:52:20.657154
+822788,strikeout_props,over,injury_news,Let me search more specifically for news from the last few days in July 2026.,2026-07-20T23:52:20.657155
+822788,strikeout_props,under,injury_news,"I found no material news from today or the last 2-3 days regarding injury concerns, velocity drop, pitch count limits, or role changes for Nick Martinez ahead of his July 20 start. The search results are from earlier in the season (March-June 2026) and do not contain recent reporting on his health or workload status.",2026-07-20T23:52:20.657204
+822788,strikeout_props,under,injury_news,"I found no material news from today or the last 2-3 days regarding injury concerns, velocity drop, pitch count limits, or role changes for Nick Martinez ahead of his July 20 start. The search results are from earlier in the season (March-June 2026) and do not contain recent reporting on his health or workload status.",2026-07-20T23:52:20.657205
+824410,strikeout_props,under,injury_news,I'll search for recent news about Joe Ryan's health and workload status.,2026-07-20T23:52:20.657207
+824410,strikeout_props,under,injury_news,"I found no material recent news about injury concerns, velocity drop reports, or a role change for Tanner Bibee ahead of his July 20, 2026 start. One article from today mentions",2026-07-20T23:52:20.657208
+824736,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-20T23:52:22.233064
+824736,strikeout_props,over,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-20T23:52:22.233373
+824736,strikeout_props,over,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-20T23:52:22.233674
+823436,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-20T23:52:22.234001
+823522,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-20T23:52:22.234312
+823522,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-20T23:52:22.234622
+823762,strikeout_props,under,line_movement,Line moved toward the edge: -141 -> -130 -- sharp money agreeing since the flag.,2026-07-20T23:52:22.235054
+823762,strikeout_props,over,line_movement,Line moved against the edge: -110 -> +120 -- sharp money disagreeing since the flag.,2026-07-20T23:52:22.235401
+824898,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-20T23:52:22.235740
+824898,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-20T23:52:22.236001
+824087,strikeout_props,over,line_movement,"Line steady: +102 -> +102, no meaningful movement.",2026-07-20T23:52:22.236351
+824087,strikeout_props,under,line_movement,"Line steady: -152 -> -150, no meaningful movement.",2026-07-20T23:52:22.236683
+822788,strikeout_props,over,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-20T23:52:22.236975
+822788,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-20T23:52:22.237222
+822788,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-20T23:52:22.237479
+824410,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-20T23:52:22.237770
+824410,strikeout_props,under,line_movement,Line moved against the edge: +115 -> -170 -- sharp money disagreeing since the flag.,2026-07-20T23:52:22.238018
