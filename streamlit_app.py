@@ -124,10 +124,12 @@ def why_flagged(r: pd.Series) -> tuple[str, list[str]] | None:
                     f"a higher strikeout count than the market is pricing, so the {bet_side} looks "
                     f"undervalued on the margin.")
         elif "k9" in f["factor"]:
-            prose = (f"{short_name}'s trailing K/9 is {vs_avg} league average at {k9_3s:.1f}, "
+            k9_vs_avg = "above" if pd.notna(k9_3s) and k9_3s > LEAGUE_AVG_K9 else "below"
+            prose = (f"{short_name}'s trailing K/9 is {k9_vs_avg} league average at {k9_3s:.1f}, "
                     f"and the model factors this into a {bet_side} edge over market pricing.")
         elif f["factor"] == "opp_k":
-            prose = (f"The opposing lineup's strikeout rate is {vs_avg} league average, making them "
+            opp_vs_avg = "above" if pd.notna(opp_kpct) and opp_kpct > LEAGUE_AVG_TEAM_KPCT else "below"
+            prose = (f"The opposing lineup's strikeout rate is {opp_vs_avg} league average, making them "
                     f"a {('suitable matchup' if bet_side == 'over' else 'tough matchup')} for {short_name}. "
                     f"The model sees {bet_side} as the edge here.")
         else:
@@ -141,9 +143,11 @@ def why_flagged(r: pd.Series) -> tuple[str, list[str]] | None:
         if strongest["factor"] == "whiff":
             lead = f"{short_name}'s whiff rate has climbed to {whiff:.1f}%, the highest of his recent starts"
         elif "k9" in strongest["factor"]:
-            lead = f"{short_name}'s trailing K/9 is running {vs_avg} league average at {k9_3s:.1f}"
+            k9_vs_avg = "above" if pd.notna(k9_3s) and k9_3s > LEAGUE_AVG_K9 else "below"
+            lead = f"{short_name}'s trailing K/9 is running {k9_vs_avg} league average at {k9_3s:.1f}"
         elif strongest["factor"] == "opp_k":
-            lead = f"The opposing lineup strikes out at a {vs_avg}-league-average rate"
+            opp_vs_avg = "above" if pd.notna(opp_kpct) and opp_kpct > LEAGUE_AVG_TEAM_KPCT else "below"
+            lead = f"The opposing lineup strikes out at a {opp_vs_avg}-league-average rate"
         else:
             lead = f"Multiple factors align on the {bet_side}"
 
