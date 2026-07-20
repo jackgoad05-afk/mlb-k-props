@@ -5,4 +5,10 @@ pyarrow>=14.0
 python-dateutil>=2.8
 joblib>=1.3
 statsmodels>=0.14
-scikit-learn>=1.3
+scikit-learn==1.6.1  # pinned exact: model_ml.joblib uses HistGradientBoostingClassifier,
+                     # which pickles a reference to sklearn's private _loss module. That
+                     # module's internal layout isn't stable across releases, so an open
+                     # ">=" constraint let Actions' fresh Python 3.11 install resolve a
+                     # newer scikit-learn than the one the model was pickled with, breaking
+                     # joblib.load with "ModuleNotFoundError: No module named '_loss'".
+                     # 1.6.1 is confirmed to load the committed model_ml.joblib correctly.
