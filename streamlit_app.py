@@ -504,17 +504,37 @@ else:
         st.write("No predictions logged today.")
     else:
         for _, r in ml_today.iterrows():
-            with st.container(border=True):
-                c1, c2 = st.columns([3, 1])
-                with c1:
-                    st.markdown(f"**{r['predicted_winner']}**")
-                    st.caption(f"{r['away_team_name']} @ {r['home_team_name']}")
-                with c2:
-                    st.markdown(f"### {r['predicted_win_prob']:.1%}")
-                with st.expander("Why?"):
-                    for stat in str(r["why_stats"]).split(" | "):
-                        st.markdown(f"- {stat}")
-                    st.caption(r["why_summary"])
+            badge_class = edge_badge_class(r.get("predicted_edge", 0.05))  # Use edge if available, else default
+            away_team = r['away_team_name']
+            home_team = r['home_team_name']
+
+            st.markdown(f"""
+            <div class="flag-card">
+                <div class="flag-header">
+                    <div>
+                        <div class="pitcher-name">{r['predicted_winner']}</div>
+                        <div class="matchup">{away_team} @ {home_team}</div>
+                    </div>
+                    <div class="edge-badge {badge_class}">{r['predicted_win_prob']:.1%}</div>
+                </div>
+
+                <div style="font-size: 13px; color: #666; padding: 8px 0;">
+                    Straight-up pick based on team form, matchups, pitching quality, and ballpark
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+            why_stats = str(r.get("why_stats", "")).split(" | ") if pd.notna(r.get("why_stats")) else []
+            why_summary = str(r.get("why_summary", ""))
+            if why_stats or why_summary:
+                with st.expander("📖 Why?"):
+                    if why_summary:
+                        st.markdown(f'<div class="expander-prose">{why_summary}</div>', unsafe_allow_html=True)
+                    if why_stats and why_stats[0]:
+                        with st.expander("See the numbers", expanded=False):
+                            for stat in why_stats:
+                                if stat.strip():
+                                    st.markdown(f"- {stat}")
 
     st.subheader("Leaderboard: straight-up accuracy")
     ml_done = ml_ledger[ml_ledger["correct"].notna()].copy()
@@ -579,18 +599,32 @@ else:
         st.write("No edges flagged today.")
     else:
         for _, r in pm_today.iterrows():
-            with st.container(border=True):
-                c1, c2 = st.columns([3, 1])
-                with c1:
-                    team = r["home_team_name"] if r["side"] == "home" else r["away_team_name"]
-                    st.markdown(f"**{team}** ({r['market'].capitalize()})")
-                    st.caption(f"{r['away_team_name']} @ {r['home_team_name']}")
-                with c2:
-                    st.markdown(f"### +{r['edge']:.1%}")
-                st.markdown(f"model {r['model_prob']:.1%} vs. {r['market'].capitalize()} {r['pm_implied_prob']:.1%} "
-                            f"@ ${r['pm_price']:.2f}")
-                sb_txt = f"{r['sportsbook_prob']:.1%}" if pd.notna(r["sportsbook_prob"]) else "n/a"
-                st.caption(f"sportsbook consensus: {sb_txt} · ${r['depth_usd']:.0f} depth near quote")
+            badge_class = edge_badge_class(r['edge'])
+            team = r["home_team_name"] if r["side"] == "home" else r["away_team_name"]
+            market_name = r['market'].capitalize()
+
+            st.markdown(f"""
+            <div class="flag-card">
+                <div class="flag-header">
+                    <div>
+                        <div class="pitcher-name">{team} ({market_name})</div>
+                        <div class="matchup">{r['away_team_name']} @ {r['home_team_name']}</div>
+                    </div>
+                    <div class="edge-badge {badge_class}">+{r['edge']:.1%}</div>
+                </div>
+
+                <div class="odds-section">
+                    <div class="odds-label">{market_name} prediction market</div>
+                    <div class="odds-value">Model {r['model_prob']:.1%} vs. {market_name} {r['pm_implied_prob']:.1%} @ ${r['pm_price']:.2f}</div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div style="font-size: 13px; color: #666;">
+                    Sportsbook consensus: {"n/a" if pd.isna(r["sportsbook_prob"]) else f'{r["sportsbook_prob"]:.1%}'} · ${r['depth_usd']:.0f} depth near quote
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
     st.subheader("Ledger")
     pm_done = pm_ledger[pm_ledger["correct"].notna()].copy()
@@ -799,50 +833,64 @@ else:
         for _, gm in games_today.iterrows():
             game_rows = wnba_today[(wnba_today["home_team_name"] == gm["home_team_name"]) &
                                     (wnba_today["away_team_name"] == gm["away_team_name"])]
-            with st.container(border=True):
-                st.markdown(f"**{gm['away_team_name']} @ {gm['home_team_name']}**")
-                ml = game_rows[game_rows["market_type"] == "moneyline"]
-                home_row, away_row = ml[ml["side"] == "home"], ml[ml["side"] == "away"]
-                if len(home_row) and pd.notna(home_row.iloc[0]["model_prob"]):
-                    h, a = home_row.iloc[0], away_row.iloc[0]
-                    mkt_txt = (f"home {h['market_prob']:.1%} / away {a['market_prob']:.1%}"
-                               if pd.notna(h["market_prob"]) else "n/a")
-                    flagged_side = "home" if h["flagged"] else ("away" if a["flagged"] else None)
-                    flag_txt = f" 🚩 edge on {flagged_side}" if flagged_side else ""
-                    st.markdown(f"Moneyline: model home {h['model_prob']:.1%} / away {a['model_prob']:.1%} "
-                                f"vs. market {mkt_txt}{flag_txt}")
-                    if flagged_side:
-                        why = why_wnba_moneyline(h if flagged_side == "home" else a, flagged_side)
-                        if why:
-                            prose, detail_lines = why
-                            team = h["home_team_name"] if flagged_side == "home" else h["away_team_name"]
-                            with st.expander(f"Why {team}?"):
-                                st.markdown(prose)
-                                if detail_lines:
-                                    with st.expander("See the numbers", expanded=False):
-                                        for line_txt in detail_lines:
-                                            st.markdown(f"- {line_txt}")
-                totals = game_rows[(game_rows["market_type"] == "totals") & (game_rows["side"] == "over")]
-                if len(totals) and pd.notna(totals.iloc[0]["line"]):
-                    t = totals.iloc[0]
-                    under_row = game_rows[(game_rows["market_type"] == "totals") & (game_rows["side"] == "under")]
-                    under_flagged = len(under_row) and bool(under_row.iloc[0]["flagged"])
-                    mkt_txt = f"{t['market_prob']:.1%}" if pd.notna(t["market_prob"]) else "n/a"
-                    flagged_side = "over" if t["flagged"] else ("under" if under_flagged else None)
-                    flag_txt = f" 🚩 edge on {flagged_side}" if flagged_side else ""
-                    st.markdown(f"Total {t['line']}: model {t['model_prob']:.1%} over vs. market {mkt_txt}{flag_txt}")
-                    if flagged_side:
-                        why = why_wnba_totals(t, flagged_side)
-                        if why:
-                            prose, detail_lines = why
-                            with st.expander(f"Why {flagged_side} {t['line']}?"):
-                                st.markdown(prose)
-                                if detail_lines:
-                                    with st.expander("See the numbers", expanded=False):
-                                        for line_txt in detail_lines:
-                                            st.markdown(f"- {line_txt}")
-                if not (len(home_row) and pd.notna(home_row.iloc[0]["model_prob"])) and not len(totals):
-                    st.caption("No market line matched yet today.")
+
+            # Render as single game card containing moneyline + totals
+            st.markdown(f"""
+            <div class="flag-card">
+                <div class="flag-header">
+                    <div class="pitcher-info">
+                        <div class="pitcher-name">{gm['away_team_name']}</div>
+                        <div class="matchup">@ {gm['home_team_name']}</div>
+                    </div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+            ml = game_rows[game_rows["market_type"] == "moneyline"]
+            home_row, away_row = ml[ml["side"] == "home"], ml[ml["side"] == "away"]
+            if len(home_row) and pd.notna(home_row.iloc[0]["model_prob"]):
+                h, a = home_row.iloc[0], away_row.iloc[0]
+                mkt_txt = (f"home {h['market_prob']:.1%} / away {a['market_prob']:.1%}"
+                           if pd.notna(h["market_prob"]) else "n/a")
+                flagged_side = "home" if h["flagged"] else ("away" if a["flagged"] else None)
+                flag_emoji = " 🚩" if flagged_side else ""
+                st.markdown(f"**Moneyline{flag_emoji}** — model home {h['model_prob']:.1%} / away {a['model_prob']:.1%} vs. market {mkt_txt}")
+                if flagged_side:
+                    why = why_wnba_moneyline(h if flagged_side == "home" else a, flagged_side)
+                    if why:
+                        prose, detail_lines = why
+                        team = h["home_team_name"] if flagged_side == "home" else h["away_team_name"]
+                        with st.expander(f"📖 Why {team}?"):
+                            st.markdown(f'<div class="expander-prose">{prose}</div>', unsafe_allow_html=True)
+                            if detail_lines:
+                                with st.expander("See the numbers", expanded=False):
+                                    for line_txt in detail_lines:
+                                        st.markdown(f"- {line_txt}")
+
+            totals = game_rows[(game_rows["market_type"] == "totals") & (game_rows["side"] == "over")]
+            if len(totals) and pd.notna(totals.iloc[0]["line"]):
+                t = totals.iloc[0]
+                under_row = game_rows[(game_rows["market_type"] == "totals") & (game_rows["side"] == "under")]
+                under_flagged = len(under_row) and bool(under_row.iloc[0]["flagged"])
+                mkt_txt = f"{t['market_prob']:.1%}" if pd.notna(t["market_prob"]) else "n/a"
+                flagged_side = "over" if t["flagged"] else ("under" if under_flagged else None)
+                flag_emoji = " 🚩" if flagged_side else ""
+                st.markdown(f"**Total {t['line']}{flag_emoji}** — model {t['model_prob']:.1%} over vs. market {mkt_txt}")
+                if flagged_side:
+                    why = why_wnba_totals(t, flagged_side)
+                    if why:
+                        prose, detail_lines = why
+                        with st.expander(f"📖 Why {flagged_side} {t['line']}?"):
+                            st.markdown(f'<div class="expander-prose">{prose}</div>', unsafe_allow_html=True)
+                            if detail_lines:
+                                with st.expander("See the numbers", expanded=False):
+                                    for line_txt in detail_lines:
+                                        st.markdown(f"- {line_txt}")
+
+            if not (len(home_row) and pd.notna(home_row.iloc[0]["model_prob"])) and not len(totals):
+                st.caption("No market line matched yet today.")
+
+            st.divider()
 
     st.subheader("Ledger (flagged bets only)")
     wnba_flagged = wnba_ledger[wnba_ledger["flagged"] == True].copy()  # noqa: E712
