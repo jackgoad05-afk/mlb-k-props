@@ -47,6 +47,7 @@ def _html(s: str) -> str:
 LEAGUE_AVG_K9 = 8.5
 LEAGUE_AVG_WHIFF_PCT = 25.0
 LEAGUE_AVG_TEAM_KPCT = 0.22
+LEAGUE_AVG_IP_PER_START = 5.1
 STANDARD_REST_DAYS = 5
 RESEARCH_NOTES_PATH = ROOT / "output" / "research_agents_notes.csv"
 
@@ -91,67 +92,86 @@ def why_flagged(r: pd.Series) -> tuple[str, list[str]] | None:
     available via a toggle. Returns (prose_narrative, stat_detail_lines) or None
     if this row predates the columns being captured.
 
-    Prose narrative:
-    - Leads with the strongest directional factor
-    - Explains why it matters (mechanism, not just the number)
-    - Connects related factors naturally
-    - Works in mixed signals and cautions as prose, not disclaimers
-    - Only cites factors pointing the same direction as the bet
+    Discipline (do not weaken -- see CLAUDE.md): a factor is only ever cited as
+    SUPPORTING evidence for the bet's direction if it genuinely points that way.
+    Whiff% specifically is treated as an OVER-ONLY signal -- a below-average whiff
+    rate is real information (shown in "see the numbers") but is never cited as
+    evidence for an under, since "misses fewer bats than average" is a much
+    weaker basis for "will strike out fewer batters" than the pitcher's own
+    trailing K/9 or his projected workload (trail_ip_per_start) are. No factor
+    ever gets trend language ("climbed", "trending") unless a real trend was
+    actually computed -- only K/9 has real 3-start-vs-30-day trend data; whiff,
+    opponent K%, and exposure are snapshot comparisons to league average only.
+
+    If the pitcher's own rate stats (K/9, whiff) point the OPPOSITE way from the
+    bet while something else (exposure, opponent) is doing the real supporting
+    work, the prose says so honestly ("the model likes the X mainly on Y, even
+    though Z points the other way") instead of citing the contradictory stat as
+    if it agreed, or silently omitting the contradiction.
     """
-    why_cols = ["trail_k_per9_3s", "trail_k_per9_30d", "season_lag_whiff_pct", "opp_off_kpct", "days_rest", "mu"]
-    if r[why_cols].isna().all():
+    why_cols = ["trail_k_per9_3s", "trail_k_per9_30d", "season_lag_whiff_pct", "opp_off_kpct",
+                "trail_ip_per_start", "days_rest", "mu"]
+    if r.reindex(why_cols).isna().all():
         return None
 
     bet_side = r["bet_side"]
     short_name = r["name"].split()[-1]
 
-    # Collect all factors with direction and supporting data
-    factors = []  # list of dicts: {"factor": name, "direction": "over"/"under", "strength": score, "detail": text}
+    # factors: {"factor", "category" ("rate"/"exposure"/"opponent"), "direction", "strength"}
+    factors = []
     detail_lines = []
 
+    # --- K/9 (pitcher's own rate, has real 3-start-vs-30-day trend data) ---
     k9_3s, k9_30d = r.get("trail_k_per9_3s"), r.get("trail_k_per9_30d")
+    k9_vs_avg, k9_trend = None, None
     if pd.notna(k9_3s):
-        trend = None
         if pd.notna(k9_30d):
             if k9_3s > k9_30d + 0.3:
-                trend = "up"
+                k9_trend = "up"
             elif k9_3s < k9_30d - 0.3:
-                trend = "down"
-        vs_avg = "above" if k9_3s > LEAGUE_AVG_K9 else "below"
-        trend_note = f", trending {trend} from his 30-day rate of {k9_30d:.1f}" if trend else ""
-        detail_lines.append(f"Rolling K/9 (last 3 starts): **{k9_3s:.1f}** ({vs_avg}-average{trend_note})")
+                k9_trend = "down"
+        k9_vs_avg = "above" if k9_3s > LEAGUE_AVG_K9 else "below"
+        trend_note = f", trending {k9_trend} from his 30-day rate of {k9_30d:.1f}" if k9_trend else ""
+        detail_lines.append(f"Rolling K/9 (last 3 starts): **{k9_3s:.1f}** ({k9_vs_avg}-average{trend_note})")
+        if k9_trend == "down" or k9_3s < LEAGUE_AVG_K9:
+            factors.append({"factor": "k9_low", "category": "rate", "direction": "under",
+                           "strength": 2 if k9_trend == "down" else 1})
+        if k9_trend == "up" or k9_3s > LEAGUE_AVG_K9:
+            factors.append({"factor": "k9_high", "category": "rate", "direction": "over",
+                           "strength": 2 if k9_trend == "up" else 1})
 
-        if trend == "down" or k9_3s < LEAGUE_AVG_K9:
-            factors.append({"factor": "k9_low", "direction": "under", "strength": 1,
-                           "detail": f"his K/9 is {vs_avg} league average"})
-        if trend == "up" or k9_3s > LEAGUE_AVG_K9:
-            factors.append({"factor": "k9_high", "direction": "over", "strength": 2 if trend else 1,
-                           "detail": f"his K/9 is {vs_avg} league average" + (f" and trending {trend}" if trend else "")})
-
+    # --- Whiff% -- over-only signal, no trend data, never claim "climbed" ---
     whiff = r.get("season_lag_whiff_pct")
     if pd.notna(whiff):
-        vs_avg = "above" if whiff > LEAGUE_AVG_WHIFF_PCT else "below"
-        detail_lines.append(f"Whiff%: **{whiff:.1f}%** ({vs_avg}-average)")
-        direction = "over" if whiff > LEAGUE_AVG_WHIFF_PCT else "under"
-        factors.append({"factor": "whiff", "direction": direction, "strength": 2,
-                       "detail": f"whiff rate {vs_avg} league average at {whiff:.1f}%"})
+        whiff_vs_avg = "above" if whiff > LEAGUE_AVG_WHIFF_PCT else "below"
+        detail_lines.append(f"Whiff%: **{whiff:.1f}%** ({whiff_vs_avg}-average)")
+        if whiff > LEAGUE_AVG_WHIFF_PCT:
+            factors.append({"factor": "whiff", "category": "rate", "direction": "over", "strength": 2})
+        # below-average whiff is shown in the numbers but never cited as under-support
 
+    # --- Opponent K% vs. his hand (genuinely bidirectional) ---
     opp_kpct = r.get("opp_off_kpct")
+    opp_vs_avg = None
     if pd.notna(opp_kpct):
-        vs_avg = "above" if opp_kpct > LEAGUE_AVG_TEAM_KPCT else "below"
-        detail_lines.append(f"Opponent K% vs. his hand: **{opp_kpct:.1%}** ({vs_avg}-average)")
-        if opp_kpct < LEAGUE_AVG_TEAM_KPCT:
-            factors.append({"factor": "opp_k", "direction": "under", "strength": 1,
-                           "detail": "the opposing lineup makes contact at above-average rate"})
-        else:
-            factors.append({"factor": "opp_k", "direction": "over", "strength": 1,
-                           "detail": "the opposing lineup strikes out at above-average rate"})
+        opp_vs_avg = "above" if opp_kpct > LEAGUE_AVG_TEAM_KPCT else "below"
+        detail_lines.append(f"Opponent K% vs. his hand: **{opp_kpct:.1%}** ({opp_vs_avg}-average)")
+        direction = "under" if opp_kpct < LEAGUE_AVG_TEAM_KPCT else "over"
+        factors.append({"factor": "opp_k", "category": "opponent", "direction": direction, "strength": 1})
+
+    # --- Projected exposure (trail_ip_per_start) -- the real short/long-outing signal ---
+    ip_per_start = r.get("trail_ip_per_start")
+    ip_vs_avg = None
+    if pd.notna(ip_per_start):
+        ip_vs_avg = "above" if ip_per_start > LEAGUE_AVG_IP_PER_START else "below"
+        detail_lines.append(f"Trailing IP/start: **{ip_per_start:.1f}** ({ip_vs_avg}-average)")
+        direction = "under" if ip_per_start < LEAGUE_AVG_IP_PER_START else "over"
+        factors.append({"factor": "exposure", "category": "exposure", "direction": direction, "strength": 2})
 
     rest = r.get("days_rest")
     if pd.notna(rest):
-        note = "standard rest" if rest == STANDARD_REST_DAYS else (
+        rest_note = "standard rest" if rest == STANDARD_REST_DAYS else (
             "extended rest" if rest > STANDARD_REST_DAYS else "short rest")
-        detail_lines.append(f"Rest: **{rest:.0f} days** ({note})")
+        detail_lines.append(f"Rest: **{rest:.0f} days** ({rest_note})")
 
     mu, line = r.get("mu"), r.get("line")
     if pd.notna(mu):
@@ -159,64 +179,62 @@ def why_flagged(r: pd.Series) -> tuple[str, list[str]] | None:
         detail_lines.append(f"Model projects **{mu:.1f}** strikeouts vs. a line of **{line}** "
                            f"({side_prob:.0%} on the {bet_side})")
 
-    # Build prose narrative from factors pointing the same direction as the bet
-    matching = [f for f in factors if f["direction"] == bet_side]
-    matching = sorted(matching, key=lambda x: x["strength"], reverse=True)  # strongest first
-
-    rate_factors = [f for f in factors if f["factor"] in ("k9_high", "k9_low", "whiff")]
-    rate_matching = [f for f in rate_factors if f["direction"] == bet_side]
-    rate_opposite = [f for f in rate_factors if f["direction"] != bet_side]
-
-    # Generate prose
-    if not matching:
-        prose = (f"{short_name}'s edge relies on the model's overall projection "
-                f"clears the {bet_side} threshold more than the market prices.")
-    elif len(matching) == 1:
-        f = matching[0]
+    def lead_for(f: dict) -> str:
+        if f["factor"] in ("k9_high", "k9_low"):
+            trend_txt = f", trending {k9_trend}" if k9_trend else ""
+            return f"{short_name}'s trailing K/9 is running {k9_vs_avg} league average at {k9_3s:.1f}{trend_txt}"
         if f["factor"] == "whiff":
-            prose = (f"{short_name}'s whiff rate has climbed to {whiff:.1f}%, well above league average, "
-                    f"which historically correlates with elevated strikeout production. The model projects "
-                    f"a higher strikeout count than the market is pricing, so the {bet_side} looks "
-                    f"undervalued on the margin.")
-        elif "k9" in f["factor"]:
-            k9_vs_avg = "above" if pd.notna(k9_3s) and k9_3s > LEAGUE_AVG_K9 else "below"
-            prose = (f"{short_name}'s trailing K/9 is {k9_vs_avg} league average at {k9_3s:.1f}, "
-                    f"and the model factors this into a {bet_side} edge over market pricing.")
-        elif f["factor"] == "opp_k":
-            opp_vs_avg = "above" if pd.notna(opp_kpct) and opp_kpct > LEAGUE_AVG_TEAM_KPCT else "below"
-            prose = (f"The opposing lineup's strikeout rate is {opp_vs_avg} league average, making them "
-                    f"a {('suitable matchup' if bet_side == 'over' else 'tough matchup')} for {short_name}. "
-                    f"The model sees {bet_side} as the edge here.")
+            return f"{short_name}'s whiff rate is above league average at {whiff:.1f}%"
+        if f["factor"] == "opp_k":
+            return f"the opposing lineup's strikeout rate vs. his hand is {opp_vs_avg} league average"
+        if f["factor"] == "exposure":
+            return f"{short_name} has been going {ip_vs_avg} league average in innings per start recently ({ip_per_start:.1f})"
+        return f"multiple factors align on the {bet_side}"
+
+    label_for = {"k9_high": "his trailing K/9", "k9_low": "his trailing K/9", "whiff": "his whiff rate",
+                 "opp_k": "the opponent's strikeout rate", "exposure": "his projected innings"}
+
+    matching = sorted([f for f in factors if f["direction"] == bet_side], key=lambda x: x["strength"], reverse=True)
+    rate_matching = [f for f in matching if f["category"] == "rate"]
+    rate_opposing = [f for f in factors if f["category"] == "rate" and f["direction"] != bet_side]
+
+    if not matching:
+        # Nothing genuinely supports this direction -- be honest about it, don't fabricate.
+        prose = (f"{short_name}'s edge relies on the model's overall projection "
+                f"clearing the {bet_side} threshold more than the market prices.")
+        if rate_opposing:
+            prose += (" Caution: the underlying rate stats actually point the other way — "
+                     "this edge relies mainly on the model's overall projection, not his recent form.")
+    elif not rate_matching and rate_opposing:
+        # The pitcher's own rate stats disagree with the pick, and nothing rate-based
+        # supports it either -- say plainly what IS driving it and name the contradiction.
+        support_labels = list(dict.fromkeys(label_for[f["factor"]] for f in matching))
+        support_desc = support_labels[0] if len(support_labels) == 1 else " and ".join(support_labels)
+        contra = rate_opposing[0]
+        if contra["factor"] in ("k9_high", "k9_low"):
+            contra_txt = f"{short_name}'s trailing K/9 ({k9_3s:.1f}) is actually running {k9_vs_avg} average"
         else:
-            prose = (f"The model sees {short_name} as a {bet_side} play based on {f['detail']}, "
-                    f"with an edge of {r['bet_edge']:.1%} vs. market pricing.")
+            contra_txt = f"{short_name}'s whiff rate ({whiff:.1f}%) actually points toward more strikeouts, not fewer"
+        prose = f"The model likes the {bet_side} mainly on {support_desc}, even though {contra_txt}."
+    elif len(matching) == 1:
+        prose = f"{lead_for(matching[0])[0].upper()}{lead_for(matching[0])[1:]}. The model factors this into the {bet_side} edge over market pricing."
     else:
-        # Multiple factors: lead with strongest, connect the dots
-        strongest = matching[0]
+        strongest, second = matching[0], matching[1]
+        second_txt = lead_for(second)
+        prose = (f"{lead_for(strongest)[0].upper()}{lead_for(strongest)[1:]}, and {second_txt}. "
+                f"Together these support the {bet_side}.")
 
-        if strongest["factor"] == "whiff":
-            lead = f"{short_name}'s whiff rate has climbed to {whiff:.1f}%, the highest of his recent starts"
-        elif "k9" in strongest["factor"]:
-            k9_vs_avg = "above" if pd.notna(k9_3s) and k9_3s > LEAGUE_AVG_K9 else "below"
-            lead = f"{short_name}'s trailing K/9 is running {k9_vs_avg} league average at {k9_3s:.1f}"
-        elif strongest["factor"] == "opp_k":
-            opp_vs_avg = "above" if pd.notna(opp_kpct) and opp_kpct > LEAGUE_AVG_TEAM_KPCT else "below"
-            lead = f"The opposing lineup strikes out at a {opp_vs_avg}-league-average rate"
+    # Honest mixed-signal note: fires whenever a rate stat genuinely disagrees with the
+    # pick, even if another rate stat (or something else) is doing real supporting work.
+    # The "not rate_matching and rate_opposing" case above already names the contradiction
+    # inline as part of a full-replacement sentence, so skip it here to avoid repeating.
+    if rate_matching and rate_opposing:
+        contra = rate_opposing[0]
+        if contra["factor"] in ("k9_high", "k9_low"):
+            contra_txt = f"his trailing K/9 ({k9_3s:.1f}) is actually running {k9_vs_avg} average"
         else:
-            lead = f"Multiple factors align on the {bet_side}"
-
-        if rest and pd.notna(rest):
-            rest_txt = f"with {rest:.0f} days rest" if rest > STANDARD_REST_DAYS else f"on {note}"
-            prose = (f"{lead}, {rest_txt}. Both work together to project higher strikeout production. "
-                    f"The model's {bet_side} edge here is real, though keep in mind "
-                    f"{'the rest advantage may not stick around for his next start.' if rest > STANDARD_REST_DAYS else 'short rest sometimes catches up.'}")
-        else:
-            prose = (f"{lead}. This is the real driver of the {bet_side} edge. "
-                    f"The model projects {short_name} for a {bet_side} strikeout count vs. how the market is priced.")
-
-    # Add caution if there are mixed signals
-    if rate_opposite and not rate_matching:
-        prose += " Caution: the underlying rate stats actually point the other way — the edge relies mainly on the model's overall projection, not on his recent form."
+            contra_txt = f"his whiff rate ({whiff:.1f}%) actually points the other way"
+        prose += f" One caution: {contra_txt}, so this isn't a clean sweep across every stat."
 
     return prose, detail_lines
 
@@ -715,6 +733,80 @@ with tab_ks:
                 st.caption("dots = each bet's CLV · line = running average CLV · dashed = break-even")
             elif len(with_clv) == 1:
                 st.caption("Need at least 2 reconciled bets with a captured closing line for a trend.")
+
+        # --------------------------------------------------------------------- #
+        # Research model -- separate pipeline (daily_research_ks.py), same edge
+        # threshold and reconciliation math, paper-tracked in its own ledger for
+        # a real head-to-head comparison against the stats-only model above.
+        # --------------------------------------------------------------------- #
+        st.divider()
+        st.subheader("🔬 Research Model")
+        st.caption("Same edge threshold and reconciliation math as the stats model above, but each pick "
+                   "also factors in a live web-searched review of pitcher/opponent news (see "
+                   "daily_research_ks.py). Paper/tracking only -- a real head-to-head test, not a "
+                   "replacement for the stats-only model.")
+
+        research_daily_path = ROOT / "output" / "research_ks_daily.csv"
+        research_ledger_path = ROOT / "output" / "research_ks_ledger.csv"
+
+        if not research_daily_path.exists():
+            st.caption("No research-model predictions yet -- check back after the pipeline runs.")
+        else:
+            research_daily = pd.read_csv(research_daily_path)
+            research_today = research_daily[research_daily["date"] == today_str].sort_values(
+                "bet_edge", ascending=False)
+
+            if research_today.empty:
+                st.write("No research picks today.")
+            else:
+                for _, r in research_today.iterrows():
+                    flag_txt = " 🚩" if r["bet_edge"] >= 0.03 else ""
+                    st.markdown(f"**{r['name']}** vs {r['opponent_name']}{flag_txt} — "
+                                f"projects **{r['projected_strikeouts']:.1f}** Ks vs. line {r['line']}, "
+                                f"leans **{r['bet_side']}** (edge {r['bet_edge']:+.1%})")
+                    with st.expander("📖 Research reasoning"):
+                        st.markdown(f'<div class="expander-prose">{r["reasoning"]}</div>', unsafe_allow_html=True)
+
+        st.markdown("**Stats model vs. research model**")
+        if not LEDGER_PATH.exists() or not research_ledger_path.exists():
+            st.caption("Need both ledgers with reconciled results for a side-by-side comparison.")
+        else:
+            stats_ledger_cmp = pd.read_csv(LEDGER_PATH)
+            stats_ledger_cmp["result"] = stats_ledger_cmp["result"].astype("object")
+            stats_done_cmp = stats_ledger_cmp[stats_ledger_cmp["result"].notna()]
+
+            research_ledger_cmp = pd.read_csv(research_ledger_path)
+            research_ledger_cmp["result"] = research_ledger_cmp["result"].astype("object")
+            research_done_cmp = research_ledger_cmp[research_ledger_cmp["result"].notna()]
+
+            def cmp_stats(df: pd.DataFrame) -> dict:
+                if df.empty:
+                    return {"n": 0, "record": "0-0-0", "roi": float("nan"), "avg_clv": float("nan"), "clv_n": 0}
+                n = len(df)
+                w = int((df["result"] == df["bet_side"]).sum())
+                l_ = int((df["pnl"] < 0).sum())
+                p = int((df["result"] == "push").sum())
+                clv = df["clv"].dropna()
+                return {"n": n, "record": f"{w}-{l_}-{p}", "roi": df["pnl"].sum() / n,
+                        "avg_clv": clv.mean() if len(clv) else float("nan"), "clv_n": len(clv)}
+
+            s_stats, r_stats = cmp_stats(stats_done_cmp), cmp_stats(research_done_cmp)
+
+            cs, cr = st.columns(2)
+            with cs:
+                st.markdown("*Stats-only*")
+                st.metric("Record", s_stats["record"])
+                st.metric("ROI", f"{s_stats['roi']:+.1%}" if s_stats["n"] else "n/a")
+                st.metric("Avg CLV", f"{s_stats['avg_clv']:+.2%}" if s_stats["clv_n"] else "n/a")
+            with cr:
+                st.markdown("*Stats + research*")
+                st.metric("Record", r_stats["record"])
+                st.metric("ROI", f"{r_stats['roi']:+.1%}" if r_stats["n"] else "n/a")
+                st.metric("Avg CLV", f"{r_stats['avg_clv']:+.2%}" if r_stats["clv_n"] else "n/a")
+
+            if s_stats["n"] == 0 or r_stats["n"] == 0:
+                st.caption("At least one side has no reconciled bets yet -- comparison will fill in as "
+                           "both ledgers accumulate results.")
 
 # =============================================================================== #
 # Moneyline predictions (separate model, pure prediction -- no odds as an input, no

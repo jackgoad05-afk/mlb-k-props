@@ -195,8 +195,14 @@ def run(target_date: date, dry_run: bool):
     matched["bet_side"] = np.where(matched["edge"] >= matched["under_edge"], "over", "under")
     matched["bet_edge"] = np.where(matched["bet_side"] == "over", matched["edge"], matched["under_edge"])
 
+    # game_pk/event_id and the raw feature columns are purely additive here -- not used by
+    # the stats model's own scoring/flagging/ledger at all, just persisted so a separate
+    # consumer (daily_research_ks.py) can reuse this file's already-fetched market data
+    # instead of re-pulling odds (real Odds API quota) or re-deriving game identifiers.
     daily_matched = matched[["mlbID", "name", "opponent_name", "line", "model_p_over", "over_prob_fair",
-                              "over_odds", "under_odds", "n_books"]].copy()
+                              "over_odds", "under_odds", "n_books", "game_pk", "event_id",
+                              "trail_k_per9_3s", "trail_k_per9_30d", "season_lag_whiff_pct",
+                              "opp_off_kpct", "trail_ip_per_start", "days_rest", "mu"]].copy()
     daily_matched.insert(0, "date", target_date.isoformat())
     daily_matched.to_csv(DAILY_MATCHED_PATH, index=False)
 
@@ -208,7 +214,7 @@ def run(target_date: date, dry_run: bool):
                             "over_odds", "under_odds", "n_books"]].to_string(index=False))
 
     WHY_COLS = ["trail_k_per9_3s", "trail_k_per9_30d", "season_lag_whiff_pct", "opp_off_kpct",
-                "days_rest", "mu"]
+                "trail_ip_per_start", "days_rest", "mu"]
     ledger_rows = flagged[["mlbID", "game_pk", "event_id", "name", "opponent_name", "line", "bet_side",
                             "bet_edge", "model_p_over", "over_prob_fair", "over_odds", "under_odds",
                             "n_books"] + WHY_COLS].copy()
