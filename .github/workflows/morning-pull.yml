@@ -41,6 +41,17 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: python src/daily_ml.py
 
+      - name: Run daily_pm.py
+        continue-on-error: true  # same reasoning -- prediction-market comparison is a
+                                  # separate paper experiment, never block the real
+                                  # K-props/moneyline outputs from committing
+        timeout-minutes: 10  # backstop: up to ~80 sequential per-row order-book calls
+                              # to Polymarket/Kalshi, some of which are genuinely slow
+                              # (see fetch_prediction_markets.py's _get timeout comment)
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python src/daily_pm.py
+
       - name: Commit and push outputs
         run: |
           git config user.name "github-actions[bot]"
@@ -49,6 +60,7 @@ jobs:
                        data/raw/schedule_2026.csv \
                        output/ks_paper_ledger.csv output/odds_api_usage.csv \
                        output/ks_daily_scores.csv output/ks_daily_matched.csv \
-                       output/ml_predictions_ledger.csv output/ml_market_comparison.csv 2>/dev/null)
+                       output/ml_predictions_ledger.csv output/ml_market_comparison.csv \
+                       output/pm_paper_ledger.csv output/pm_daily_matched.csv 2>/dev/null)
           git diff --staged --quiet || git commit -m "Morning pull: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push

@@ -143,15 +143,16 @@ def match_polymarket_totals(games: pd.DataFrame, target_date: date) -> list[dict
 
 
 def add_polymarket_depth(rows: list[dict]) -> None:
-    for r in rows:
-        if r["market"] != "polymarket":
-            continue
+    pm_rows = [r for r in rows if r["market"] == "polymarket"]
+    for i, r in enumerate(pm_rows):
         try:
             book = pmkt.get_polymarket_orderbook(r["_token_id"])
             r["depth_usd"] = pmkt.usd_depth_polymarket(book, "asks", r["pm_price"], SLIPPAGE)
         except Exception as e:
             print(f"[warn] Polymarket orderbook fetch failed for token {r['_token_id']}: {e}")
             r["depth_usd"] = np.nan
+        if (i + 1) % 10 == 0 or (i + 1) == len(pm_rows):
+            print(f"  ... Polymarket depth {i + 1}/{len(pm_rows)}")
 
 
 # ---------------------------------------------------------------------------
@@ -215,9 +216,8 @@ def match_kalshi_totals(games: pd.DataFrame, target_date: date, abbrev_map: dict
 
 
 def add_kalshi_depth(rows: list[dict]) -> None:
-    for r in rows:
-        if r["market"] != "kalshi":
-            continue
+    kalshi_rows = [r for r in rows if r["market"] == "kalshi"]
+    for i, r in enumerate(kalshi_rows):
         try:
             ob = pmkt.get_kalshi_orderbook(r["_ticker"])["orderbook_fp"]
             opposite = ob.get("no_dollars") or []  # buying YES draws on resting NO bids
@@ -225,6 +225,8 @@ def add_kalshi_depth(rows: list[dict]) -> None:
         except Exception as e:
             print(f"[warn] Kalshi orderbook fetch failed for {r['_ticker']}: {e}")
             r["depth_usd"] = np.nan
+        if (i + 1) % 10 == 0 or (i + 1) == len(kalshi_rows):
+            print(f"  ... Kalshi depth {i + 1}/{len(kalshi_rows)}")
 
 
 # ---------------------------------------------------------------------------

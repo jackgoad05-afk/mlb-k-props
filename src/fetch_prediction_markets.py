@@ -33,8 +33,18 @@ KALSHI_MONEYLINE_SERIES = "KXMLBGAME"
 KALSHI_TOTALS_SERIES = "KXMLBTOTAL"
 
 
-def _get(url: str, params: dict | None = None) -> dict | list:
-    r = requests.get(url, params=params or {}, timeout=30)
+def _get(url: str, params: dict | None = None, timeout: int = 3) -> dict | list:
+    """3s default, not 30s: order-book depth lookups run once per matched row
+    (up to ~80/day across Polymarket+Kalshi, all sequential, no batching). Timed
+    responses are bimodal -- either ~0.2-0.3s or effectively hung until whatever
+    timeout is set (confirmed: one token took 30.2s with a 30s timeout, no
+    intermediate latencies observed) -- so a short timeout costs nothing on the
+    fast path and caps the slow path tightly. With the old 30s default this was
+    ~20+ minutes worst case for one daily_pm.py run. daily_pm.py's
+    add_polymarket_depth/add_kalshi_depth already catch exceptions per-row and
+    fall back to depth_usd=NaN (filtered out by the >= MIN_DEPTH_USD flag gate
+    anyway), so failing fast on a slow row is strictly better than blocking on it."""
+    r = requests.get(url, params=params or {}, timeout=timeout)
     r.raise_for_status()
     return r.json()
 
