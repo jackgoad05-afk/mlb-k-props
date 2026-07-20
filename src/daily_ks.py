@@ -220,6 +220,7 @@ def run(target_date: date, dry_run: bool):
 
     if LEDGER_PATH.exists():
         existing = pd.read_csv(LEDGER_PATH)
+        existing = existing[existing["date"] != target_date.isoformat()]
         ledger_rows = pd.concat([existing, ledger_rows], ignore_index=True)
     ledger_rows.to_csv(LEDGER_PATH, index=False)
     print(f"\nledger updated: {LEDGER_PATH} ({len(ledger_rows)} total rows)")
