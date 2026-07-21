@@ -50,3 +50,39 @@ game_id,market_type,side,agent,note,timestamp
 822788,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-20T23:52:22.237479
 824410,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-20T23:52:22.237770
 824410,strikeout_props,under,line_movement,Line moved against the edge: +115 -> -170 -- sharp money disagreeing since the flag.,2026-07-20T23:52:22.238018
+824409,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-21T18:30:58.591089
+822787,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-21T18:30:58.591098
+822787,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-21T18:30:58.591100
+823437,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-21T18:30:58.591102
+823519,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-21T18:30:58.591104
+823519,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-21T18:30:58.591106
+824085,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-21T18:30:58.591107
+824085,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-21T18:30:58.591111
+823760,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-21T18:30:58.591114
+823760,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-21T18:30:58.591116
+824735,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-21T18:30:58.591117
+824895,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-21T18:30:58.591119
+824409,strikeout_props,under,injury_news,"I found no material news about Parker Messick's health, workload, injury concerns, velocity issues, pitch count limits, or role changes in the last 2-3 days ahead of his July 21, 2026 start.",2026-07-21T18:31:44.180610
+822787,strikeout_props,under,injury_news,I found nothing material.,2026-07-21T18:31:44.180625
+822787,strikeout_props,over,injury_news,"I found no material news regarding Kevin Gausman's health, injury concerns, velocity issues, pitch count limits, or role changes ahead of his July 21, 2026 start against the Rays.",2026-07-21T18:31:44.180629
+823437,strikeout_props,over,injury_news,I'll search for recent news about Justin Wrobleski's health and status ahead of his start today.,2026-07-21T18:31:44.180631
+823519,strikeout_props,over,injury_news,"I found no material news about Bubba Chandler's health, workload concerns, velocity issues, pitch count limits, or role changes ahead of his July 21, 2026 start. The search results contain primarily historical information from 2025 and generic player profile pages, but nothing reporting recent concerns about his status for today's game.",2026-07-21T18:31:44.180633
+823519,strikeout_props,under,injury_news,"I found no material news regarding Will Warren's health, workload, injury concerns, velocity, pitch count limits, or role changes ahead of his start on July 21, 2026. The most recent source (from 1 day ago) is a July 2026 Yankees Magazine Q&A where he discusses staying healthy as a starter, but contains no specific concerns or warnings about his upcoming start.",2026-07-21T18:31:44.180636
+824085,strikeout_props,under,injury_news,"I found no material news from today or the last 2-3 days about Tyler Mahle ahead of a July 21, 2026 start. The most recent search results are from June 2026 and earlier, with no current updates on his health, workload, or role.",2026-07-21T18:31:44.180638
+824085,strikeout_props,under,injury_news,"I found no material news from today or the last 2-3 days about Tyler Mahle ahead of a July 21, 2026 start. The most recent search results are from June 2026 and earlier, with no current updates on his health, workload, or role.",2026-07-21T18:31:44.180639
+823760,strikeout_props,under,injury_news,"Based on my search of recent news, I found nothing material regarding injury concerns, velocity drops, pitch count limits, or role changes ahead of Sproat's July 21 start.",2026-07-21T18:31:44.180641
+823760,strikeout_props,under,injury_news,"Based on my search of recent news, I found nothing material regarding injury concerns, velocity drops, pitch count limits, or role changes ahead of Sproat's July 21 start.",2026-07-21T18:31:44.180643
+824735,strikeout_props,over,injury_news,"Based on recent reporting,",2026-07-21T18:31:44.180645
+824895,strikeout_props,under,injury_news,I found no material health or workload concerns reported for Walker Buehler ahead of his start today.,2026-07-21T18:31:44.180647
+824409,strikeout_props,under,line_movement,Line moved toward the edge: -153 -> -150 -- sharp money agreeing since the flag.,2026-07-21T18:31:45.131107
+822787,strikeout_props,under,line_movement,"Line steady: -135 -> -135, no meaningful movement.",2026-07-21T18:31:45.131905
+822787,strikeout_props,over,line_movement,"Line steady: +103 -> +103, no meaningful movement.",2026-07-21T18:31:45.132585
+823437,strikeout_props,over,line_movement,Line moved toward the edge: +100 -> -102 -- sharp money agreeing since the flag.,2026-07-21T18:31:45.133306
+823519,strikeout_props,over,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-21T18:31:45.133445
+823519,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-21T18:31:45.133518
+824085,strikeout_props,under,line_movement,Line moved toward the edge: +120 -> +123 -- sharp money agreeing since the flag.,2026-07-21T18:31:45.134195
+824085,strikeout_props,under,line_movement,"Line steady: -170 -> -170, no meaningful movement.",2026-07-21T18:31:45.134840
+823760,strikeout_props,under,line_movement,"Line steady: +124 -> +125, no meaningful movement.",2026-07-21T18:31:45.135586
+823760,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-21T18:31:45.136114
+824735,strikeout_props,over,line_movement,"Line steady: +110 -> +110, no meaningful movement.",2026-07-21T18:31:45.136678
+824895,strikeout_props,under,line_movement,"Line steady: +114 -> +115, no meaningful movement.",2026-07-21T18:31:45.137358
