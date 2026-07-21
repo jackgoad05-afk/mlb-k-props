@@ -767,9 +767,43 @@ with tab_ks:
                     with st.expander("📖 Research reasoning"):
                         st.markdown(f'<div class="expander-prose">{r["reasoning"]}</div>', unsafe_allow_html=True)
 
-        st.markdown("**Stats model vs. research model**")
-        if not LEDGER_PATH.exists() or not research_ledger_path.exists():
-            st.caption("Need both ledgers with reconciled results for a side-by-side comparison.")
+        # --------------------------------------------------------------------- #
+        # Article-based picks -- third pipeline (daily_article_picks.py). Pure
+        # article research, no stats-model numbers shown to Claude at all
+        # (contrast with the Research Model above, which explicitly blends the
+        # two). Narrowly scoped to the top TOP_N_GAMES games/day by K-props edge
+        # size, kept on the SAME specific (pitcher, line) the stats model
+        # flagged so this is a genuine same-bet comparison, not just a
+        # different pitcher entirely.
+        # --------------------------------------------------------------------- #
+        st.divider()
+        st.subheader("📰 Article-Based Picks")
+        st.caption("Pure web-searched article research on the top few games only (see "
+                   "daily_article_picks.py) -- Claude never sees the stats model's own numbers here, "
+                   "just news/previews. Same specific pitcher+line the stats model flagged, for a "
+                   "clean same-bet comparison. Paper/tracking only.")
+
+        article_ks_ledger_path = ROOT / "output" / "article_picks_ks_ledger.csv"
+        if not article_ks_ledger_path.exists():
+            st.caption("No article-based picks yet -- check back after the pipeline runs.")
+        else:
+            article_ks_ledger = pd.read_csv(article_ks_ledger_path)
+            article_ks_today = article_ks_ledger[article_ks_ledger["date"] == today_str]
+
+            if article_ks_today.empty:
+                st.write("No article-based picks today.")
+            else:
+                for _, r in article_ks_today.iterrows():
+                    agree_txt = " (agrees with stats model)" if r["bet_side"] == r["stats_model_side"] else \
+                                " (disagrees with stats model)"
+                    st.markdown(f"**{r['name']}** vs {r['opponent_name']} — leans **{r['bet_side']} {r['line']}** "
+                                f"strikeouts, confidence **{r['confidence']}**{agree_txt}")
+                    with st.expander("📖 Article reasoning"):
+                        st.markdown(f'<div class="expander-prose">{r["reasoning"]}</div>', unsafe_allow_html=True)
+
+        st.markdown("**Stats-only vs. stats+research vs. pure article**")
+        if not LEDGER_PATH.exists() or not research_ledger_path.exists() or not article_ks_ledger_path.exists():
+            st.caption("Need all three ledgers with reconciled results for a side-by-side comparison.")
         else:
             stats_ledger_cmp = pd.read_csv(LEDGER_PATH)
             stats_ledger_cmp["result"] = stats_ledger_cmp["result"].astype("object")
@@ -778,6 +812,10 @@ with tab_ks:
             research_ledger_cmp = pd.read_csv(research_ledger_path)
             research_ledger_cmp["result"] = research_ledger_cmp["result"].astype("object")
             research_done_cmp = research_ledger_cmp[research_ledger_cmp["result"].notna()]
+
+            article_ledger_cmp = pd.read_csv(article_ks_ledger_path)
+            article_ledger_cmp["result"] = article_ledger_cmp["result"].astype("object")
+            article_done_cmp = article_ledger_cmp[article_ledger_cmp["result"].notna()]
 
             def cmp_stats(df: pd.DataFrame) -> dict:
                 if df.empty:
@@ -790,23 +828,22 @@ with tab_ks:
                 return {"n": n, "record": f"{w}-{l_}-{p}", "roi": df["pnl"].sum() / n,
                         "avg_clv": clv.mean() if len(clv) else float("nan"), "clv_n": len(clv)}
 
-            s_stats, r_stats = cmp_stats(stats_done_cmp), cmp_stats(research_done_cmp)
+            s_stats = cmp_stats(stats_done_cmp)
+            r_stats = cmp_stats(research_done_cmp)
+            a_stats = cmp_stats(article_done_cmp)
 
-            cs, cr = st.columns(2)
-            with cs:
-                st.markdown("*Stats-only*")
-                st.metric("Record", s_stats["record"])
-                st.metric("ROI", f"{s_stats['roi']:+.1%}" if s_stats["n"] else "n/a")
-                st.metric("Avg CLV", f"{s_stats['avg_clv']:+.2%}" if s_stats["clv_n"] else "n/a")
-            with cr:
-                st.markdown("*Stats + research*")
-                st.metric("Record", r_stats["record"])
-                st.metric("ROI", f"{r_stats['roi']:+.1%}" if r_stats["n"] else "n/a")
-                st.metric("Avg CLV", f"{r_stats['avg_clv']:+.2%}" if r_stats["clv_n"] else "n/a")
+            cs, cr, ca = st.columns(3)
+            for col, label, stats in [(cs, "Stats-only", s_stats), (cr, "Stats + research", r_stats),
+                                       (ca, "Pure article", a_stats)]:
+                with col:
+                    st.markdown(f"*{label}*")
+                    st.metric("Record", stats["record"])
+                    st.metric("ROI", f"{stats['roi']:+.1%}" if stats["n"] else "n/a")
+                    st.metric("Avg CLV", f"{stats['avg_clv']:+.2%}" if stats["clv_n"] else "n/a")
 
-            if s_stats["n"] == 0 or r_stats["n"] == 0:
+            if min(s_stats["n"], r_stats["n"], a_stats["n"]) == 0:
                 st.caption("At least one side has no reconciled bets yet -- comparison will fill in as "
-                           "both ledgers accumulate results.")
+                           "all three ledgers accumulate results.")
 
 # =============================================================================== #
 # Moneyline predictions (separate model, pure prediction -- no odds as an input, no
@@ -897,6 +934,55 @@ with tab_ml:
                     gridColor="#2c2c2a", labelColor="#c3c2b7", titleColor="#c3c2b7"
                 ).configure_view(strokeWidth=0)
                 st.altair_chart(chart, use_container_width=True)
+
+    # ----------------------------------------------------------------------- #
+    # Article-based moneyline picks -- daily_article_picks.py's second output.
+    # Unlike the stats-only model above, this ledger DOES track real PnL/CLV --
+    # these are article-driven judgment calls on the same top few games the
+    # K-props article picks cover, meant to be compared head-to-head against
+    # the other ledgers, not a market-comparison-free straight-up tracker.
+    # ----------------------------------------------------------------------- #
+    st.divider()
+    st.subheader("📰 Article-Based Moneyline Picks")
+    st.caption("Pure web-searched article research on the same top few games as the K-props article "
+               "picks (see daily_article_picks.py) -- real PnL/CLV tracked here, unlike the stats-only "
+               "model above. Paper/tracking only.")
+
+    article_ml_ledger_path = ROOT / "output" / "article_picks_ml_ledger.csv"
+    if not article_ml_ledger_path.exists():
+        st.caption("No article-based moneyline picks yet -- check back after the pipeline runs.")
+    else:
+        article_ml_ledger = pd.read_csv(article_ml_ledger_path)
+        article_ml_ledger["result"] = article_ml_ledger["result"].astype("object")
+        article_ml_today = article_ml_ledger[article_ml_ledger["date"] == today_str]
+
+        st.markdown("**Today's picks**")
+        if article_ml_today.empty:
+            st.write("No article-based moneyline picks today.")
+        else:
+            for _, r in article_ml_today.iterrows():
+                pick_team = r["home_team_name"] if r["bet_side"] == "home" else r["away_team_name"]
+                st.markdown(f"**{r['away_team_name']} @ {r['home_team_name']}** — picks **{pick_team}** "
+                            f"to win, confidence **{r['confidence']}**")
+                with st.expander("📖 Article reasoning"):
+                    st.markdown(f'<div class="expander-prose">{r["reasoning"]}</div>', unsafe_allow_html=True)
+
+        article_ml_done = article_ml_ledger[article_ml_ledger["result"].notna()].copy()
+        article_ml_pending = int(article_ml_ledger["result"].isna().sum())
+        st.caption(f"{len(article_ml_ledger)} total picks · {len(article_ml_done)} reconciled · "
+                   f"{article_ml_pending} pending")
+
+        if article_ml_done.empty:
+            st.info("No reconciled picks yet -- results fill in after games finish.")
+        else:
+            n = len(article_ml_done)
+            w = int((article_ml_done["result"] == article_ml_done["bet_side"]).sum())
+            roi = article_ml_done["pnl"].sum() / n
+            clv = article_ml_done["clv"].dropna()
+            c1, c2, c3 = st.columns(3)
+            c1.metric("Record", f"{w}-{n - w}")
+            c2.metric("ROI", f"{roi:+.1%}")
+            c3.metric("Avg CLV", f"{clv.mean():+.2%}" if len(clv) else "n/a")
 
 # =============================================================================== #
 # Prediction markets (Polymarket + Kalshi vs. model_ml, sportsbook line shown side by

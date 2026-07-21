@@ -44,6 +44,16 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python src/daily_research_ks.py
 
+      - name: Run daily_article_picks.py
+        continue-on-error: true  # separate parallel experiment (pure article-based
+                                  # picks, top 3-4 games only), never block committing
+                                  # daily_ks.py's real stats-model flags
+        timeout-minutes: 10  # up to 4 sequential Claude calls with web search enabled
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}  # needed for the moneyline h2h bulk pull
+        run: python src/daily_article_picks.py
+
       - name: Run daily_ml.py
         continue-on-error: true  # moneyline is paper/tracking only (already failed its
                                   # kill criteria, see CLAUDE.md) -- never let it block
@@ -72,6 +82,7 @@ jobs:
                        output/ks_paper_ledger.csv output/odds_api_usage.csv \
                        output/ks_daily_scores.csv output/ks_daily_matched.csv \
                        output/research_ks_daily.csv output/research_ks_ledger.csv \
+                       output/article_picks_ks_ledger.csv output/article_picks_ml_ledger.csv \
                        output/ml_predictions_ledger.csv output/ml_market_comparison.csv \
                        output/pm_paper_ledger.csv output/pm_daily_matched.csv 2>/dev/null)
           git diff --staged --quiet || git commit -m "Morning pull: $(date -u +%Y-%m-%dT%H:%M:%SZ)"

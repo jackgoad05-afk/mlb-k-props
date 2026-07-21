@@ -44,6 +44,22 @@ jobs:
         continue-on-error: true
         run: python src/reconcile_research_ks.py summary --by-tier
 
+      - name: Run reconcile_article_picks_ks.py
+        continue-on-error: true
+        run: python src/reconcile_article_picks_ks.py reconcile
+
+      - name: Print running summary (shows in the Actions log)
+        continue-on-error: true
+        run: python src/reconcile_article_picks_ks.py summary
+
+      - name: Run reconcile_article_picks_ml.py
+        continue-on-error: true
+        run: python src/reconcile_article_picks_ml.py reconcile
+
+      - name: Print running summary (shows in the Actions log)
+        continue-on-error: true
+        run: python src/reconcile_article_picks_ml.py summary
+
       - name: Run reconcile_ml.py
         continue-on-error: true  # same reasoning as morning-pull.yml: don't let the
                                   # unrelated moneyline reconciliation block committing
@@ -69,6 +85,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add $(ls data/raw/pitcher_gamelogs_*.csv output/ks_paper_ledger.csv \
                        output/research_ks_ledger.csv \
+                       output/article_picks_ks_ledger.csv output/article_picks_ml_ledger.csv \
                        output/ml_predictions_ledger.csv output/pm_paper_ledger.csv 2>/dev/null)
           git diff --staged --quiet || git commit -m "Reconcile: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push
