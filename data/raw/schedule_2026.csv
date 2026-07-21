@@ -1490,3 +1490,18 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 824007,2026,2026-07-19,108,Los Angeles Angels,116,Detroit Tigers,3,2,696270.0,663554.0,1,Angel Stadium,day,N
 823113,2026,2026-07-19,136,Seattle Mariners,137,San Francisco Giants,6,3,669302.0,592662.0,680,T-Mobile Park,day,N
 825057,2026,2026-07-19,109,Arizona Diamondbacks,138,St. Louis Cardinals,8,7,593958.0,669467.0,15,Chase Field,day,N
+824410,2026,2026-07-20,114,Cleveland Guardians,142,Minnesota Twins,13,4,676440.0,657746.0,5,Progressive Field,night,N
+823522,2026,2026-07-20,147,New York Yankees,134,Pittsburgh Pirates,8,5,677960.0,677952.0,3313,Yankee Stadium,night,N
+822788,2026,2026-07-20,141,Toronto Blue Jays,139,Tampa Bay Rays,1,7,656302.0,607259.0,14,Rogers Centre,night,N
+824736,2026,2026-07-20,111,Boston Red Sox,110,Baltimore Orioles,6,5,801139.0,669358.0,3,Fenway Park,night,N
+823436,2026,2026-07-20,143,Philadelphia Phillies,119,Los Angeles Dodgers,10,7,650911.0,686218.0,2681,Citizens Bank Park,night,N
+824898,2026,2026-07-20,144,Atlanta Braves,135,San Diego Padres,3,2,693821.0,676664.0,4705,Truist Park,night,N
+824087,2026,2026-07-20,118,Kansas City Royals,137,San Francisco Giants,4,3,608379.0,686790.0,7,Kauffman Stadium,night,N
+823762,2026,2026-07-20,158,Milwaukee Brewers,121,New York Mets,8,3,694819.0,642547.0,32,American Family Field,night,N
+824654,2026,2026-07-20,112,Chicago Cubs,116,Detroit Tigers,6,8,592791.0,656427.0,17,Wrigley Field,night,N
+822874,2026,2026-07-20,140,Texas Rangers,145,Chicago White Sox,3,10,594798.0,607200.0,5325,Globe Life Field,night,N
+824167,2026,2026-07-20,117,Houston Astros,146,Miami Marlins,8,5,669854.0,676083.0,2392,Daikin Park,night,N
+824328,2026,2026-07-20,115,Colorado Rockies,120,Washington Nationals,3,7,607536.0,674841.0,19,Coors Field,night,N
+825058,2026,2026-07-20,109,Arizona Diamondbacks,133,Athletics,2,5,683352.0,605488.0,15,Chase Field,night,N
+823112,2026,2026-07-20,136,Seattle Mariners,113,Cincinnati Reds,8,0,669923.0,671096.0,680,T-Mobile Park,night,N
+824006,2026,2026-07-20,108,Los Angeles Angels,138,St. Louis Cardinals,3,2,667755.0,681517.0,1,Angel Stadium,night,N

@@ -22,3 +22,11 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-07-20,824898,Atlanta Braves,San Diego Padres,Atlanta Braves,0.545232603459246,9,Atlanta Braves,True
 2026-07-20,824087,Kansas City Royals,San Francisco Giants,Kansas City Royals,0.5302534019751566,9,Kansas City Royals,True
 2026-07-20,823762,Milwaukee Brewers,New York Mets,Milwaukee Brewers,0.6587530145646467,9,Milwaukee Brewers,True
+2026-07-21,824409,Cleveland Guardians,Minnesota Twins,Cleveland Guardians,0.5728419944047947,9,Cleveland Guardians,True
+2026-07-21,823437,Philadelphia Phillies,Los Angeles Dodgers,Philadelphia Phillies,0.5254968282828695,9,Los Angeles Dodgers,False
+2026-07-21,823519,New York Yankees,Pittsburgh Pirates,New York Yankees,0.5476763171043613,9,Pittsburgh Pirates,False
+2026-07-21,822787,Toronto Blue Jays,Tampa Bay Rays,Toronto Blue Jays,0.5003300786858108,9,Tampa Bay Rays,False
+2026-07-21,824735,Boston Red Sox,Baltimore Orioles,Baltimore Orioles,0.5009953430751108,9,Baltimore Orioles,True
+2026-07-21,824895,Atlanta Braves,San Diego Padres,Atlanta Braves,0.5692451692023599,9,Atlanta Braves,True
+2026-07-21,824085,Kansas City Royals,San Francisco Giants,San Francisco Giants,0.509690100297673,9,Kansas City Royals,False
+2026-07-21,823760,Milwaukee Brewers,New York Mets,Milwaukee Brewers,0.5513606886422417,9,Milwaukee Brewers,True
