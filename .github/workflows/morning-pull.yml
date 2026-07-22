@@ -43,6 +43,16 @@ jobs:
             echo "ANTHROPIC_API_KEY is present (length ${#ANTHROPIC_API_KEY}). A real Anthropic key is ~100+ chars; a much shorter length suggests a truncated/placeholder value."
           fi
 
+      - name: Diagnostic - Claude API + web search reachability (manual runs only)
+        # Only on manual dispatch so scheduled runs don't pay for the 2 tiny probe
+        # calls. Isolates whether the key/model work vs. whether the web_search tool
+        # is the blocker -- see src/diagnose_claude.py. Never blocks the pull.
+        if: github.event_name == 'workflow_dispatch'
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python src/diagnose_claude.py
+
       - name: Run daily_ks.py
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
