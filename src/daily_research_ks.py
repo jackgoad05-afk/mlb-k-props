@@ -155,7 +155,14 @@ def run(target_date: date, dry_run: bool):
         return
 
     import anthropic
-    client = anthropic.Anthropic(api_key=load_anthropic_api_key())
+    try:
+        anthropic_key = load_anthropic_api_key()
+    except RuntimeError:
+        print("ANTHROPIC_API_KEY not visible to this process (no env var, none in .env). "
+              "In GitHub Actions this means the repo Actions secret 'ANTHROPIC_API_KEY' is unset, "
+              "misnamed, or scoped to an environment this job doesn't use. Skipping research model.")
+        return
+    client = anthropic.Anthropic(api_key=anthropic_key)
 
     saved = joblib.load(OUTPUT / "model_ks.joblib")
     alpha = saved["alpha"]  # reuse the stats model's fitted dispersion -- see module docstring

@@ -28,6 +28,21 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements-actions.txt
 
+      - name: Diagnostic - is ANTHROPIC_API_KEY reaching the job?
+        # Prints ONLY the secret's length + presence, never its value. Decisive
+        # check for why the research/article Claude pipelines produce no output:
+        # if this warns "EMPTY/UNSET", the repo Actions secret isn't set / is
+        # misnamed / is scoped to an Environment this job doesn't use. If it prints
+        # a plausible length (~100+), the secret is fine and any failure is downstream.
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -z "${ANTHROPIC_API_KEY:-}" ]; then
+            echo "::warning::ANTHROPIC_API_KEY is EMPTY or UNSET at the workflow level -- research + article pipelines will skip. Check repo Settings -> Secrets and variables -> Actions -> Repository secrets for a non-empty secret named exactly ANTHROPIC_API_KEY."
+          else
+            echo "ANTHROPIC_API_KEY is present (length ${#ANTHROPIC_API_KEY}). A real Anthropic key is ~100+ chars; a much shorter length suggests a truncated/placeholder value."
+          fi
+
       - name: Run daily_ks.py
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
