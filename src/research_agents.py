@@ -135,7 +135,17 @@ def agent_injury_news(flagged_rows: list[dict], target_date: date, dry_run: bool
 
     import anthropic
 
-    client = anthropic.Anthropic(api_key=load_anthropic_api_key())
+    try:
+        anthropic_key = load_anthropic_api_key()
+    except RuntimeError:
+        # Clean, actionable one-liner instead of a raw traceback (the injury/news
+        # agent is the only one of the three that needs the Claude key). In GitHub
+        # Actions with continue-on-error this is what makes the failure legible.
+        print("  [warn] ANTHROPIC_API_KEY not visible to this process (no env var, none in .env). "
+              "In GitHub Actions the repo Actions secret 'ANTHROPIC_API_KEY' is unset, misnamed, "
+              "or out of scope. Skipping the injury/news agent (lineup + line-movement agents still run).")
+        return []
+    client = anthropic.Anthropic(api_key=anthropic_key)
 
     notes_by_pitcher: dict[str, str] = {}
     for row in unique_pitchers:

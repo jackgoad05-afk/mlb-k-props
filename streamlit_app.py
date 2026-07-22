@@ -87,6 +87,38 @@ def research_notes_html(notes: list[tuple[str, str]]) -> str:
     """)
 
 
+def article_alignment_html(alignment: str, article_side: str, stats_side, consensus: str) -> str:
+    """Render the article-vs-stats-model alignment block for an article pick card:
+    a tag (aligned/contrarian), a one-line articles-say / model-says / verdict, and
+    the article-consensus narrative. `alignment` is the explicit "aligned"/"contrarian"/""
+    string from the ledger (see daily_article_picks.py -- stored as a string, not a
+    bool, to survive CSV round-trips cleanly). An empty alignment means the stats model
+    had no pick for this game (e.g. daily_ml.py didn't run), so no tag/verdict is shown."""
+    parts = []
+    stats_txt = stats_side if (stats_side is not None and str(stats_side) not in ("", "nan")) else "n/a"
+
+    if alignment == "aligned":
+        parts.append('<div class="align-tag aligned">✓ Articles + Model aligned</div>')
+        verdict = "agree"
+    elif alignment == "contrarian":
+        parts.append('<div class="align-tag contrarian">⚠ Contrarian — articles vs. model</div>')
+        verdict = "disagree"
+    else:
+        verdict = None
+
+    if verdict is not None:
+        parts.append(f'<div class="align-line">Articles say <b>{article_side}</b> · '
+                     f'Stats model says <b>{stats_txt}</b> · they <b>{verdict}</b></div>')
+    else:
+        parts.append(f'<div class="align-line">Articles say <b>{article_side}</b> · '
+                     f'Stats model: <b>{stats_txt}</b> (no comparison available)</div>')
+
+    if consensus and str(consensus) not in ("", "nan"):
+        parts.append(f'<div class="align-consensus">📰 {consensus}</div>')
+
+    return "".join(parts)
+
+
 def why_flagged(r: pd.Series) -> tuple[str, list[str]] | None:
     """Prose-based explanation of a flagged K-props bet, with detailed stat lines
     available via a toggle. Returns (prose_narrative, stat_detail_lines) or None
@@ -419,6 +451,14 @@ st.markdown("""
 .sys-stat-value { color: #f2f2f0; font-weight: 600; }
 .sys-stat-value.positive { color: #4ade80; }
 .sys-stat-value.negative { color: #f87171; }
+
+/* Article-vs-model alignment tag */
+.align-tag { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px;
+             border-radius: 6px; margin-bottom: 4px; }
+.align-tag.aligned { background: #12271a; color: #4ade80; }
+.align-tag.contrarian { background: #2e2308; color: #fbbf24; }
+.align-line { font-size: 13px; color: #9b9a92; margin: 2px 0 6px; }
+.align-consensus { font-size: 13px; color: #c7d6de; font-style: italic; margin: 2px 0 8px; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -794,10 +834,11 @@ with tab_ks:
                 st.write("No article-based picks today.")
             else:
                 for _, r in article_ks_today.iterrows():
-                    agree_txt = " (agrees with stats model)" if r["bet_side"] == r["stats_model_side"] else \
-                                " (disagrees with stats model)"
                     st.markdown(f"**{r['name']}** vs {r['opponent_name']} — leans **{r['bet_side']} {r['line']}** "
-                                f"strikeouts, confidence **{r['confidence']}**{agree_txt}")
+                                f"strikeouts, confidence **{r['confidence']}**")
+                    st.markdown(article_alignment_html(str(r.get("alignment", "")), r["bet_side"],
+                                                       r.get("stats_model_side"), r.get("article_consensus", "")),
+                                unsafe_allow_html=True)
                     with st.expander("📖 Article reasoning"):
                         st.markdown(f'<div class="expander-prose">{r["reasoning"]}</div>', unsafe_allow_html=True)
 
@@ -964,6 +1005,14 @@ with tab_ml:
                 pick_team = r["home_team_name"] if r["bet_side"] == "home" else r["away_team_name"]
                 st.markdown(f"**{r['away_team_name']} @ {r['home_team_name']}** — picks **{pick_team}** "
                             f"to win, confidence **{r['confidence']}**")
+                # Translate the stats model's home/away side to a team name for display;
+                # the alignment string itself was already computed home/away in the pipeline.
+                stats_side_raw = str(r.get("stats_model_side", ""))
+                stats_team = (r["home_team_name"] if stats_side_raw == "home"
+                              else r["away_team_name"] if stats_side_raw == "away" else None)
+                st.markdown(article_alignment_html(str(r.get("alignment", "")), pick_team,
+                                                   stats_team, r.get("article_consensus", "")),
+                            unsafe_allow_html=True)
                 with st.expander("📖 Article reasoning"):
                     st.markdown(f'<div class="expander-prose">{r["reasoning"]}</div>', unsafe_allow_html=True)
 

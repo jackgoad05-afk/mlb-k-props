@@ -33,6 +33,16 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: python src/daily_ks.py
 
+      - name: Run daily_ml.py
+        continue-on-error: true  # moneyline is paper/tracking only (already failed its
+                                  # kill criteria, see CLAUDE.md) -- never let it block
+                                  # committing daily_ks.py's real K-props flags. Runs
+                                  # BEFORE daily_article_picks so its ml_predictions_ledger
+                                  # is available for the article-vs-model ML alignment.
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python src/daily_ml.py
+
       - name: Run daily_research_ks.py
         continue-on-error: true  # separate parallel experiment (Claude + web search
                                   # reviewing the same stats), never block committing
@@ -53,14 +63,6 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}  # needed for the moneyline h2h bulk pull
         run: python src/daily_article_picks.py
-
-      - name: Run daily_ml.py
-        continue-on-error: true  # moneyline is paper/tracking only (already failed its
-                                  # kill criteria, see CLAUDE.md) -- never let it block
-                                  # committing daily_ks.py's real K-props flags
-        env:
-          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-        run: python src/daily_ml.py
 
       - name: Run daily_pm.py
         continue-on-error: true  # same reasoning -- prediction-market comparison is a

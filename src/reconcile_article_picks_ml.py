@@ -145,6 +145,17 @@ def summarize():
             roi = tier["pnl"].sum() / n
             print(f"{level:12s} n={n:4d}  record={w}-{n - w}  ROI={roi:+.1%}")
 
+    if "alignment" in done.columns:
+        print("\nby alignment with stats model:")
+        for level in ["aligned", "contrarian"]:
+            tier = done[done["alignment"] == level]
+            if tier.empty:
+                continue
+            n = len(tier)
+            w = (tier["result"] == tier["bet_side"]).sum()
+            roi = tier["pnl"].sum() / n
+            print(f"{level:12s} n={n:4d}  record={w}-{n - w}  ROI={roi:+.1%}")
+
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()

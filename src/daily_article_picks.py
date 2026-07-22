@@ -58,6 +58,7 @@ from research_agents import load_anthropic_api_key
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "output"
 DAILY_MATCHED_PATH = OUTPUT / "ks_daily_matched.csv"  # written by daily_ks.py -- read-only here
+ML_PREDICTIONS_PATH = OUTPUT / "ml_predictions_ledger.csv"  # written by daily_ml.py -- read-only here
 KS_LEDGER_PATH = OUTPUT / "article_picks_ks_ledger.csv"
 ML_LEDGER_PATH = OUTPUT / "article_picks_ml_ledger.csv"
 
@@ -119,13 +120,16 @@ Search for up to {MAX_SEARCHES_PER_GAME} recent articles or previews covering:
 - The opposing starting pitcher for this game (search to confirm who it is if not already obvious).
 - Both teams -- lineup news, injuries, any matchup-specific angles beat writers are flagging for tonight.
 
-Based ONLY on what you find, make two independent picks:
+Then do two things:
 
+First, summarize what the articles COLLECTIVELY say about this matchup -- the shared narrative across what you read, and which way it points for tonight's strikeout total specifically. For example: "Articles emphasize the Twins' recent contact-heavy approach and Bibee's dip in velocity -- consensus leans toward fewer strikeouts."
+
+Then, based ONLY on what you found, make two independent picks:
 1. Strikeout prop for {row['name']}: the market line tonight is {row['line']}. Pick over or under.
 2. Moneyline: which team wins tonight, {home_team} (home) or {away_team} (away)?
 
 Respond with ONLY a JSON object in exactly this shape, no other text before or after it:
-{{"ks_pick": {{"side": "over" or "under", "confidence": "low" or "medium" or "high", "reasoning": "<2-4 sentences citing specific things you found -- name the source/finding, not just \\"reports suggest\\">"}}, "ml_pick": {{"team": "home" or "away", "confidence": "low" or "medium" or "high", "reasoning": "<2-4 sentences citing specific things you found>"}}}}"""
+{{"article_consensus": "<1-2 sentences on what the articles collectively say about this matchup and which way they lean on tonight's strikeout total>", "ks_pick": {{"side": "over" or "under", "confidence": "low" or "medium" or "high", "reasoning": "<2-4 sentences citing specific things you found -- name the source/finding, not just \\"reports suggest\\">"}}, "ml_pick": {{"team": "home" or "away", "confidence": "low" or "medium" or "high", "reasoning": "<2-4 sentences citing specific things you found>"}}}}"""
 
 
 def _extract_json(text: str) -> dict | None:
@@ -136,6 +140,25 @@ def _extract_json(text: str) -> dict | None:
         return json.loads(match.group(0))
     except json.JSONDecodeError:
         return None
+
+
+def load_stats_ml_sides(target_date: date) -> dict[int, str]:
+    """game_pk -> 'home'/'away', the stats moneyline model's lean for each of
+    today's games (daily_ml.py's ml_predictions_ledger.csv). Empty dict if that
+    file doesn't exist or has no rows for today -- the alignment comparison just
+    degrades to 'no stats ML pick available' for those games, never crashes.
+
+    Requires daily_ml.py to have run before this pipeline (see morning-pull.yml's
+    step order); if it hasn't, moneyline alignment simply isn't computed."""
+    if not ML_PREDICTIONS_PATH.exists():
+        return {}
+    ml = pd.read_csv(ML_PREDICTIONS_PATH)
+    todays = ml[ml["date"] == target_date.isoformat()]
+    out: dict[int, str] = {}
+    for _, r in todays.iterrows():
+        side = "home" if r["predicted_winner"] == r["home_team_name"] else "away"
+        out[int(r["game_pk"])] = side
+    return out
 
 
 def research_game(client, row: pd.Series, home_team: str, away_team: str, target_date: date) -> dict | None:
@@ -160,6 +183,7 @@ def research_game(client, row: pd.Series, home_team: str, away_team: str, target
     if parsed is None or "ks_pick" not in parsed or "ml_pick" not in parsed:
         print(f"  [warn] could not parse response for {away_team} @ {home_team}: {text_blocks[-1][:200]}")
         return None
+    parsed.setdefault("article_consensus", "")  # tolerate an older-shaped response missing the field
     return parsed
 
 
@@ -218,10 +242,21 @@ def run(target_date: date, dry_run: bool):
         return
 
     import anthropic
-    client = anthropic.Anthropic(api_key=load_anthropic_api_key())
+    try:
+        anthropic_key = load_anthropic_api_key()
+    except RuntimeError:
+        # Clean, actionable one-liner instead of a raw traceback -- with
+        # continue-on-error the workflow shows green either way, so this is what
+        # makes "no picks produced" legible in the Actions log.
+        print("ANTHROPIC_API_KEY not visible to this process (no env var, none in .env). "
+              "In GitHub Actions this means the repo Actions secret 'ANTHROPIC_API_KEY' is unset, "
+              "misnamed, or scoped to an environment this job doesn't use. Skipping article picks.")
+        return
+    client = anthropic.Anthropic(api_key=anthropic_key)
 
     api_key = odds_api.load_api_key()
     bulk_h2h = odds_api.get_bulk_odds(api_key, markets="h2h")  # free, 1 unit total for the whole slate
+    stats_ml_sides = load_stats_ml_sides(target_date)  # game_pk -> 'home'/'away' from daily_ml.py
 
     ks_results, ml_results = [], []
     for i, (_, row) in enumerate(selected.iterrows()):
@@ -233,9 +268,27 @@ def run(target_date: date, dry_run: bool):
         picks = research_game(client, row, home_team, away_team, target_date)
         if picks is None:
             continue
+
+        # --- K-props alignment: article's over/under vs the stats model's own lean
+        # on the exact same (pitcher, line). stats_model_side is already in the row.
+        # Stored as an explicit string ("aligned"/"contrarian") rather than a bool
+        # -- CSV round-trips a bool column with any blanks into an object mix of
+        # True/False/NaN where `"False"` is truthy, a well-known footgun. A string
+        # is unambiguous on read and directly filterable (aligned vs contrarian ROI). ---
+        ks_side = picks["ks_pick"]["side"]
+        ks_stats_side = row["side"]
+        ks_alignment = "aligned" if ks_side == ks_stats_side else "contrarian"
+
+        # --- Moneyline alignment: article's home/away vs the stats moneyline model's
+        # predicted winner for this game_pk. "" if daily_ml.py hasn't run / no row. ---
+        ml_side = picks["ml_pick"]["team"]
+        ml_stats_side = stats_ml_sides.get(int(row["game_pk"]))
+        ml_alignment = "" if ml_stats_side is None else ("aligned" if ml_side == ml_stats_side else "contrarian")
+
+        consensus = picks.get("article_consensus", "")
         print(f"  [{i + 1}/{len(selected)}] {away_team} @ {home_team}: "
-              f"KS={picks['ks_pick']['side']} ({picks['ks_pick']['confidence']})  "
-              f"ML={picks['ml_pick']['team']} ({picks['ml_pick']['confidence']})")
+              f"KS={ks_side} vs model {ks_stats_side} [{ks_alignment}]  "
+              f"ML={ml_side} vs model {ml_stats_side or 'n/a'} [{ml_alignment or 'no model pick'}]")
 
         # Store BOTH sides' prices at pick time, not just the picked side -- CLV
         # needs a proper devigged fair probability at both bet-time and closing-
@@ -243,25 +296,26 @@ def run(target_date: date, dry_run: bool):
         # _devig_pair), which requires both prices, same convention as every
         # other ledger in this repo (see fetch_odds.american_to_decimal's
         # docstring on why a single side's raw price isn't enough).
-        ks_side = picks["ks_pick"]["side"]
         ks_results.append({
             "date": target_date.isoformat(), "mlbID": row["mlbID"], "game_pk": row["game_pk"],
             "event_id": row.get("event_id"), "name": row["name"], "opponent_name": row["opponent_name"],
             "line": row["line"], "bet_side": ks_side, "over_odds": row["over_odds"],
             "under_odds": row["under_odds"], "over_prob_fair": row["over_prob_fair"],
             "confidence": picks["ks_pick"]["confidence"], "reasoning": picks["ks_pick"]["reasoning"],
-            "stats_model_side": row["side"], "stats_model_edge": row["edge"],
+            "article_consensus": consensus, "stats_model_side": ks_stats_side,
+            "alignment": ks_alignment, "stats_model_edge": row["edge"],
             "logged_at": datetime.now().isoformat(timespec="seconds"),
         })
 
-        ml_side = picks["ml_pick"]["team"]
         home_price = _representative_h2h_price(bulk_h2h, home_team, away_team, "home")
         away_price = _representative_h2h_price(bulk_h2h, home_team, away_team, "away")
         ml_results.append({
             "date": target_date.isoformat(), "game_pk": row["game_pk"], "home_team_name": home_team,
             "away_team_name": away_team, "bet_side": ml_side, "home_odds": home_price,
             "away_odds": away_price, "confidence": picks["ml_pick"]["confidence"],
-            "reasoning": picks["ml_pick"]["reasoning"], "logged_at": datetime.now().isoformat(timespec="seconds"),
+            "reasoning": picks["ml_pick"]["reasoning"], "article_consensus": consensus,
+            "stats_model_side": ml_stats_side if ml_stats_side is not None else "",
+            "alignment": ml_alignment, "logged_at": datetime.now().isoformat(timespec="seconds"),
         })
 
     _write_ledger(KS_LEDGER_PATH, ks_results, target_date, extra_blank_cols=[
