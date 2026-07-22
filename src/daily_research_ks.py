@@ -46,7 +46,7 @@ import pandas as pd
 from scipy import stats as scipy_stats
 
 from model_ks import nb2_np
-from research_agents import load_anthropic_api_key
+from research_agents import create_with_websearch, load_anthropic_api_key
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "output"
@@ -57,6 +57,7 @@ LEDGER_PATH = OUTPUT / "research_ks_ledger.csv"
 EDGE_FLAG_THRESHOLD = 0.03
 RESEARCH_MODEL = "claude-sonnet-5"  # swap to "claude-haiku-4-5" for a cheaper/lower-quality run
 WEB_SEARCH_TOOL_TYPE = "web_search_20260209"  # Sonnet 5 supports the dynamic-filtering variant
+MAX_SEARCHES_PER_PITCHER = 3  # cap web searches per call so the full slate finishes under the step timeout
 
 
 def build_prompt(row: pd.Series, target_date: date) -> str:
@@ -106,14 +107,14 @@ def _extract_json(text: str) -> dict | None:
 def research_pitcher(client, row: pd.Series, target_date: date) -> dict | None:
     prompt = build_prompt(row, target_date)
     try:
-        response = client.messages.create(
-            model=RESEARCH_MODEL,
-            max_tokens=1500,
-            tools=[{"type": WEB_SEARCH_TOOL_TYPE, "name": "web_search"}],
-            messages=[{"role": "user", "content": prompt}],
-        )
+        # Cap searches (max_uses) so each call is faster/cheaper, and resume
+        # pause_turn so a multi-search turn still reaches its final JSON answer
+        # instead of returning mid-turn with nothing -- the silent failure that
+        # produced no output while still billing for the call.
+        response = create_with_websearch(client, RESEARCH_MODEL, prompt, max_tokens=1500,
+                                          tool_type=WEB_SEARCH_TOOL_TYPE, max_uses=MAX_SEARCHES_PER_PITCHER)
     except Exception as e:
-        print(f"  [warn] research call failed for {row['name']}: {e}")
+        print(f"  [warn] research call failed for {row['name']}: {type(e).__name__}: {e}")
         return None
 
     text_blocks = [b.text for b in response.content if b.type == "text"]
@@ -123,7 +124,8 @@ def research_pitcher(client, row: pd.Series, target_date: date) -> dict | None:
 
     parsed = _extract_json(text_blocks[-1])
     if parsed is None or "projected_strikeouts" not in parsed or "reasoning" not in parsed:
-        print(f"  [warn] could not parse research response for {row['name']}: {text_blocks[-1][:200]}")
+        print(f"  [warn] could not parse research response for {row['name']} "
+              f"(stop_reason={response.stop_reason}): {text_blocks[-1][:500]}")
         return None
 
     return {"projected_strikeouts": float(parsed["projected_strikeouts"]), "reasoning": str(parsed["reasoning"])}
@@ -182,18 +184,29 @@ def run(target_date: date, dry_run: bool):
         research_by_pitcher[row["mlbID"]] = research
         print(f"  [{i + 1}/{len(unique_pitchers)}] {row['name']:25s} research mu={research['projected_strikeouts']:.1f} "
               f"(stats mu={row.get('mu', float('nan')):.1f})")
+        # Re-score and re-write after EACH pitcher so a mid-loop step timeout keeps
+        # everything researched so far instead of discarding it all (the failure mode
+        # that spent ~14 calls' worth of credits and produced nothing).
+        _score_and_write(research_by_pitcher, todays, alpha, target_date)
 
     if not research_by_pitcher:
         print("\nNo research results produced -- nothing to score.")
         return
+    print(f"\nresearch model done: {len(research_by_pitcher)} pitcher(s) researched and written.")
 
-    # Apply each pitcher's single research result across all of that pitcher's matched lines.
+
+def _score_and_write(research_by_pitcher: dict, todays: pd.DataFrame, alpha: float, target_date: date):
+    """Score every pitcher researched so far and (re)write both the daily file and
+    the ledger, replacing today's rows. Idempotent -- safe to call after each
+    pitcher so partial progress is always persisted."""
     results = []
     for _, row in todays.iterrows():
         research = research_by_pitcher.get(row["mlbID"])
         if research is None:
             continue
         results.append({**row.to_dict(), **research})
+    if not results:
+        return
 
     scored = pd.DataFrame(results)
     scored["research_p_over"] = prob_over_per_row(scored["projected_strikeouts"].values, alpha, scored["line"].values)
@@ -207,13 +220,8 @@ def run(target_date: date, dry_run: bool):
     daily_out = scored[daily_cols].copy()
     daily_out.insert(0, "date", target_date.isoformat())
     daily_out.to_csv(RESEARCH_DAILY_PATH, index=False)
-    print(f"\nresearch predictions written: {RESEARCH_DAILY_PATH} ({len(daily_out)} rows)")
 
     flagged = scored[scored["bet_edge"] >= EDGE_FLAG_THRESHOLD].copy()
-    print(f"flagged (edge >= {EDGE_FLAG_THRESHOLD:.0%}): {len(flagged)}")
-    if flagged.empty:
-        return
-
     ledger_rows = flagged[["mlbID", "game_pk", "event_id", "name", "opponent_name", "line", "bet_side",
                             "bet_edge", "research_p_over", "over_prob_fair", "over_odds", "under_odds",
                             "n_books", "projected_strikeouts", "reasoning"]].copy()
@@ -230,7 +238,6 @@ def run(target_date: date, dry_run: bool):
         existing = existing[existing["date"] != target_date.isoformat()]
         ledger_rows = pd.concat([existing, ledger_rows], ignore_index=True)
     ledger_rows.to_csv(LEDGER_PATH, index=False)
-    print(f"ledger updated: {LEDGER_PATH} ({len(ledger_rows)} total rows)")
 
 
 if __name__ == "__main__":

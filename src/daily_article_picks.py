@@ -53,7 +53,7 @@ import pandas as pd
 
 import fetch
 import odds_api
-from research_agents import load_anthropic_api_key
+from research_agents import create_with_websearch, load_anthropic_api_key
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "output"
@@ -164,14 +164,10 @@ def load_stats_ml_sides(target_date: date) -> dict[int, str]:
 def research_game(client, row: pd.Series, home_team: str, away_team: str, target_date: date) -> dict | None:
     prompt = build_prompt(row, home_team, away_team, target_date)
     try:
-        response = client.messages.create(
-            model=RESEARCH_MODEL,
-            max_tokens=1500,
-            tools=[{"type": WEB_SEARCH_TOOL_TYPE, "name": "web_search", "max_uses": MAX_SEARCHES_PER_GAME}],
-            messages=[{"role": "user", "content": prompt}],
-        )
+        response = create_with_websearch(client, RESEARCH_MODEL, prompt, max_tokens=1500,
+                                          tool_type=WEB_SEARCH_TOOL_TYPE, max_uses=MAX_SEARCHES_PER_GAME)
     except Exception as e:
-        print(f"  [warn] research call failed for {away_team} @ {home_team}: {e}")
+        print(f"  [warn] research call failed for {away_team} @ {home_team}: {type(e).__name__}: {e}")
         return None
 
     text_blocks = [b.text for b in response.content if b.type == "text"]
@@ -181,7 +177,10 @@ def research_game(client, row: pd.Series, home_team: str, away_team: str, target
 
     parsed = _extract_json(text_blocks[-1])
     if parsed is None or "ks_pick" not in parsed or "ml_pick" not in parsed:
-        print(f"  [warn] could not parse response for {away_team} @ {home_team}: {text_blocks[-1][:200]}")
+        # Print stop_reason + a generous slice of the actual final text so a residual
+        # parse failure is diagnosable from the log instead of guessed at.
+        print(f"  [warn] could not parse response for {away_team} @ {home_team} "
+              f"(stop_reason={response.stop_reason}): {text_blocks[-1][:500]}")
         return None
     parsed.setdefault("article_consensus", "")  # tolerate an older-shaped response missing the field
     return parsed
@@ -318,10 +317,17 @@ def run(target_date: date, dry_run: bool):
             "alignment": ml_alignment, "logged_at": datetime.now().isoformat(timespec="seconds"),
         })
 
-    _write_ledger(KS_LEDGER_PATH, ks_results, target_date, extra_blank_cols=[
-        "closing_over_odds", "closing_under_odds", "actual_so", "result", "pnl", "clv"])
-    _write_ledger(ML_LEDGER_PATH, ml_results, target_date, extra_blank_cols=[
-        "closing_home_odds", "closing_away_odds", "actual_winner", "result", "pnl", "clv"])
+        # Write after EACH game (not just at the end) so a mid-loop step timeout
+        # never discards completed, already-paid-for picks -- the failure mode that
+        # produced no output despite spending on every call. Each write replaces
+        # today's rows with everything accumulated so far, so it's always consistent.
+        _write_ledger(KS_LEDGER_PATH, ks_results, target_date, extra_blank_cols=[
+            "closing_over_odds", "closing_under_odds", "actual_so", "result", "pnl", "clv"])
+        _write_ledger(ML_LEDGER_PATH, ml_results, target_date, extra_blank_cols=[
+            "closing_home_odds", "closing_away_odds", "actual_winner", "result", "pnl", "clv"])
+
+    if not ks_results:
+        print("no article picks produced (all games failed research/parse -- see warnings above).")
 
 
 def _write_ledger(path: Path, rows: list[dict], target_date: date, extra_blank_cols: list[str]):

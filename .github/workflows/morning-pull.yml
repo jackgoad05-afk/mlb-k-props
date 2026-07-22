@@ -74,19 +74,22 @@ jobs:
                                   # daily_ks.py's real stats-model flags. Reuses
                                   # daily_ks.py's already-fetched market data -- needs
                                   # NO Odds API key/quota of its own.
-        timeout-minutes: 15  # ~15 sequential Claude calls with web search enabled
+        timeout-minutes: 15  # sequential Claude+web-search calls; now writes
+                              # incrementally so a timeout keeps completed pitchers
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PYTHONUNBUFFERED: "1"  # stream [i/N] progress live instead of buffering to the end
         run: python src/daily_research_ks.py
 
       - name: Run daily_article_picks.py
         continue-on-error: true  # separate parallel experiment (pure article-based
                                   # picks, top 3-4 games only), never block committing
                                   # daily_ks.py's real stats-model flags
-        timeout-minutes: 10  # up to 4 sequential Claude calls with web search enabled
+        timeout-minutes: 12  # up to 4 Claude+web-search calls; writes incrementally per game
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}  # needed for the moneyline h2h bulk pull
+          PYTHONUNBUFFERED: "1"  # stream [i/N] progress live instead of buffering to the end
         run: python src/daily_article_picks.py
 
       - name: Run daily_pm.py

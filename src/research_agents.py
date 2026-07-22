@@ -83,6 +83,32 @@ def load_anthropic_api_key() -> str:
     )
 
 
+def create_with_websearch(client, model: str, prompt: str, max_tokens: int,
+                           tool_type: str = "web_search_20260209", max_uses: int | None = None,
+                           max_resumes: int = 4):
+    """messages.create with the web_search server tool, resuming pause_turn so a
+    multi-search turn that hits the server's ~10-iteration limit still runs to its
+    final answer instead of returning mid-turn with no answer text.
+
+    This was the silent failure in the article/research pipelines: a web-search
+    call that did several searches came back with stop_reason='pause_turn' and NO
+    final JSON block, so the parse produced None and nothing was written -- despite
+    the call succeeding and being billed. Resuming the turn (re-send the assistant
+    content, no extra user message -- see the tool-use docs) fixes that. Returns the
+    final response object; the caller reads text_blocks[-1] as before."""
+    tool = {"type": tool_type, "name": "web_search"}
+    if max_uses is not None:
+        tool["max_uses"] = max_uses
+    messages = [{"role": "user", "content": prompt}]
+    response = None
+    for _ in range(max_resumes + 1):
+        response = client.messages.create(model=model, max_tokens=max_tokens, tools=[tool], messages=messages)
+        if response.stop_reason != "pause_turn":
+            return response
+        messages.append({"role": "assistant", "content": response.content})
+    return response  # still paused after max_resumes -- return it; caller handles no-answer
+
+
 # --------------------------------------------------------------------------- #
 # Agent 1: lineup confirmation -- pure data check, no LLM
 # --------------------------------------------------------------------------- #
