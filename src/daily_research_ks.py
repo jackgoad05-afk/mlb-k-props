@@ -46,6 +46,7 @@ import pandas as pd
 from scipy import stats as scipy_stats
 
 from model_ks import nb2_np
+from daily_article_picks import MAX_SEARCHES_PER_GAME, TOP_N_GAMES, select_top_games
 from research_agents import create_with_websearch, load_anthropic_api_key
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -56,8 +57,9 @@ LEDGER_PATH = OUTPUT / "research_ks_ledger.csv"
 
 EDGE_FLAG_THRESHOLD = 0.03
 RESEARCH_MODEL = "claude-sonnet-5"  # swap to "claude-haiku-4-5" for a cheaper/lower-quality run
-WEB_SEARCH_TOOL_TYPE = "web_search_20260209"  # Sonnet 5 supports the dynamic-filtering variant
-MAX_SEARCHES_PER_PITCHER = 3  # cap web searches per call so the full slate finishes under the step timeout
+WEB_SEARCH_TOOL_TYPE = "web_search_20250305"  # basic variant (no code-exec dependency) -- same as the
+                                               # article picker; see daily_article_picks.py for why
+MAX_SEARCHES_PER_PITCHER = MAX_SEARCHES_PER_GAME  # same cap as the article picker, for consistency
 
 
 def build_prompt(row: pd.Series, target_date: date) -> str:
@@ -169,12 +171,16 @@ def run(target_date: date, dry_run: bool):
     saved = joblib.load(OUTPUT / "model_ks.joblib")
     alpha = saved["alpha"]  # reuse the stats model's fitted dispersion -- see module docstring
 
-    # Research each unique pitcher ONCE, not once per matched line -- a pitcher can have
-    # multiple lines offered (e.g. 4.5 and 5.5), and the research itself (pitcher/opponent
-    # news) doesn't change with the line, so re-researching per line would waste real
-    # Claude + web-search cost on near-identical calls for no benefit.
-    unique_pitchers = todays.drop_duplicates(subset=["mlbID"])
-    print(f"unique pitchers to research: {len(unique_pitchers)} (from {len(todays)} matched lines)")
+    # Scope to the SAME top games the article picker uses (highest model confidence),
+    # so the research model runs on the same handful of games and finishes in a few
+    # minutes -- not the whole slate, which took ~15 min and wasn't worth it. One row
+    # per pitcher (a pitcher's research doesn't change with the line; _score_and_write
+    # applies each pitcher's projection across all of that pitcher's matched lines).
+    selected = select_top_games(target_date, TOP_N_GAMES)
+    selected_ids = set(selected["mlbID"]) if not selected.empty else set()
+    unique_pitchers = todays[todays["mlbID"].isin(selected_ids)].drop_duplicates(subset=["mlbID"])
+    print(f"researching {len(unique_pitchers)} pitcher(s) -- the top {TOP_N_GAMES} games by model "
+          f"confidence (same selection as the article picker)")
 
     research_by_pitcher: dict = {}
     for i, (_, row) in enumerate(unique_pitchers.iterrows()):

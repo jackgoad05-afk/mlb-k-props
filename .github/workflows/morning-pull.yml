@@ -74,8 +74,8 @@ jobs:
                                   # daily_ks.py's real stats-model flags. Reuses
                                   # daily_ks.py's already-fetched market data -- needs
                                   # NO Odds API key/quota of its own.
-        timeout-minutes: 15  # sequential Claude+web-search calls; now writes
-                              # incrementally so a timeout keeps completed pitchers
+        timeout-minutes: 8  # now scoped to the top few games (same as article picks),
+                             # so ~4 calls; writes incrementally as a backstop
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           PYTHONUNBUFFERED: "1"  # stream [i/N] progress live instead of buffering to the end

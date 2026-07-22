@@ -806,9 +806,10 @@ with tab_ks:
             else:
                 for _, r in research_today.iterrows():
                     flag_txt = " 🚩" if r["bet_edge"] >= 0.03 else ""
-                    st.markdown(f"**{r['name']}** vs {r['opponent_name']}{flag_txt} — "
-                                f"projects **{r['projected_strikeouts']:.1f}** Ks vs. line {r['line']}, "
-                                f"leans **{r['bet_side']}** (edge {r['bet_edge']:+.1%})")
+                    st.markdown(f"**{r['name']}** vs {r['opponent_name']}{flag_txt}")
+                    st.markdown(f"&nbsp;&nbsp;Bet: **{r['bet_side'].upper()} {r['line']} strikeouts** &nbsp;·&nbsp; "
+                                f"model projects {r['projected_strikeouts']:.1f} Ks &nbsp;·&nbsp; "
+                                f"edge {r['bet_edge']:+.1%}", unsafe_allow_html=True)
                     with st.expander("📖 Research reasoning"):
                         st.markdown(f'<div class="expander-prose">{r["reasoning"]}</div>', unsafe_allow_html=True)
 
@@ -839,8 +840,9 @@ with tab_ks:
                 st.write("No article-based picks today.")
             else:
                 for _, r in article_ks_today.iterrows():
-                    st.markdown(f"**{r['name']}** vs {r['opponent_name']} — leans **{r['bet_side']} {r['line']}** "
-                                f"strikeouts, confidence **{r['confidence']}**")
+                    st.markdown(f"**{r['name']}** vs {r['opponent_name']}")
+                    st.markdown(f"&nbsp;&nbsp;Bet: **{r['bet_side'].upper()} {r['line']} strikeouts** &nbsp;·&nbsp; "
+                                f"article confidence: **{r['confidence']}**", unsafe_allow_html=True)
                     st.markdown(article_alignment_html(str(r.get("alignment", "")), r["bet_side"],
                                                        r.get("stats_model_side"), r.get("article_consensus", ""),
                                                        stats_conf=r.get("stats_model_conf")),
@@ -1009,8 +1011,9 @@ with tab_ml:
         else:
             for _, r in article_ml_today.iterrows():
                 pick_team = r["home_team_name"] if r["bet_side"] == "home" else r["away_team_name"]
-                st.markdown(f"**{r['away_team_name']} @ {r['home_team_name']}** — picks **{pick_team}** "
-                            f"to win, confidence **{r['confidence']}**")
+                st.markdown(f"**{r['away_team_name']} @ {r['home_team_name']}**")
+                st.markdown(f"&nbsp;&nbsp;Bet: **{pick_team} to win** &nbsp;·&nbsp; "
+                            f"article confidence: **{r['confidence']}**", unsafe_allow_html=True)
                 # Translate the stats model's home/away side to a team name for display;
                 # the alignment string itself was already computed home/away in the pipeline.
                 stats_side_raw = str(r.get("stats_model_side", ""))

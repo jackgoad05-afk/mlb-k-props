@@ -67,7 +67,10 @@ ML_LEDGER_PATH = OUTPUT / "article_picks_ml_ledger.csv"
 TOP_N_GAMES = 4
 MAX_SEARCHES_PER_GAME = 5
 RESEARCH_MODEL = "claude-sonnet-5"
-WEB_SEARCH_TOOL_TYPE = "web_search_20260209"
+WEB_SEARCH_TOOL_TYPE = "web_search_20250305"  # basic variant: no code-execution dependency, more
+                                               # broadly available than the _20260209 dynamic-filtering
+                                               # one (whose under-the-hood code execution may be what
+                                               # tripped the "tool-usage limit" web search was hitting)
 
 
 # --------------------------------------------------------------------------- #
