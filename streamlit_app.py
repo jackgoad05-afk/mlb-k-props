@@ -87,15 +87,20 @@ def research_notes_html(notes: list[tuple[str, str]]) -> str:
     """)
 
 
-def article_alignment_html(alignment: str, article_side: str, stats_side, consensus: str) -> str:
+def article_alignment_html(alignment: str, article_side: str, stats_side, consensus: str,
+                            stats_conf=None) -> str:
     """Render the article-vs-stats-model alignment block for an article pick card:
     a tag (aligned/contrarian), a one-line articles-say / model-says / verdict, and
     the article-consensus narrative. `alignment` is the explicit "aligned"/"contrarian"/""
     string from the ledger (see daily_article_picks.py -- stored as a string, not a
     bool, to survive CSV round-trips cleanly). An empty alignment means the stats model
-    had no pick for this game (e.g. daily_ml.py didn't run), so no tag/verdict is shown."""
+    had no pick for this game (e.g. daily_ml.py didn't run), so no tag/verdict is shown.
+    `stats_conf` (0-1), when given, is the model's confidence in its side -- the number
+    games are now selected by -- and is shown next to the model's side."""
     parts = []
     stats_txt = stats_side if (stats_side is not None and str(stats_side) not in ("", "nan")) else "n/a"
+    if stats_txt != "n/a" and stats_conf is not None and pd.notna(stats_conf):
+        stats_txt = f"{stats_txt} ({float(stats_conf):.0%})"
 
     if alignment == "aligned":
         parts.append('<div class="align-tag aligned">✓ Articles + Model aligned</div>')
@@ -818,10 +823,10 @@ with tab_ks:
         # --------------------------------------------------------------------- #
         st.divider()
         st.subheader("📰 Article-Based Picks")
-        st.caption("Pure web-searched article research on the top few games only (see "
-                   "daily_article_picks.py) -- Claude never sees the stats model's own numbers here, "
-                   "just news/previews. Same specific pitcher+line the stats model flagged, for a "
-                   "clean same-bet comparison. Paper/tracking only.")
+        st.caption("Pure web-searched article research on the few games the stats model is most "
+                   "confident on (see daily_article_picks.py) -- Claude never sees the stats model's "
+                   "own numbers here, just news/previews. Same specific pitcher+line, for a clean "
+                   "same-bet comparison. Paper/tracking only.")
 
         article_ks_ledger_path = ROOT / "output" / "article_picks_ks_ledger.csv"
         if not article_ks_ledger_path.exists():
@@ -837,7 +842,8 @@ with tab_ks:
                     st.markdown(f"**{r['name']}** vs {r['opponent_name']} — leans **{r['bet_side']} {r['line']}** "
                                 f"strikeouts, confidence **{r['confidence']}**")
                     st.markdown(article_alignment_html(str(r.get("alignment", "")), r["bet_side"],
-                                                       r.get("stats_model_side"), r.get("article_consensus", "")),
+                                                       r.get("stats_model_side"), r.get("article_consensus", ""),
+                                                       stats_conf=r.get("stats_model_conf")),
                                 unsafe_allow_html=True)
                     with st.expander("📖 Article reasoning"):
                         st.markdown(f'<div class="expander-prose">{r["reasoning"]}</div>', unsafe_allow_html=True)

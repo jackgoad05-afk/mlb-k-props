@@ -10,13 +10,15 @@ a genuinely independent epistemic input, not a hybrid of the other two.
 Two-stage design, built specifically to keep cost low -- most of the slate
 gets ZERO research spend:
 
-Stage 1 (free, no LLM, no new API calls): rank today's games by the size of
-the K-props edge daily_ks.py already flagged (reusing ks_daily_matched.csv,
-same as daily_research_ks.py does), take the top TOP_N_GAMES. This is a
-cheap, already-computed signal -- the K-props model is the one component in
-this repo with a real, backtested edge over naive baselines (CLAUDE.md,
-Track 2), so it's the most defensible filter for "which games are worth
-paying for research on."
+Stage 1 (free, no LLM, no new API calls): rank today's games by the stats
+model's CONFIDENCE -- the highest probability it assigns to its favored
+over/under side on any matched (pitcher, line) in the game (reusing
+ks_daily_matched.csv, same file daily_research_ks.py uses) -- and take the
+top TOP_N_GAMES. This is a cheap, already-computed signal that surfaces the
+games the K-props model has the strongest opinion on (big projection-vs-line
+mismatches). Note this is model confidence, not market edge: it's the
+clearest "the model is sure here" filter for which games are worth paying for
+research on, even though a confident pick isn't automatically a good bet.
 
 Stage 2 (the only real spend): for each selected game, Claude searches up to
 MAX_SEARCHES_PER_GAME articles/previews about both starting pitchers and
@@ -73,9 +75,20 @@ WEB_SEARCH_TOOL_TYPE = "web_search_20260209"
 # --------------------------------------------------------------------------- #
 
 def select_top_games(target_date: date, top_n: int = TOP_N_GAMES) -> pd.DataFrame:
-    """Rank today's games by the largest K-props edge daily_ks.py already
-    computed (reusing ks_daily_matched.csv -- zero extra cost), return one row
-    per selected game: the specific (pitcher, line) that drove the edge."""
+    """Rank today's games by the stats model's own CONFIDENCE -- the highest
+    probability it assigns to its favored side (over/under) on any matched
+    (pitcher, line) in the game -- and take the top `top_n`. Reuses
+    ks_daily_matched.csv (zero extra cost). Returns one row per selected game:
+    the specific (pitcher, line) the model is most confident about.
+
+    This is model confidence, NOT market edge. Confidence is the model's raw
+    conviction (max(P(over), P(under))), which peaks on big projection-vs-line
+    mismatches; edge is where the model most disagrees with the market. A
+    high-confidence pick isn't necessarily a good bet (the market may price it
+    right), but it's the clearest 'the model has a strong opinion here' signal,
+    which is what we're choosing to spend article research on. The market edge
+    for the favored side is still computed and carried through for the
+    article-vs-model alignment display."""
     if not DAILY_MATCHED_PATH.exists():
         raise FileNotFoundError(f"{DAILY_MATCHED_PATH} not found -- daily_ks.py must run first.")
 
@@ -84,14 +97,17 @@ def select_top_games(target_date: date, top_n: int = TOP_N_GAMES) -> pd.DataFram
     if todays.empty:
         return todays
 
-    todays["over_edge"] = todays["model_p_over"] - todays["over_prob_fair"]
-    todays["under_edge"] = (1 - todays["model_p_over"]) - (1 - todays["over_prob_fair"])
-    todays["edge"] = np.maximum(todays["over_edge"], todays["under_edge"])
-    todays["side"] = np.where(todays["over_edge"] >= todays["under_edge"], "over", "under")
+    # The model's favored side is whichever it gives >50%; its confidence is that
+    # probability. Edge (vs market) for that same side is kept for the alignment card.
+    todays["side"] = np.where(todays["model_p_over"] >= 0.5, "over", "under")
+    todays["model_conf"] = np.maximum(todays["model_p_over"], 1 - todays["model_p_over"])
+    over_edge = todays["model_p_over"] - todays["over_prob_fair"]
+    under_edge = (1 - todays["model_p_over"]) - (1 - todays["over_prob_fair"])
+    todays["edge"] = np.where(todays["side"] == "over", over_edge, under_edge)
 
-    # One row per game_pk: whichever matched pitcher/line had the biggest edge.
-    top_per_game = todays.loc[todays.groupby("game_pk")["edge"].idxmax()]
-    return top_per_game.sort_values("edge", ascending=False).head(top_n)
+    # One row per game_pk: whichever matched pitcher/line the model is most confident on.
+    top_per_game = todays.loc[todays.groupby("game_pk")["model_conf"].idxmax()]
+    return top_per_game.sort_values("model_conf", ascending=False).head(top_n)
 
 
 def _fetch_todays_team_names(target_date: date) -> dict[int, tuple[str, str]]:
@@ -230,10 +246,11 @@ def run(target_date: date, dry_run: bool):
         return
 
     team_names = _fetch_todays_team_names(target_date)
-    print(f"selected {len(selected)} game(s) by K-props edge size:")
+    print(f"selected {len(selected)} game(s) by model confidence:")
     for _, row in selected.iterrows():
         home, away = team_names.get(row["game_pk"], ("?", "?"))
-        print(f"  {away} @ {home}  ({row['name']} {row['side']} {row['line']}, edge {row['edge']:+.1%})")
+        print(f"  {away} @ {home}  ({row['name']} {row['side']} {row['line']}, "
+              f"model {row['model_conf']:.0%} conf, edge {row['edge']:+.1%})")
 
     if dry_run:
         print(f"\n--dry-run: would make {len(selected)} research call(s) to {RESEARCH_MODEL} "
@@ -302,8 +319,8 @@ def run(target_date: date, dry_run: bool):
             "under_odds": row["under_odds"], "over_prob_fair": row["over_prob_fair"],
             "confidence": picks["ks_pick"]["confidence"], "reasoning": picks["ks_pick"]["reasoning"],
             "article_consensus": consensus, "stats_model_side": ks_stats_side,
-            "alignment": ks_alignment, "stats_model_edge": row["edge"],
-            "logged_at": datetime.now().isoformat(timespec="seconds"),
+            "alignment": ks_alignment, "stats_model_conf": row["model_conf"],
+            "stats_model_edge": row["edge"], "logged_at": datetime.now().isoformat(timespec="seconds"),
         })
 
         home_price = _representative_h2h_price(bulk_h2h, home_team, away_team, "home")
