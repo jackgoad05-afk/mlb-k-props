@@ -86,3 +86,90 @@ game_id,market_type,side,agent,note,timestamp
 823760,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-21T22:36:41.294697
 824735,strikeout_props,over,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-21T22:36:41.294804
 824895,strikeout_props,under,line_movement,"Line steady: +114 -> +114, no meaningful movement.",2026-07-21T22:36:41.295476
+824735,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966485
+824735,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966494
+823438,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966497
+823438,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966498
+824896,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966501
+823110,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966503
+823110,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966505
+823519,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966508
+823519,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966511
+823518,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966513
+824004,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966515
+824004,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966517
+824004,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966519
+824004,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966521
+824083,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966522
+824083,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966524
+823761,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966526
+823761,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966528
+823761,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966529
+822784,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966531
+824408,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966533
+824732,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966535
+824327,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966537
+824327,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966538
+824327,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966540
+825055,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966541
+825055,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966543
+825055,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966545
+825055,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-22T22:45:52.966546
+824735,strikeout_props,under,injury_news,"Let me search for more recent news specifically about July 22, 2026.",2026-07-22T22:47:49.329463
+824735,strikeout_props,under,injury_news,"The Red Sox pulled Bennett at 65 pitches in his most recent start against the Rays, with the game in hand",2026-07-22T22:47:49.329476
+823438,strikeout_props,over,injury_news,"I found no material breaking news from the last 2-3 days about Aaron Nola having injury concerns, velocity drop reports, pitch count limits, or a role change ahead of his July 22 start. The most recent reports from 1-5 days ago note that",2026-07-22T22:47:49.329478
+823438,strikeout_props,under,injury_news,"Let me search for more recent news closer to today (July 22, 2026) about Lauer's status.",2026-07-22T22:47:49.329481
+824896,strikeout_props,over,injury_news,"Based on my search, I found no material recent news (last 2-3 days) about Michael King having injury concerns, velocity drops, pitch count limits, or role changes ahead of today's start. The most recent articles mention he had a strong outing recently and is performing at a 3.33 ERA in 2026, with no current injury or workload restrictions reported.",2026-07-22T22:47:49.329482
+823110,strikeout_props,over,injury_news,"I found no material news about Brady Singer's health, workload, or role concerns in the last 2-3 days ahead of his July 22 start.",2026-07-22T22:47:49.329485
+823110,strikeout_props,under,injury_news,Hancock left in the second inning on July 12 with an injury to his right middle finger,2026-07-22T22:47:49.329488
+823519,strikeout_props,over,injury_news,Let me search for more recent news specifically from the past few days.,2026-07-22T22:47:49.329490
+823519,strikeout_props,under,injury_news,Max Fried will be on a pitch count around 60 pitches,2026-07-22T22:47:49.329491
+823518,strikeout_props,under,injury_news,Let me search for more recent news specifically about today or the last few days.,2026-07-22T22:47:49.329493
+824004,strikeout_props,under,injury_news,"I found no material recent reports (from the last 2-3 days) about injury concerns, velocity drops, pitch count limits, or role changes for Hunter Dobbins ahead of his July 22 start. The only current news is that",2026-07-22T22:47:49.329496
+824004,strikeout_props,over,injury_news,"I found no material recent reports (from the last 2-3 days) about injury concerns, velocity drops, pitch count limits, or role changes for Hunter Dobbins ahead of his July 22 start. The only current news is that",2026-07-22T22:47:49.329498
+824004,strikeout_props,under,injury_news,"I found nothing material in recent news about Reid Detmers ahead of his July 22, 2026 start. The search results contain older information from 2025 about an elbow inflammation that ended his season, but",2026-07-22T22:47:49.329500
+824004,strikeout_props,under,injury_news,"I found nothing material in recent news about Reid Detmers ahead of his July 22, 2026 start. The search results contain older information from 2025 about an elbow inflammation that ended his season, but",2026-07-22T22:47:49.329501
+824083,strikeout_props,under,injury_news,"I found no material news in the last 2-3 days about Landen Roupp's health, injury, or workload ahead of his July 22, 2026 start. The most recent relevant update was from mid-July noting",2026-07-22T22:47:49.329503
+824083,strikeout_props,under,injury_news,Let me search for more recent news specifically from the last few days in July 2026.,2026-07-22T22:47:49.329505
+823761,strikeout_props,under,injury_news,"Let me search for more recent news specifically about July 20-22, 2026:",2026-07-22T22:47:49.329507
+823761,strikeout_props,under,injury_news,I'll search for recent news about Logan Henderson's status ahead of his start today.,2026-07-22T22:47:49.329509
+823761,strikeout_props,under,injury_news,I'll search for recent news about Logan Henderson's status ahead of his start today.,2026-07-22T22:47:49.329511
+822784,strikeout_props,over,injury_news,Let me search for more recent news specifically from today or the last few days in July 2026.,2026-07-22T22:47:49.329513
+824408,strikeout_props,under,injury_news,Let me search for more recent news specifically about Cecconi's status in the last few days.,2026-07-22T22:47:49.329514
+824732,strikeout_props,over,injury_news,"I found no material reports of injury concerns, velocity drops, unusual pitch count limits, or role changes specifically ahead of Bradish's start on July 22, 2026. The recent news focuses on",2026-07-22T22:47:49.329516
+824327,strikeout_props,over,injury_news,I found recent concerning news.,2026-07-22T22:47:49.329519
+824327,strikeout_props,over,injury_news,"Let me search for more recent news specifically around July 20-22, 2026.",2026-07-22T22:47:49.329521
+824327,strikeout_props,over,injury_news,"Let me search for more recent news specifically around July 20-22, 2026.",2026-07-22T22:47:49.329523
+825055,strikeout_props,under,injury_news,"Let me search for more recent news specifically from July 20-22, 2026.",2026-07-22T22:47:49.329525
+825055,strikeout_props,under,injury_news,"Let me search for more recent news specifically from July 20-22, 2026.",2026-07-22T22:47:49.329527
+825055,strikeout_props,under,injury_news,"The search results are from April 2026 and earlier, not from the last 2-3 days. Let me search with a more current focus for today's date (July 22, 2026).",2026-07-22T22:47:49.329529
+825055,strikeout_props,over,injury_news,"The search results are from April 2026 and earlier, not from the last 2-3 days. Let me search with a more current focus for today's date (July 22, 2026).",2026-07-22T22:47:49.329530
+824735,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.619550
+824735,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.619655
+823438,strikeout_props,over,line_movement,Line moved toward the edge: +108 -> +104 -- sharp money agreeing since the flag.,2026-07-22T22:47:51.621156
+823438,strikeout_props,under,line_movement,Line moved against the edge: -105 -> -113 -- sharp money disagreeing since the flag.,2026-07-22T22:47:51.622021
+824896,strikeout_props,over,line_movement,"Line steady: +106 -> +104, no meaningful movement.",2026-07-22T22:47:51.622931
+823110,strikeout_props,over,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.623065
+823110,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.623169
+823519,strikeout_props,over,line_movement,Line moved against the edge: -142 -> -132 -- sharp money disagreeing since the flag.,2026-07-22T22:47:51.624025
+823519,strikeout_props,under,line_movement,Line moved against the edge: +126 -> +122 -- sharp money disagreeing since the flag.,2026-07-22T22:47:51.624816
+823518,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.624947
+824004,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.625049
+824004,strikeout_props,over,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.625147
+824004,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.625241
+824004,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.625334
+824083,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.625427
+824083,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.625517
+823761,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.625608
+823761,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.625720
+823761,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.625823
+822784,strikeout_props,over,line_movement,"Line steady: -110 -> -112, no meaningful movement.",2026-07-22T22:47:51.626445
+824408,strikeout_props,under,line_movement,"Line steady: +118 -> +118, no meaningful movement.",2026-07-22T22:47:51.627546
+824732,strikeout_props,over,line_movement,"Line steady: +126 -> +125, no meaningful movement.",2026-07-22T22:47:51.628779
+824327,strikeout_props,over,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.628913
+824327,strikeout_props,over,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.629016
+824327,strikeout_props,over,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.629109
+825055,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.629201
+825055,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.629291
+825055,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.629384
+825055,strikeout_props,over,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.629472
