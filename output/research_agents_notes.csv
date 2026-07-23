@@ -173,3 +173,24 @@ game_id,market_type,side,agent,note,timestamp
 825055,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.629291
 825055,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.629384
 825055,strikeout_props,over,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-22T22:47:51.629472
+824893,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-23T22:39:10.080063
+822785,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-23T22:39:10.080072
+824247,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-23T22:39:10.080075
+824247,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-23T22:39:10.080077
+824406,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-23T22:39:10.080079
+823042,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-07-23T22:39:10.080082
+823042,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-07-23T22:39:10.080084
+824893,strikeout_props,under,injury_news,Let me search for more recent news specifically about today's date and Sale's start.,2026-07-23T22:39:51.964345
+822785,strikeout_props,over,injury_news,Let me search for more recent news specifically from the last few days in July 2026.,2026-07-23T22:39:51.964359
+824247,strikeout_props,under,injury_news,"I found no material recent news about Randy Dobnak's health, workload concerns, velocity issues, or role changes ahead of his July 23 start.",2026-07-23T22:39:51.964363
+824247,strikeout_props,under,injury_news,Let me search for more recent news specifically about Troy Melton's health or workload in the last few days.,2026-07-23T22:39:51.964365
+824406,strikeout_props,over,injury_news,"The search results are dated from May–June 2026 and do not contain recent news from July 21–23, 2026. I found nothing material in the search results about Bradley's health, workload, or role ahead of a July 23 start.",2026-07-23T22:39:51.964368
+823042,strikeout_props,under,injury_news,I'll search for recent news about Brandon Pfaadt ahead of his scheduled start today.,2026-07-23T22:39:51.964371
+823042,strikeout_props,over,injury_news,Let me search for more recent news specifically from the last few days.,2026-07-23T22:39:51.964373
+824893,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-23T22:39:53.159855
+822785,strikeout_props,over,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-23T22:39:53.159940
+824247,strikeout_props,under,line_movement,Line moved against the edge: -165 -> -170 -- sharp money disagreeing since the flag.,2026-07-23T22:39:53.160886
+824247,strikeout_props,under,line_movement,Line moved toward the edge: +102 -> +120 -- sharp money agreeing since the flag.,2026-07-23T22:39:53.161628
+824406,strikeout_props,over,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-23T22:39:53.161747
+823042,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-07-23T22:39:53.162405
+823042,strikeout_props,over,line_movement,Line moved against the edge: +120 -> +150 -- sharp money disagreeing since the flag.,2026-07-23T22:39:53.162939
