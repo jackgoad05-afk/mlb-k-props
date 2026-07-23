@@ -1,39 +1,51 @@
 game_pk,home_team_name,away_team_name,market,market_type,side,line,model_prob,pm_price,pm_implied_prob,edge,depth_usd,sportsbook_prob,n_books
-823042,St. Louis Cardinals,Arizona Diamondbacks,polymarket,moneyline,home,,0.4978354978354978,0.49,0.49,0.007835497835497807,0.0,0.5243962804514939,9
-823042,St. Louis Cardinals,Arizona Diamondbacks,polymarket,moneyline,away,,0.5021645021645023,0.49,0.49,0.012164502164502267,24411.1728,0.4756037195485061,9
-824893,Atlanta Braves,San Diego Padres,polymarket,moneyline,home,,0.6183385579937304,0.27,0.27,0.34833855799373037,0.0,0.7078787080999225,9
-824893,Atlanta Braves,San Diego Padres,polymarket,moneyline,away,,0.3816614420062696,0.27,0.27,0.1116614420062696,0.0,0.2921212919000775,9
-824406,Cleveland Guardians,Minnesota Twins,polymarket,moneyline,home,,0.4978354978354978,0.43,0.43,0.0678354978354978,0.0,0.5741901214467182,9
-824406,Cleveland Guardians,Minnesota Twins,polymarket,moneyline,away,,0.5021645021645023,0.43,0.43,0.07216450216450226,147453.3511,0.4258098785532818,9
-822785,Toronto Blue Jays,Tampa Bay Rays,polymarket,moneyline,home,,0.4457751164337991,0.51,0.51,-0.06422488356620093,27754.806900000003,0.4922333182975668,9
-822785,Toronto Blue Jays,Tampa Bay Rays,polymarket,moneyline,away,,0.5542248835662009,0.51,0.51,0.04422488356620091,57050.5176,0.5077666817024332,9
-824247,Detroit Tigers,Kansas City Royals,polymarket,moneyline,home,,0.6183385579937304,0.33,0.33,0.28833855799373037,0.0,0.6620451145529173,9
-824247,Detroit Tigers,Kansas City Royals,polymarket,moneyline,away,,0.3816614420062696,0.33,0.33,0.0516614420062696,7342.4472000000005,0.33795488544708274,9
-823042,St. Louis Cardinals,Arizona Diamondbacks,polymarket,totals,over,8.5,,0.39,0.39,,446.89320000000004,,9
+823042,St. Louis Cardinals,Arizona Diamondbacks,polymarket,moneyline,home,,0.4978354978354978,0.49,0.49,0.007835497835497807,0.0,0.5184900349343015,9
+823042,St. Louis Cardinals,Arizona Diamondbacks,polymarket,moneyline,away,,0.5021645021645023,0.49,0.49,0.012164502164502267,0.0,0.48150996506569854,9
+824893,Atlanta Braves,San Diego Padres,polymarket,moneyline,home,,0.6183385579937304,0.1,0.1,0.5183385579937304,0.0,0.8916793793127425,6
+824893,Atlanta Braves,San Diego Padres,polymarket,moneyline,away,,0.3816614420062696,0.1,0.1,0.28166144200626964,1960.1979000000001,0.10832062068725745,6
+824406,Cleveland Guardians,Minnesota Twins,polymarket,moneyline,home,,0.4978354978354978,0.43,0.43,0.0678354978354978,0.0,0.6076483535784727,6
+824406,Cleveland Guardians,Minnesota Twins,polymarket,moneyline,away,,0.5021645021645023,0.43,0.43,0.07216450216450226,212.721,0.3923516464215273,6
+822785,Toronto Blue Jays,Tampa Bay Rays,polymarket,moneyline,home,,0.4457751164337991,0.51,0.51,-0.06422488356620093,62871.60660000001,0.482214300468764,9
+822785,Toronto Blue Jays,Tampa Bay Rays,polymarket,moneyline,away,,0.5542248835662009,0.51,0.51,0.04422488356620091,4585.3488,0.517785699531236,9
+824247,Detroit Tigers,Kansas City Royals,polymarket,moneyline,home,,0.6183385579937304,0.33,0.33,0.28833855799373037,0.0,0.6662806784023573,9
+824247,Detroit Tigers,Kansas City Royals,polymarket,moneyline,away,,0.3816614420062696,0.33,0.33,0.0516614420062696,10471.164,0.3337193215976427,9
+823042,St. Louis Cardinals,Arizona Diamondbacks,polymarket,totals,over,8.5,,0.39,0.39,,399.36,,9
 823042,St. Louis Cardinals,Arizona Diamondbacks,polymarket,totals,under,8.5,,0.39,0.39,,0.0,,9
-823042,St. Louis Cardinals,Arizona Diamondbacks,polymarket,totals,over,9.5,,0.3,0.3,,29.099999999999998,,9
-823042,St. Louis Cardinals,Arizona Diamondbacks,polymarket,totals,under,9.5,,0.3,0.3,,0.0,,9
-824893,Atlanta Braves,San Diego Padres,polymarket,totals,over,7.5,,0.51,0.51,,0.0,,9
-824893,Atlanta Braves,San Diego Padres,polymarket,totals,under,7.5,,0.51,0.51,,0.0,,9
-824893,Atlanta Braves,San Diego Padres,polymarket,totals,over,6.5,,0.64,0.64,,0.0,,9
-824893,Atlanta Braves,San Diego Padres,polymarket,totals,under,6.5,,0.64,0.64,,0.0,,9
-824893,Atlanta Braves,San Diego Padres,polymarket,totals,over,8.5,,0.43,0.43,,3.1347,,9
-824893,Atlanta Braves,San Diego Padres,polymarket,totals,under,8.5,,0.43,0.43,,0.0,,9
-824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,over,7.5,,0.48,0.48,,67757.568,,9
-824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,under,7.5,,0.48,0.48,,0.0,,9
-824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,over,6.5,,0.61,0.61,,2370.8504,,9
-824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,under,6.5,,0.61,0.61,,11.8767,,9
-824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,over,8.5,,0.4,0.4,,6855.3574,,9
-824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,under,8.5,,0.4,0.4,,0.0,,9
-822785,Toronto Blue Jays,Tampa Bay Rays,polymarket,totals,over,8.5,,0.51,0.51,,700.4442,,9
-822785,Toronto Blue Jays,Tampa Bay Rays,polymarket,totals,under,8.5,,0.51,0.51,,26477.0835,,9
-822785,Toronto Blue Jays,Tampa Bay Rays,polymarket,totals,over,7.5,,0.59,0.59,,21.24,,9
-822785,Toronto Blue Jays,Tampa Bay Rays,polymarket,totals,under,7.5,,0.59,0.59,,0.0,,9
-822785,Toronto Blue Jays,Tampa Bay Rays,polymarket,totals,over,9.5,,0.41,0.41,,1080.3458999999998,,9
+823042,St. Louis Cardinals,Arizona Diamondbacks,polymarket,totals,over,9.5,,0.31,0.31,,451.05,,9
+823042,St. Louis Cardinals,Arizona Diamondbacks,polymarket,totals,under,9.5,,0.31,0.31,,0.0,,9
+824893,Atlanta Braves,San Diego Padres,polymarket,totals,over,7.5,,1.0,1.0,,,,6
+824893,Atlanta Braves,San Diego Padres,polymarket,totals,under,7.5,,1.0,1.0,,,,6
+824893,Atlanta Braves,San Diego Padres,polymarket,totals,over,6.5,,1.0,1.0,,,,6
+824893,Atlanta Braves,San Diego Padres,polymarket,totals,under,6.5,,1.0,1.0,,,,6
+824893,Atlanta Braves,San Diego Padres,polymarket,totals,over,8.5,,0.85,0.85,,0.0,,6
+824893,Atlanta Braves,San Diego Padres,polymarket,totals,under,8.5,,0.85,0.85,,0.0,,6
+824893,Atlanta Braves,San Diego Padres,polymarket,totals,over,10.5,,0.52,0.52,,0.0,,6
+824893,Atlanta Braves,San Diego Padres,polymarket,totals,under,10.5,,0.52,0.52,,0.0,,6
+824893,Atlanta Braves,San Diego Padres,polymarket,totals,over,9.5,,0.66,0.66,,0.0,,6
+824893,Atlanta Braves,San Diego Padres,polymarket,totals,under,9.5,,0.66,0.66,,0.0,,6
+824893,Atlanta Braves,San Diego Padres,polymarket,totals,over,12.5,,0.28,0.28,,0.0,,6
+824893,Atlanta Braves,San Diego Padres,polymarket,totals,under,12.5,,0.28,0.28,,0.0,,6
+824893,Atlanta Braves,San Diego Padres,polymarket,totals,over,11.5,,0.36,0.36,,0.0,,6
+824893,Atlanta Braves,San Diego Padres,polymarket,totals,under,11.5,,0.36,0.36,,0.0,,6
+824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,over,7.5,,0.2,0.2,,844.082,,6
+824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,under,7.5,,0.2,0.2,,0.0,,6
+824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,over,6.5,,0.29,0.29,,4881.821800000001,,6
+824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,under,6.5,,0.29,0.29,,0.0,,6
+824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,over,8.5,,0.15,0.15,,606.5053,,6
+824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,under,8.5,,0.15,0.15,,0.0,,6
+824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,over,5.5,,0.37,0.37,,4087.0422,,6
+824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,under,5.5,,0.37,0.37,,0.0,,6
+824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,over,4.5,,0.54,0.54,,0.0,,6
+824406,Cleveland Guardians,Minnesota Twins,polymarket,totals,under,4.5,,0.54,0.54,,0.0,,6
+822785,Toronto Blue Jays,Tampa Bay Rays,polymarket,totals,over,8.5,,0.51,0.51,,299.1762,,9
+822785,Toronto Blue Jays,Tampa Bay Rays,polymarket,totals,under,8.5,,0.51,0.51,,40715.9622,,9
+822785,Toronto Blue Jays,Tampa Bay Rays,polymarket,totals,over,7.5,,0.6,0.6,,11995.38,,9
+822785,Toronto Blue Jays,Tampa Bay Rays,polymarket,totals,under,7.5,,0.6,0.6,,0.0,,9
+822785,Toronto Blue Jays,Tampa Bay Rays,polymarket,totals,over,9.5,,0.41,0.41,,5794.755499999999,,9
 822785,Toronto Blue Jays,Tampa Bay Rays,polymarket,totals,under,9.5,,0.41,0.41,,0.0,,9
-824247,Detroit Tigers,Kansas City Royals,polymarket,totals,over,7.5,,0.59,0.59,,4839.5458,,9
+824247,Detroit Tigers,Kansas City Royals,polymarket,totals,over,7.5,,0.59,0.59,,9121.252499999999,,9
 824247,Detroit Tigers,Kansas City Royals,polymarket,totals,under,7.5,,0.59,0.59,,0.0,,9
-824247,Detroit Tigers,Kansas City Royals,polymarket,totals,over,6.5,,0.69,0.69,,1575.8772,,9
+824247,Detroit Tigers,Kansas City Royals,polymarket,totals,over,6.5,,0.69,0.69,,934.9499999999999,,9
 824247,Detroit Tigers,Kansas City Royals,polymarket,totals,under,6.5,,0.69,0.69,,55.4557,,9
-824247,Detroit Tigers,Kansas City Royals,polymarket,totals,over,8.5,,0.52,0.52,,34782.46200000001,,9
-824247,Detroit Tigers,Kansas City Royals,polymarket,totals,under,8.5,,0.52,0.52,,35196.7408,,9
+824247,Detroit Tigers,Kansas City Royals,polymarket,totals,over,8.5,,0.52,0.52,,34730.191600000006,,9
+824247,Detroit Tigers,Kansas City Royals,polymarket,totals,under,8.5,,0.52,0.52,,35954.880000000005,,9

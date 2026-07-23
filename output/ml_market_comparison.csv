@@ -44,8 +44,8 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-07-22,822784,Toronto Blue Jays,Tampa Bay Rays,Toronto Blue Jays,0.5019652809471136,9,Tampa Bay Rays,False
 2026-07-22,824735,Boston Red Sox,Baltimore Orioles,Boston Red Sox,0.5606445288491207,9,Boston Red Sox,True
 2026-07-22,824896,Atlanta Braves,San Diego Padres,Atlanta Braves,0.5165095893843707,9,Atlanta Braves,True
-2026-07-23,824893,Atlanta Braves,San Diego Padres,Atlanta Braves,0.717690273979026,9,Atlanta Braves,True
-2026-07-23,824406,Cleveland Guardians,Minnesota Twins,Cleveland Guardians,0.5739924928769669,9,Minnesota Twins,False
-2026-07-23,822785,Toronto Blue Jays,Tampa Bay Rays,Tampa Bay Rays,0.5081430188375262,9,Tampa Bay Rays,True
-2026-07-23,823042,St. Louis Cardinals,Arizona Diamondbacks,St. Louis Cardinals,0.5247734833162241,9,Arizona Diamondbacks,False
-2026-07-23,824247,Detroit Tigers,Kansas City Royals,Detroit Tigers,0.6620451145529173,9,Detroit Tigers,True
+2026-07-23,824893,Atlanta Braves,San Diego Padres,Atlanta Braves,0.8850483460806416,6,Atlanta Braves,True
+2026-07-23,824406,Cleveland Guardians,Minnesota Twins,Cleveland Guardians,0.5559931363230376,6,Minnesota Twins,False
+2026-07-23,822785,Toronto Blue Jays,Tampa Bay Rays,Tampa Bay Rays,0.5167435023092791,9,Tampa Bay Rays,True
+2026-07-23,823042,St. Louis Cardinals,Arizona Diamondbacks,St. Louis Cardinals,0.5239111549734751,9,Arizona Diamondbacks,False
+2026-07-23,824247,Detroit Tigers,Kansas City Royals,Detroit Tigers,0.6662806784023573,9,Detroit Tigers,True
