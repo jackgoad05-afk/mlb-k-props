@@ -1518,3 +1518,20 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 824005,2026,2026-07-21,108,Los Angeles Angels,138,St. Louis Cardinals,5,1,700712.0,669461.0,1,Angel Stadium,night,N
 825056,2026,2026-07-21,109,Arizona Diamondbacks,133,Athletics,6,5,684442.0,678022.0,15,Chase Field,night,N
 823114,2026,2026-07-21,136,Seattle Mariners,113,Cincinnati Reds,2,4,622491.0,695505.0,680,T-Mobile Park,night,N
+823518,2026,2026-07-22,147,New York Yankees,134,Pittsburgh Pirates,3,5,543037.0,656605.0,3313,Yankee Stadium,day,S
+823519,2026,2026-07-22,147,New York Yankees,134,Pittsburgh Pirates,2,0,608331.0,696149.0,3313,Yankee Stadium,night,S
+824735,2026,2026-07-22,111,Boston Red Sox,110,Baltimore Orioles,6,3,687562.0,665152.0,3,Fenway Park,day,S
+824732,2026,2026-07-22,111,Boston Red Sox,110,Baltimore Orioles,1,5,700842.0,680694.0,3,Fenway Park,night,S
+824083,2026,2026-07-22,118,Kansas City Royals,137,San Francisco Giants,5,4,607625.0,694738.0,7,Kauffman Stadium,day,N
+823761,2026,2026-07-22,158,Milwaukee Brewers,121,New York Mets,4,3,701656.0,681035.0,32,American Family Field,day,N
+824327,2026,2026-07-22,115,Colorado Rockies,120,Washington Nationals,0,8,687312.0,676917.0,19,Coors Field,day,N
+825055,2026,2026-07-22,109,Arizona Diamondbacks,133,Athletics,15,5,518876.0,695611.0,15,Chase Field,day,N
+823110,2026,2026-07-22,136,Seattle Mariners,113,Cincinnati Reds,3,5,676106.0,663903.0,680,T-Mobile Park,day,N
+824004,2026,2026-07-22,108,Los Angeles Angels,138,St. Louis Cardinals,0,1,672282.0,690928.0,1,Angel Stadium,day,N
+824408,2026,2026-07-22,114,Cleveland Guardians,142,Minnesota Twins,6,10,677944.0,641927.0,5,Progressive Field,night,N
+823438,2026,2026-07-22,143,Philadelphia Phillies,119,Los Angeles Dodgers,5,9,605400.0,641778.0,2681,Citizens Bank Park,night,N
+822784,2026,2026-07-22,141,Toronto Blue Jays,139,Tampa Bay Rays,2,4,680755.0,643377.0,14,Rogers Centre,night,N
+824896,2026,2026-07-22,144,Atlanta Braves,135,San Diego Padres,7,6,527048.0,650633.0,4705,Truist Park,night,N
+822873,2026,2026-07-22,140,Texas Rangers,145,Chicago White Sox,2,4,641302.0,641743.0,5325,Globe Life Field,night,N
+824650,2026,2026-07-22,112,Chicago Cubs,116,Detroit Tigers,1,5,607067.0,672456.0,17,Wrigley Field,night,N
+824166,2026,2026-07-22,117,Houston Astros,146,Miami Marlins,5,2,663567.0,645261.0,2392,Daikin Park,night,N
