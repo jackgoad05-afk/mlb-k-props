@@ -1540,3 +1540,18 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 822785,2026,2026-07-23,141,Toronto Blue Jays,139,Tampa Bay Rays,3,1,669456.0,668984.0,14,Rogers Centre,day,N
 823042,2026,2026-07-23,138,St. Louis Cardinals,109,Arizona Diamondbacks,6,10,700241.0,694297.0,2889,Busch Stadium,day,N
 824247,2026,2026-07-23,116,Detroit Tigers,118,Kansas City Royals,4,3,675512.0,677976.0,2394,Comerica Park,night,N
+823759,2026,2026-07-24,158,Milwaukee Brewers,115,Colorado Rockies,2,5,675660.0,608372.0,32,American Family Field,day,N
+824248,2026,2026-07-24,116,Detroit Tigers,118,Kansas City Royals,2,1,669373.0,694360.0,2394,Comerica Park,night,N
+823352,2026,2026-07-24,134,Pittsburgh Pirates,112,Chicago Cubs,2,3,683003.0,571510.0,31,PNC Park,night,N
+822707,2026,2026-07-24,120,Washington Nationals,109,Arizona Diamondbacks,2,3,687223.0,593958.0,3309,Nationals Park,night,N
+823434,2026,2026-07-24,143,Philadelphia Phillies,147,New York Yankees,0,1,666200.0,693645.0,2681,Citizens Bank Park,night,N
+824812,2026,2026-07-24,110,Baltimore Orioles,144,Atlanta Braves,6,7,669432.0,656550.0,2,Oriole Park at Camden Yards,night,N
+823601,2026,2026-07-24,121,New York Mets,119,Los Angeles Dodgers,2,4,640455.0,808963.0,3289,Citi Field,night,N
+822952,2026,2026-07-24,139,Tampa Bay Rays,114,Cleveland Guardians,11,3,663556.0,676282.0,12,Tropicana Field,night,N
+823843,2026,2026-07-24,146,Miami Marlins,135,San Diego Padres,2,4,687473.0,608566.0,4169,loanDepot park,night,N
+824733,2026,2026-07-24,111,Boston Red Sox,141,Toronto Blue Jays,6,4,663776.0,702056.0,3,Fenway Park,night,N
+824573,2026,2026-07-24,145,Chicago White Sox,117,Houston Astros,5,9,663436.0,681293.0,4,Rate Field,night,N
+822872,2026,2026-07-24,140,Texas Rangers,136,Seattle Mariners,5,4,669022.0,682243.0,5325,Globe Life Field,night,N
+823680,2026,2026-07-24,142,Minnesota Twins,133,Athletics,0,2,805673.0,682052.0,3312,Target Field,night,N
+823031,2026,2026-07-24,138,St. Louis Cardinals,113,Cincinnati Reds,2,4,669160.0,695076.0,2889,Busch Stadium,night,N
+823196,2026,2026-07-24,137,San Francisco Giants,108,Los Angeles Angels,7,6,657277.0,680570.0,2395,Oracle Park,night,N
