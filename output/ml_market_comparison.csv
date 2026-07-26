@@ -74,18 +74,18 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-07-25,823027,St. Louis Cardinals,Cincinnati Reds,St. Louis Cardinals,0.5025096389951784,9,Cincinnati Reds,False
 2026-07-25,823600,New York Mets,Los Angeles Dodgers,Los Angeles Dodgers,0.5855658473963137,9,Los Angeles Dodgers,True
 2026-07-25,822869,Texas Rangers,Seattle Mariners,Seattle Mariners,0.5019777749024025,9,Seattle Mariners,True
-2026-07-26,822950,Tampa Bay Rays,Cleveland Guardians,Tampa Bay Rays,0.5342645235239307,9,Tampa Bay Rays,True
-2026-07-26,822706,Washington Nationals,Arizona Diamondbacks,Arizona Diamondbacks,0.5190146404012661,9,Arizona Diamondbacks,True
-2026-07-26,824810,Baltimore Orioles,Atlanta Braves,Atlanta Braves,0.5024258787076535,9,Atlanta Braves,True
-2026-07-26,824730,Boston Red Sox,Toronto Blue Jays,Boston Red Sox,0.5565113113313915,9,Boston Red Sox,True
-2026-07-26,823354,Pittsburgh Pirates,Chicago Cubs,Pittsburgh Pirates,0.5432226598448424,9,Chicago Cubs,False
-2026-07-26,824246,Detroit Tigers,Kansas City Royals,Detroit Tigers,0.6277597476042769,9,Detroit Tigers,True
-2026-07-26,823599,New York Mets,Los Angeles Dodgers,Los Angeles Dodgers,0.5878123870405697,9,Los Angeles Dodgers,True
-2026-07-26,823840,Miami Marlins,San Diego Padres,Miami Marlins,0.544018166777134,9,Miami Marlins,True
-2026-07-26,823678,Minnesota Twins,Athletics,Minnesota Twins,0.5898482783807583,9,Minnesota Twins,True
-2026-07-26,824572,Chicago White Sox,Houston Astros,Chicago White Sox,0.5018813214313499,9,Chicago White Sox,True
-2026-07-26,823755,Milwaukee Brewers,Colorado Rockies,Milwaukee Brewers,0.7473937677427015,9,Milwaukee Brewers,True
-2026-07-26,823028,St. Louis Cardinals,Cincinnati Reds,St. Louis Cardinals,0.5488334164050698,9,St. Louis Cardinals,True
-2026-07-26,822870,Texas Rangers,Seattle Mariners,Texas Rangers,0.5036059234689813,9,Seattle Mariners,False
-2026-07-26,823194,San Francisco Giants,Los Angeles Angels,San Francisco Giants,0.5012624034256591,9,Los Angeles Angels,False
-2026-07-26,823433,Philadelphia Phillies,New York Yankees,Philadelphia Phillies,0.6290675762868843,9,Philadelphia Phillies,True
+2026-07-26,822950,Tampa Bay Rays,Cleveland Guardians,Tampa Bay Rays,0.5464015851811902,6,Tampa Bay Rays,True
+2026-07-26,822706,Washington Nationals,Arizona Diamondbacks,Arizona Diamondbacks,0.5134379709052498,9,Arizona Diamondbacks,True
+2026-07-26,824810,Baltimore Orioles,Atlanta Braves,Atlanta Braves,0.5063223150139273,9,Atlanta Braves,True
+2026-07-26,824730,Boston Red Sox,Toronto Blue Jays,Boston Red Sox,0.5671120211953632,9,Boston Red Sox,True
+2026-07-26,823354,Pittsburgh Pirates,Chicago Cubs,Pittsburgh Pirates,0.5418462610296796,9,Chicago Cubs,False
+2026-07-26,824246,Detroit Tigers,Kansas City Royals,Detroit Tigers,0.628045466041883,9,Detroit Tigers,True
+2026-07-26,823599,New York Mets,Los Angeles Dodgers,Los Angeles Dodgers,0.5753238046200186,9,Los Angeles Dodgers,True
+2026-07-26,823840,Miami Marlins,San Diego Padres,Miami Marlins,0.5304170514103442,9,Miami Marlins,True
+2026-07-26,823678,Minnesota Twins,Athletics,Minnesota Twins,0.5880370295299309,9,Minnesota Twins,True
+2026-07-26,824572,Chicago White Sox,Houston Astros,Chicago White Sox,0.5084978429417596,9,Chicago White Sox,True
+2026-07-26,823755,Milwaukee Brewers,Colorado Rockies,Milwaukee Brewers,0.7502579068443305,9,Milwaukee Brewers,True
+2026-07-26,823028,St. Louis Cardinals,Cincinnati Reds,St. Louis Cardinals,0.5499373031238629,9,St. Louis Cardinals,True
+2026-07-26,822870,Texas Rangers,Seattle Mariners,Texas Rangers,0.5050235046207407,9,Seattle Mariners,False
+2026-07-26,823194,San Francisco Giants,Los Angeles Angels,Los Angeles Angels,0.505480453772883,9,Los Angeles Angels,True
+2026-07-26,823433,Philadelphia Phillies,New York Yankees,Philadelphia Phillies,0.6315578225792451,9,Philadelphia Phillies,True
