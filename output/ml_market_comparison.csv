@@ -89,3 +89,13 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-07-26,822870,Texas Rangers,Seattle Mariners,Texas Rangers,0.5050235046207407,9,Seattle Mariners,False
 2026-07-26,823194,San Francisco Giants,Los Angeles Angels,Los Angeles Angels,0.505480453772883,9,Los Angeles Angels,True
 2026-07-26,823433,Philadelphia Phillies,New York Yankees,Philadelphia Phillies,0.6315578225792451,9,Philadelphia Phillies,True
+2026-08-01,822781,Toronto Blue Jays,St. Louis Cardinals,Toronto Blue Jays,0.5934596517342196,9,St. Louis Cardinals,False
+2026-08-01,822944,Tampa Bay Rays,Chicago White Sox,Tampa Bay Rays,0.6085968941690667,9,Tampa Bay Rays,True
+2026-08-01,823594,New York Mets,Miami Marlins,New York Mets,0.5502402458576511,9,Miami Marlins,False
+2026-08-01,823109,Seattle Mariners,Minnesota Twins,Seattle Mariners,0.6021277445114479,9,Seattle Mariners,True
+2026-08-01,824485,Cincinnati Reds,Pittsburgh Pirates,Pittsburgh Pirates,0.5234649973025235,9,Pittsburgh Pirates,True
+2026-08-01,824808,Baltimore Orioles,Philadelphia Phillies,Philadelphia Phillies,0.5683025730424595,9,Philadelphia Phillies,True
+2026-08-01,824162,Houston Astros,Texas Rangers,Texas Rangers,0.5372211307444739,9,Texas Rangers,True
+2026-08-01,824405,Cleveland Guardians,Arizona Diamondbacks,Cleveland Guardians,0.6141592794232837,9,Cleveland Guardians,True
+2026-08-01,824890,Atlanta Braves,Washington Nationals,Atlanta Braves,0.6059764417715409,9,Atlanta Braves,True
+2026-08-01,824649,Chicago Cubs,New York Yankees,Chicago Cubs,0.5182974264785601,9,New York Yankees,False
