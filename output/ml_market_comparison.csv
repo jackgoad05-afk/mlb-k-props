@@ -99,3 +99,18 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-08-01,824405,Cleveland Guardians,Arizona Diamondbacks,Cleveland Guardians,0.6141592794232837,9,Cleveland Guardians,True
 2026-08-01,824890,Atlanta Braves,Washington Nationals,Atlanta Braves,0.6059764417715409,9,Atlanta Braves,True
 2026-08-01,824649,Chicago Cubs,New York Yankees,Chicago Cubs,0.5182974264785601,9,New York Yankees,False
+2026-08-02,824891,Atlanta Braves,Washington Nationals,Atlanta Braves,0.5409964306102446,9,Washington Nationals,False
+2026-08-02,824807,Baltimore Orioles,Philadelphia Phillies,Philadelphia Phillies,0.5716405506800766,9,Philadelphia Phillies,True
+2026-08-02,822783,Toronto Blue Jays,St. Louis Cardinals,Toronto Blue Jays,0.5494792419158064,9,Toronto Blue Jays,True
+2026-08-02,824404,Cleveland Guardians,Arizona Diamondbacks,Cleveland Guardians,0.6096746013581793,9,Cleveland Guardians,True
+2026-08-02,822943,Tampa Bay Rays,Chicago White Sox,Tampa Bay Rays,0.5734708411992684,9,Tampa Bay Rays,True
+2026-08-02,824483,Cincinnati Reds,Pittsburgh Pirates,Cincinnati Reds,0.564166119828103,9,Cincinnati Reds,True
+2026-08-02,823592,New York Mets,Miami Marlins,Miami Marlins,0.5230009205247818,9,Miami Marlins,True
+2026-08-02,824163,Houston Astros,Texas Rangers,Houston Astros,0.5532715319663798,9,Texas Rangers,False
+2026-08-02,824648,Chicago Cubs,New York Yankees,New York Yankees,0.5216435925354711,9,New York Yankees,True
+2026-08-02,824323,Colorado Rockies,Kansas City Royals,Colorado Rockies,0.5357009294800972,9,Kansas City Royals,False
+2026-08-02,823996,Los Angeles Angels,Milwaukee Brewers,Milwaukee Brewers,0.6726186937746284,9,Milwaukee Brewers,True
+2026-08-02,824971,Athletics,Detroit Tigers,Detroit Tigers,0.5112307011232095,9,Detroit Tigers,True
+2026-08-02,823107,Seattle Mariners,Minnesota Twins,Seattle Mariners,0.5615168286911119,9,Seattle Mariners,True
+2026-08-02,823270,San Diego Padres,San Francisco Giants,San Diego Padres,0.5786258619108869,9,San Diego Padres,True
+2026-08-02,823919,Los Angeles Dodgers,Boston Red Sox,Los Angeles Dodgers,0.6219550530457796,9,Los Angeles Dodgers,True

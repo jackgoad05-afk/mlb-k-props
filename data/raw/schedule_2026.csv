@@ -1652,3 +1652,18 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 823272,2026,2026-07-31,135,San Diego Padres,137,San Francisco Giants,7,0,699134.0,687931.0,2680,Petco Park,night,N
 823922,2026,2026-07-31,119,Los Angeles Dodgers,111,Boston Red Sox,4,9,683618.0,624133.0,22,UNIQLO Field at Dodger Stadium,night,N
 823111,2026,2026-07-31,136,Seattle Mariners,142,Minnesota Twins,3,5,682243.0,805673.0,680,T-Mobile Park,night,N
+822781,2026,2026-08-01,141,Toronto Blue Jays,138,St. Louis Cardinals,5,1,592332.0,687273.0,14,Rogers Centre,day,N
+823109,2026,2026-08-01,136,Seattle Mariners,142,Minnesota Twins,4,3,669302.0,687570.0,680,T-Mobile Park,day,N
+822944,2026,2026-08-01,139,Tampa Bay Rays,145,Chicago White Sox,1,0,656876.0,663855.0,12,Tropicana Field,day,N
+823594,2026,2026-08-01,121,New York Mets,146,Miami Marlins,2,6,804267.0,663969.0,3289,Citi Field,day,N
+824485,2026,2026-08-01,113,Cincinnati Reds,134,Pittsburgh Pirates,1,4,671096.0,677952.0,2602,Great American Ball Park,night,N
+824808,2026,2026-08-01,110,Baltimore Orioles,143,Philadelphia Phillies,0,5,669358.0,650911.0,2,Oriole Park at Camden Yards,night,N
+824162,2026,2026-08-01,117,Houston Astros,140,Texas Rangers,5,4,669854.0,594798.0,2392,Daikin Park,night,N
+824405,2026,2026-08-01,114,Cleveland Guardians,109,Arizona Diamondbacks,8,12,800048.0,684442.0,5,Progressive Field,night,N
+824890,2026,2026-08-01,144,Atlanta Braves,120,Washington Nationals,8,3,527048.0,571945.0,4705,Truist Park,night,N
+824649,2026,2026-08-01,112,Chicago Cubs,147,New York Yankees,5,2,656849.0,608331.0,17,Wrigley Field,night,N
+824326,2026,2026-08-01,115,Colorado Rockies,118,Kansas City Royals,12,6,663372.0,679883.0,19,Coors Field,night,N
+823269,2026,2026-08-01,135,San Diego Padres,137,San Francisco Giants,6,5,621111.0,641816.0,2680,Petco Park,night,N
+823920,2026,2026-08-01,119,Los Angeles Dodgers,111,Boston Red Sox,2,3,808967.0,801139.0,22,UNIQLO Field at Dodger Stadium,night,N
+824000,2026,2026-08-01,108,Los Angeles Angels,158,Milwaukee Brewers,1,3,608718.0,688107.0,1,Angel Stadium,night,N
+824972,2026,2026-08-01,133,Athletics,116,Detroit Tigers,6,8,678022.0,664285.0,2529,Sutter Health Park,night,N
