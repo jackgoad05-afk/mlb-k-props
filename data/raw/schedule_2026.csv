@@ -1667,3 +1667,18 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 823920,2026,2026-08-01,119,Los Angeles Dodgers,111,Boston Red Sox,2,3,808967.0,801139.0,22,UNIQLO Field at Dodger Stadium,night,N
 824000,2026,2026-08-01,108,Los Angeles Angels,158,Milwaukee Brewers,1,3,608718.0,688107.0,1,Angel Stadium,night,N
 824972,2026,2026-08-01,133,Athletics,116,Detroit Tigers,6,8,678022.0,664285.0,2529,Sutter Health Park,night,N
+824807,2026,2026-08-02,110,Baltimore Orioles,143,Philadelphia Phillies,0,8,680694.0,554430.0,2,Oriole Park at Camden Yards,day,N
+824891,2026,2026-08-02,144,Atlanta Braves,120,Washington Nationals,4,2,702275.0,676917.0,4705,Truist Park,day,N
+822783,2026,2026-08-02,141,Toronto Blue Jays,138,St. Louis Cardinals,1,5,453286.0,669461.0,14,Rogers Centre,day,N
+824404,2026,2026-08-02,114,Cleveland Guardians,109,Arizona Diamondbacks,5,0,668909.0,518876.0,5,Progressive Field,day,N
+824483,2026,2026-08-02,113,Cincinnati Reds,134,Pittsburgh Pirates,10,2,695505.0,656605.0,2602,Great American Ball Park,day,N
+822943,2026,2026-08-02,139,Tampa Bay Rays,145,Chicago White Sox,1,9,643377.0,641743.0,12,Tropicana Field,day,N
+823592,2026,2026-08-02,121,New York Mets,146,Miami Marlins,0,2,476594.0,645261.0,3289,Citi Field,day,N
+824163,2026,2026-08-02,117,Houston Astros,140,Texas Rangers,7,3,663567.0,677958.0,2392,Daikin Park,day,N
+824648,2026,2026-08-02,112,Chicago Cubs,147,New York Yankees,1,2,607067.0,543037.0,17,Wrigley Field,day,N
+824323,2026,2026-08-02,115,Colorado Rockies,118,Kansas City Royals,8,1,607536.0,607625.0,19,Coors Field,day,N
+823996,2026,2026-08-02,108,Los Angeles Angels,158,Milwaukee Brewers,3,0,700712.0,694819.0,1,Angel Stadium,day,N
+824971,2026,2026-08-02,133,Athletics,116,Detroit Tigers,0,11,695611.0,672456.0,2529,Sutter Health Park,day,N
+823270,2026,2026-08-02,135,San Diego Padres,137,San Francisco Giants,5,4,606996.0,694738.0,2680,Petco Park,day,N
+823107,2026,2026-08-02,136,Seattle Mariners,142,Minnesota Twins,7,6,669923.0,671737.0,680,T-Mobile Park,day,N
+823919,2026,2026-08-02,119,Los Angeles Dodgers,111,Boston Red Sox,4,8,686218.0,687562.0,22,UNIQLO Field at Dodger Stadium,day,N

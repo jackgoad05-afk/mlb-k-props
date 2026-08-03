@@ -114,3 +114,6 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-08-02,823107,Seattle Mariners,Minnesota Twins,Seattle Mariners,0.5615168286911119,9,Seattle Mariners,True
 2026-08-02,823270,San Diego Padres,San Francisco Giants,San Diego Padres,0.5786258619108869,9,San Diego Padres,True
 2026-08-02,823919,Los Angeles Dodgers,Boston Red Sox,Los Angeles Dodgers,0.6219550530457796,9,Los Angeles Dodgers,True
+2026-08-03,823431,Philadelphia Phillies,Washington Nationals,Philadelphia Phillies,0.5842435533003021,9,Philadelphia Phillies,True
+2026-08-03,823520,New York Yankees,St. Louis Cardinals,New York Yankees,0.658858194940789,9,New York Yankees,True
+2026-08-03,823757,Milwaukee Brewers,Pittsburgh Pirates,Milwaukee Brewers,0.5756026936547924,9,Milwaukee Brewers,True
