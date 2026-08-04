@@ -1682,3 +1682,11 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 823270,2026,2026-08-02,135,San Diego Padres,137,San Francisco Giants,5,4,606996.0,694738.0,2680,Petco Park,day,N
 823107,2026,2026-08-02,136,Seattle Mariners,142,Minnesota Twins,7,6,669923.0,671737.0,680,T-Mobile Park,day,N
 823919,2026,2026-08-02,119,Los Angeles Dodgers,111,Boston Red Sox,4,8,686218.0,687562.0,22,UNIQLO Field at Dodger Stadium,day,N
+823431,2026,2026-08-03,143,Philadelphia Phillies,120,Washington Nationals,6,3,605400.0,674841.0,2681,Citizens Bank Park,night,N
+823520,2026,2026-08-03,147,New York Yankees,138,St. Louis Cardinals,7,13,693645.0,700241.0,3313,Yankee Stadium,night,N
+823757,2026,2026-08-03,158,Milwaukee Brewers,134,Pittsburgh Pirates,3,4,687075.0,696149.0,32,American Family Field,night,N
+824647,2026,2026-08-03,112,Chicago Cubs,119,Los Angeles Dodgers,10,5,571510.0,680736.0,17,Wrigley Field,night,N
+822867,2026,2026-08-03,140,Texas Rangers,137,San Francisco Giants,1,5,615698.0,657277.0,5325,Globe Life Field,night,N
+824160,2026,2026-08-03,117,Houston Astros,141,Toronto Blue Jays,1,3,664299.0,669456.0,2392,Daikin Park,night,N
+824324,2026,2026-08-03,115,Colorado Rockies,139,Tampa Bay Rays,9,13,547179.0,693855.0,19,Coors Field,night,N
+825095,2026,2026-08-03,109,Arizona Diamondbacks,135,San Diego Padres,5,1,694297.0,650633.0,15,Chase Field,night,N
