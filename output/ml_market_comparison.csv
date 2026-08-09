@@ -159,3 +159,17 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-08-08,823021,St. Louis Cardinals,Colorado Rockies,St. Louis Cardinals,0.5879801545505803,9,St. Louis Cardinals,True
 2026-08-08,823188,San Francisco Giants,Detroit Tigers,Detroit Tigers,0.5201948253159991,9,Detroit Tigers,True
 2026-08-08,823267,San Diego Padres,Houston Astros,San Diego Padres,0.5286863491740583,9,Houston Astros,False
+2026-08-09,822700,Washington Nationals,Cincinnati Reds,Washington Nationals,0.5019203031808266,9,Washington Nationals,True
+2026-08-09,824724,Boston Red Sox,Athletics,Boston Red Sox,0.680722689140587,9,Boston Red Sox,True
+2026-08-09,823513,New York Yankees,Atlanta Braves,New York Yankees,0.5658448479156247,9,New York Yankees,True
+2026-08-09,823345,Pittsburgh Pirates,New York Mets,Pittsburgh Pirates,0.5713009840916916,9,Pittsburgh Pirates,True
+2026-08-09,823425,Philadelphia Phillies,Toronto Blue Jays,Philadelphia Phillies,0.6503638646024551,9,Philadelphia Phillies,True
+2026-08-09,823835,Miami Marlins,Los Angeles Angels,Miami Marlins,0.5772602743040558,9,Miami Marlins,True
+2026-08-09,824078,Kansas City Royals,Chicago Cubs,Chicago Cubs,0.5980890047566585,9,Chicago Cubs,True
+2026-08-09,824564,Chicago White Sox,Cleveland Guardians,Cleveland Guardians,0.5283885416372274,9,Chicago White Sox,False
+2026-08-09,823751,Milwaukee Brewers,Minnesota Twins,Milwaukee Brewers,0.6984197513730527,9,Milwaukee Brewers,True
+2026-08-09,823020,St. Louis Cardinals,Colorado Rockies,St. Louis Cardinals,0.6016505702046118,9,St. Louis Cardinals,True
+2026-08-09,822862,Texas Rangers,Baltimore Orioles,Texas Rangers,0.5422354283177918,9,Texas Rangers,True
+2026-08-09,823190,San Francisco Giants,Detroit Tigers,Detroit Tigers,0.5323051247889229,9,Detroit Tigers,True
+2026-08-09,825050,Arizona Diamondbacks,Los Angeles Dodgers,Los Angeles Dodgers,0.5732584451209499,9,Los Angeles Dodgers,True
+2026-08-09,823104,Seattle Mariners,Tampa Bay Rays,Seattle Mariners,0.5030622995507513,9,Tampa Bay Rays,False
