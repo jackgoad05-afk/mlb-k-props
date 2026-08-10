@@ -173,3 +173,7 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-08-09,823190,San Francisco Giants,Detroit Tigers,Detroit Tigers,0.5323051247889229,9,Detroit Tigers,True
 2026-08-09,825050,Arizona Diamondbacks,Los Angeles Dodgers,Los Angeles Dodgers,0.5732584451209499,9,Los Angeles Dodgers,True
 2026-08-09,823104,Seattle Mariners,Tampa Bay Rays,Seattle Mariners,0.5030622995507513,9,Tampa Bay Rays,False
+2026-08-10,822780,Toronto Blue Jays,Boston Red Sox,Boston Red Sox,0.5837954199917221,9,Boston Red Sox,True
+2026-08-10,824887,Atlanta Braves,New York Mets,Atlanta Braves,0.5754499389571938,9,Atlanta Braves,True
+2026-08-10,823675,Minnesota Twins,Baltimore Orioles,Baltimore Orioles,0.5164792711832296,9,Baltimore Orioles,True
+2026-08-10,823018,St. Louis Cardinals,Philadelphia Phillies,Philadelphia Phillies,0.5234089199267923,9,Philadelphia Phillies,True
