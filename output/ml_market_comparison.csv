@@ -197,3 +197,10 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-08-12,822779,Toronto Blue Jays,Boston Red Sox,Boston Red Sox,0.5322533299025473,9,Boston Red Sox,True
 2026-08-12,824883,Atlanta Braves,New York Mets,Atlanta Braves,0.6139690625722726,9,Atlanta Braves,True
 2026-08-12,824562,Chicago White Sox,Cincinnati Reds,Chicago White Sox,0.5716959053793623,9,Cincinnati Reds,False
+2026-08-13,824238,Detroit Tigers,Cleveland Guardians,Cleveland Guardians,0.535874071983462,9,Detroit Tigers,False
+2026-08-13,823829,Miami Marlins,Pittsburgh Pirates,Pittsburgh Pirates,0.5348936115057916,9,Pittsburgh Pirates,True
+2026-08-13,823508,New York Yankees,Seattle Mariners,New York Yankees,0.5726031620467138,9,New York Yankees,True
+2026-08-13,824561,Chicago White Sox,Cincinnati Reds,Chicago White Sox,0.5525563018630626,9,Chicago White Sox,True
+2026-08-13,822776,Toronto Blue Jays,Boston Red Sox,Boston Red Sox,0.5907150974066397,9,Boston Red Sox,True
+2026-08-13,822696,Washington Nationals,Chicago Cubs,Chicago Cubs,0.5768539676795322,9,Chicago Cubs,True
+2026-08-13,823669,Minnesota Twins,Philadelphia Phillies,Minnesota Twins,0.5021771586676711,9,Philadelphia Phillies,False

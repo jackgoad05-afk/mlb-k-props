@@ -1801,3 +1801,18 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 823264,2026,2026-08-11,135,San Diego Padres,158,Milwaukee Brewers,11,2,621111.0,690986.0,2680,Petco Park,night,N
 823186,2026,2026-08-11,137,San Francisco Giants,117,Houston Astros,4,1,687931.0,686613.0,2395,Oracle Park,night,N
 823917,2026,2026-08-11,119,Los Angeles Dodgers,118,Kansas City Royals,5,4,605483.0,608379.0,22,UNIQLO Field at Dodger Stadium,night,N
+823672,2026,2026-08-12,142,Minnesota Twins,110,Baltimore Orioles,7,5,805673.0,669358.0,3312,Target Field,day,N
+823017,2026,2026-08-12,138,St. Louis Cardinals,143,Philadelphia Phillies,7,1,681517.0,554430.0,2889,Busch Stadium,day,N
+824967,2026,2026-08-12,133,Athletics,139,Tampa Bay Rays,4,8,678022.0,656876.0,2529,Sutter Health Park,day,N
+825047,2026,2026-08-12,109,Arizona Diamondbacks,115,Colorado Rockies,4,6,518876.0,663372.0,15,Chase Field,day,N
+823187,2026,2026-08-12,137,San Francisco Giants,117,Houston Astros,1,2,605288.0,687911.0,2395,Oracle Park,day,N
+823263,2026,2026-08-12,135,San Diego Padres,158,Milwaukee Brewers,4,3,592662.0,669160.0,2680,Petco Park,day,N
+824241,2026,2026-08-12,116,Detroit Tigers,114,Cleveland Guardians,4,6,664285.0,656492.0,2394,Comerica Park,night,N
+823833,2026,2026-08-12,146,Miami Marlins,134,Pittsburgh Pirates,8,2,676083.0,669387.0,4169,loanDepot park,night,N
+822698,2026,2026-08-12,120,Washington Nationals,112,Chicago Cubs,6,12,800600.0,656849.0,3309,Nationals Park,night,N
+823511,2026,2026-08-12,147,New York Yankees,136,Seattle Mariners,10,5,701542.0,682243.0,3313,Yankee Stadium,night,N
+822779,2026,2026-08-12,141,Toronto Blue Jays,111,Boston Red Sox,6,4,667755.0,624133.0,14,Rogers Centre,night,N
+824883,2026,2026-08-12,144,Atlanta Braves,121,New York Mets,6,3,641816.0,804267.0,4705,Truist Park,night,N
+824562,2026,2026-08-12,145,Chicago White Sox,113,Cincinnati Reds,5,0,622491.0,695076.0,4,Rate Field,night,N
+823916,2026,2026-08-12,119,Los Angeles Dodgers,118,Kansas City Royals,4,2,641778.0,663738.0,22,UNIQLO Field at Dodger Stadium,night,N
+823994,2026,2026-08-12,108,Los Angeles Angels,140,Texas Rangers,5,2,691946.0,615698.0,1,Angel Stadium,night,N
