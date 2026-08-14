@@ -1816,3 +1816,12 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 824562,2026,2026-08-12,145,Chicago White Sox,113,Cincinnati Reds,5,0,622491.0,695076.0,4,Rate Field,night,N
 823916,2026,2026-08-12,119,Los Angeles Dodgers,118,Kansas City Royals,4,2,641778.0,663738.0,22,UNIQLO Field at Dodger Stadium,night,N
 823994,2026,2026-08-12,108,Los Angeles Angels,140,Texas Rangers,5,2,691946.0,615698.0,1,Angel Stadium,night,N
+824238,2026,2026-08-13,116,Detroit Tigers,114,Cleveland Guardians,3,0,672456.0,800048.0,2394,Comerica Park,day,N
+824561,2026,2026-08-13,145,Chicago White Sox,113,Cincinnati Reds,8,9,663436.0,671096.0,4,Rate Field,day,N
+823829,2026,2026-08-13,146,Miami Marlins,134,Pittsburgh Pirates,1,13,663969.0,677952.0,4169,loanDepot park,day,N
+823508,2026,2026-08-13,147,New York Yankees,136,Seattle Mariners,0,1,608331.0,669302.0,3313,Yankee Stadium,day,N
+822776,2026,2026-08-13,141,Toronto Blue Jays,111,Boston Red Sox,0,7,453286.0,801139.0,14,Rogers Centre,day,N
+822696,2026,2026-08-13,120,Washington Nationals,112,Chicago Cubs,7,0,676917.0,592332.0,3309,Nationals Park,day,N
+823669,2026,2026-08-13,142,Minnesota Twins,143,Philadelphia Phillies,1,7,671737.0,605400.0,5445,Field of Dreams,night,N
+823995,2026,2026-08-13,108,Los Angeles Angels,140,Texas Rangers,7,0,700712.0,594798.0,1,Angel Stadium,night,N
+823915,2026,2026-08-13,119,Los Angeles Dodgers,158,Milwaukee Brewers,4,5,808963.0,675660.0,22,UNIQLO Field at Dodger Stadium,night,N
