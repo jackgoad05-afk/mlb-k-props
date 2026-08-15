@@ -211,3 +211,15 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-08-14,824399,Cleveland Guardians,San Diego Padres,Cleveland Guardians,0.5490229446240589,9,San Diego Padres,False
 2026-08-14,823591,New York Mets,Washington Nationals,New York Mets,0.5250217715063222,9,Washington Nationals,False
 2026-08-14,822777,Toronto Blue Jays,New York Yankees,New York Yankees,0.5794801619160267,9,New York Yankees,True
+2026-08-15,824239,Detroit Tigers,Chicago White Sox,Detroit Tigers,0.564863551005931,9,Chicago White Sox,False
+2026-08-15,824644,Chicago Cubs,St. Louis Cardinals,Chicago Cubs,0.619153024368012,9,Chicago Cubs,True
+2026-08-15,822775,Toronto Blue Jays,New York Yankees,New York Yankees,0.6125612191420466,9,New York Yankees,True
+2026-08-15,823184,San Francisco Giants,Colorado Rockies,San Francisco Giants,0.6092430804006189,9,San Francisco Giants,True
+2026-08-15,823588,New York Mets,Washington Nationals,New York Mets,0.5669996412737994,9,Washington Nationals,False
+2026-08-15,822941,Tampa Bay Rays,Baltimore Orioles,Tampa Bay Rays,0.5702596763201507,9,Tampa Bay Rays,True
+2026-08-15,824480,Cincinnati Reds,Miami Marlins,Cincinnati Reds,0.5086294927005762,9,Miami Marlins,False
+2026-08-15,824157,Houston Astros,Seattle Mariners,Houston Astros,0.5308689833372119,9,Houston Astros,True
+2026-08-15,823671,Minnesota Twins,Philadelphia Phillies,Philadelphia Phillies,0.5756455162084878,9,Philadelphia Phillies,True
+2026-08-15,824884,Atlanta Braves,Arizona Diamondbacks,Atlanta Braves,0.5565392858982781,9,Atlanta Braves,True
+2026-08-15,823914,Los Angeles Dodgers,Milwaukee Brewers,Milwaukee Brewers,0.5405025882652985,9,Los Angeles Dodgers,False
+2026-08-15,823347,Pittsburgh Pirates,Boston Red Sox,Boston Red Sox,0.5374127770006685,9,Boston Red Sox,True
