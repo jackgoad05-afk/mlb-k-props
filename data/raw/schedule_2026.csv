@@ -1854,3 +1854,18 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 823914,2026,2026-08-15,119,Los Angeles Dodgers,158,Milwaukee Brewers,1,4,680736.0,694819.0,22,UNIQLO Field at Dodger Stadium,day,N
 823990,2026,2026-08-15,108,Los Angeles Angels,118,Kansas City Royals,1,0,672282.0,677976.0,1,Angel Stadium,night,N
 824966,2026,2026-08-15,133,Athletics,140,Texas Rangers,3,5,669372.0,669022.0,2529,Sutter Health Park,night,N
+822940,2026,2026-08-16,139,Tampa Bay Rays,110,Baltimore Orioles,2,10,642547.0,669432.0,12,Tropicana Field,day,N
+823344,2026,2026-08-16,134,Pittsburgh Pirates,111,Boston Red Sox,8,3,669199.0,663776.0,31,PNC Park,day,N
+824880,2026,2026-08-16,144,Atlanta Braves,109,Arizona Diamondbacks,5,3,693821.0,647336.0,4705,Truist Park,day,N
+822774,2026,2026-08-16,141,Toronto Blue Jays,147,New York Yankees,3,4,656302.0,677960.0,14,Rogers Centre,day,N
+823590,2026,2026-08-16,121,New York Mets,120,Washington Nationals,4,3,681035.0,663623.0,3289,Citi Field,day,N
+824397,2026,2026-08-16,114,Cleveland Guardians,135,San Diego Padres,0,5,676440.0,663554.0,5,Progressive Field,day,N
+824236,2026,2026-08-16,116,Detroit Tigers,145,Chicago White Sox,5,7,623454.0,680732.0,2394,Comerica Park,day,N
+824477,2026,2026-08-16,113,Cincinnati Reds,146,Miami Marlins,1,7,666157.0,691587.0,2602,Great American Ball Park,day,N
+823670,2026,2026-08-16,142,Minnesota Twins,143,Philadelphia Phillies,5,7,665152.0,691725.0,3312,Target Field,day,N
+824642,2026,2026-08-16,112,Chicago Cubs,138,St. Louis Cardinals,4,11,665795.0,690928.0,17,Wrigley Field,day,N
+823182,2026,2026-08-16,137,San Francisco Giants,115,Colorado Rockies,7,13,694918.0,687312.0,2395,Oracle Park,day,N
+824965,2026,2026-08-16,133,Athletics,140,Texas Rangers,5,2,682052.0,674003.0,2529,Sutter Health Park,day,N
+823991,2026,2026-08-16,108,Los Angeles Angels,118,Kansas City Royals,0,3,696270.0,702070.0,1,Angel Stadium,day,N
+823912,2026,2026-08-16,119,Los Angeles Dodgers,158,Milwaukee Brewers,2,6,669373.0,701656.0,22,UNIQLO Field at Dodger Stadium,day,N
+824156,2026,2026-08-16,117,Houston Astros,136,Seattle Mariners,2,3,686613.0,693433.0,2392,Daikin Park,night,N
