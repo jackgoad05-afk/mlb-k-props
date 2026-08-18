@@ -1869,3 +1869,14 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 823991,2026,2026-08-16,108,Los Angeles Angels,118,Kansas City Royals,0,3,696270.0,702070.0,1,Angel Stadium,day,N
 823912,2026,2026-08-16,119,Los Angeles Dodgers,158,Milwaukee Brewers,2,6,669373.0,701656.0,22,UNIQLO Field at Dodger Stadium,day,N
 824156,2026,2026-08-16,117,Houston Astros,136,Seattle Mariners,2,3,686613.0,693433.0,2392,Daikin Park,night,N
+824514,2026,2026-08-17,113,Cincinnati Reds,138,St. Louis Cardinals,1,2,592288.0,687273.0,2602,Great American Ball Park,day,S
+824478,2026,2026-08-17,113,Cincinnati Reds,138,St. Louis Cardinals,6,5,695076.0,669467.0,2602,Great American Ball Park,night,S
+822939,2026,2026-08-17,139,Tampa Bay Rays,110,Baltimore Orioles,7,6,663556.0,687064.0,12,Tropicana Field,night,N
+823427,2026,2026-08-17,143,Philadelphia Phillies,146,Miami Marlins,6,5,650911.0,676083.0,2681,Citizens Bank Park,night,N
+823343,2026,2026-08-17,134,Pittsburgh Pirates,116,Detroit Tigers,5,8,669387.0,664285.0,31,PNC Park,night,N
+824725,2026,2026-08-17,111,Boston Red Sox,109,Arizona Diamondbacks,11,1,687941.0,683352.0,3,Fenway Park,night,N
+823589,2026,2026-08-17,121,New York Mets,135,San Diego Padres,2,1,690997.0,621111.0,3289,Citi Field,night,N
+824077,2026,2026-08-17,118,Kansas City Royals,133,Athletics,9,5,608379.0,686930.0,7,Kauffman Stadium,night,N
+823668,2026,2026-08-17,142,Minnesota Twins,144,Atlanta Braves,4,2,641927.0,527048.0,3312,Target Field,night,N
+824641,2026,2026-08-17,112,Chicago Cubs,145,Chicago White Sox,7,5,684007.0,622491.0,17,Wrigley Field,night,N
+824320,2026,2026-08-17,115,Colorado Rockies,119,Los Angeles Dodgers,5,11,608372.0,605483.0,19,Coors Field,night,N
