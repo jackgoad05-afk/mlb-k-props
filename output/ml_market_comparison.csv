@@ -272,3 +272,9 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-08-20,824074,Kansas City Royals,Athletics,Kansas City Royals,0.5616067972645842,9,Athletics,False
 2026-08-20,823747,Milwaukee Brewers,Seattle Mariners,Milwaukee Brewers,0.5473882369010589,9,Milwaukee Brewers,True
 2026-08-20,824802,Baltimore Orioles,New York Yankees,New York Yankees,0.5350819464702672,9,New York Yankees,True
+2026-08-21,823746,Milwaukee Brewers,Atlanta Braves,Milwaukee Brewers,0.5681179251665229,9,Atlanta Braves,False
+2026-08-21,823510,New York Yankees,Toronto Blue Jays,New York Yankees,0.6775369442710107,9,New York Yankees,True
+2026-08-21,824721,Boston Red Sox,San Francisco Giants,Boston Red Sox,0.6210599597568388,9,Boston Red Sox,True
+2026-08-21,823830,Miami Marlins,Washington Nationals,Miami Marlins,0.5772700479212074,9,Washington Nationals,False
+2026-08-21,824800,Baltimore Orioles,Tampa Bay Rays,Baltimore Orioles,0.5447719492952957,9,Tampa Bay Rays,False
+2026-08-21,824559,Chicago White Sox,New York Mets,Chicago White Sox,0.5718070397204549,9,Chicago White Sox,True
