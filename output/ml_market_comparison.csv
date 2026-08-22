@@ -278,3 +278,14 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-08-21,823830,Miami Marlins,Washington Nationals,Miami Marlins,0.5772700479212074,9,Washington Nationals,False
 2026-08-21,824800,Baltimore Orioles,Tampa Bay Rays,Baltimore Orioles,0.5447719492952957,9,Tampa Bay Rays,False
 2026-08-21,824559,Chicago White Sox,New York Mets,Chicago White Sox,0.5718070397204549,9,Chicago White Sox,True
+2026-08-22,823509,New York Yankees,Toronto Blue Jays,New York Yankees,0.5,9,New York Yankees,True
+2026-08-22,823743,Milwaukee Brewers,Atlanta Braves,Milwaukee Brewers,0.6197203049419205,9,Milwaukee Brewers,True
+2026-08-22,823831,Miami Marlins,Washington Nationals,Miami Marlins,0.6220833283506148,9,Miami Marlins,True
+2026-08-22,824798,Baltimore Orioles,Tampa Bay Rays,Tampa Bay Rays,0.5433218142654082,9,Tampa Bay Rays,True
+2026-08-22,822858,Texas Rangers,Los Angeles Angels,Texas Rangers,0.6086979213947423,9,Texas Rangers,True
+2026-08-22,824560,Chicago White Sox,New York Mets,Chicago White Sox,0.5097859986547744,9,New York Mets,False
+2026-08-22,824151,Houston Astros,Athletics,Houston Astros,0.6834037574316926,9,Houston Astros,True
+2026-08-22,824718,Boston Red Sox,San Francisco Giants,Boston Red Sox,0.6519134037091727,9,Boston Red Sox,True
+2026-08-22,823100,Seattle Mariners,Chicago Cubs,Seattle Mariners,0.5199179329029304,9,Chicago Cubs,False
+2026-08-22,824073,Kansas City Royals,Detroit Tigers,Kansas City Royals,0.5019029019874108,9,Detroit Tigers,False
+2026-08-22,823910,Los Angeles Dodgers,Pittsburgh Pirates,Los Angeles Dodgers,0.6965407557378471,9,Los Angeles Dodgers,True
