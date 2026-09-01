@@ -1934,3 +1934,138 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 823262,2026,2026-08-21,135,San Diego Padres,142,Minnesota Twins,6,2,681190.0,687570.0,2680,Petco Park,night,N
 823911,2026,2026-08-21,119,Los Angeles Dodgers,134,Pittsburgh Pirates,5,4,808967.0,696149.0,22,UNIQLO Field at Dodger Stadium,night,N
 823101,2026,2026-08-21,136,Seattle Mariners,112,Chicago Cubs,6,5,676106.0,571510.0,680,T-Mobile Park,night,N
+823509,2026,2026-08-22,147,New York Yankees,141,Toronto Blue Jays,3,4,677960.0,656302.0,3313,Yankee Stadium,day,N
+823743,2026,2026-08-22,158,Milwaukee Brewers,144,Atlanta Braves,4,1,701656.0,527048.0,32,American Family Field,day,N
+823831,2026,2026-08-22,146,Miami Marlins,120,Washington Nationals,4,2,691587.0,663623.0,4169,loanDepot park,day,N
+823422,2026,2026-08-22,143,Philadelphia Phillies,138,St. Louis Cardinals,12,3,691725.0,687273.0,2681,Citizens Bank Park,night,N
+824798,2026,2026-08-22,110,Baltimore Orioles,139,Tampa Bay Rays,3,2,687064.0,663556.0,2,Oriole Park at Camden Yards,night,N
+822858,2026,2026-08-22,140,Texas Rangers,108,Los Angeles Angels,0,3,674003.0,696270.0,5325,Globe Life Field,night,N
+824151,2026,2026-08-22,117,Houston Astros,133,Athletics,3,4,686613.0,682052.0,2392,Daikin Park,night,N
+824560,2026,2026-08-22,145,Chicago White Sox,121,New York Mets,5,10,622491.0,681035.0,4,Rate Field,night,N
+824073,2026,2026-08-22,118,Kansas City Royals,116,Detroit Tigers,3,1,608379.0,623454.0,7,Kauffman Stadium,night,N
+823910,2026,2026-08-22,119,Los Angeles Dodgers,134,Pittsburgh Pirates,4,3,669373.0,683003.0,22,UNIQLO Field at Dodger Stadium,day,N
+823100,2026,2026-08-22,136,Seattle Mariners,112,Chicago Cubs,5,4,807739.0,656849.0,680,T-Mobile Park,day,N
+824718,2026,2026-08-22,111,Boston Red Sox,137,San Francisco Giants,3,2,663776.0,694918.0,3,Fenway Park,night,N
+825044,2026,2026-08-22,109,Arizona Diamondbacks,113,Cincinnati Reds,5,11,647336.0,695076.0,15,Chase Field,night,N
+824316,2026,2026-08-22,115,Colorado Rockies,114,Cleveland Guardians,3,4,687312.0,676440.0,19,Coors Field,night,N
+823261,2026,2026-08-22,135,San Diego Padres,142,Minnesota Twins,7,5,663554.0,665152.0,2680,Petco Park,night,N
+824799,2026,2026-08-23,110,Baltimore Orioles,139,Tampa Bay Rays,1,3,669358.0,607259.0,2,Oriole Park at Camden Yards,day,N
+823421,2026,2026-08-23,143,Philadelphia Phillies,138,St. Louis Cardinals,6,4,650911.0,681517.0,2681,Citizens Bank Park,day,N
+823507,2026,2026-08-23,147,New York Yankees,141,Toronto Blue Jays,8,3,607074.0,667755.0,3313,Yankee Stadium,day,N
+823827,2026,2026-08-23,146,Miami Marlins,120,Washington Nationals,6,2,676083.0,800600.0,4169,loanDepot park,day,N
+824071,2026,2026-08-23,118,Kansas City Royals,116,Detroit Tigers,11,7,663738.0,621097.0,7,Kauffman Stadium,day,N
+824150,2026,2026-08-23,117,Houston Astros,133,Athletics,6,7,664299.0,669620.0,2392,Daikin Park,day,N
+824558,2026,2026-08-23,145,Chicago White Sox,121,New York Mets,2,1,656794.0,690997.0,4,Rate Field,day,N
+822856,2026,2026-08-23,140,Texas Rangers,108,Los Angeles Angels,5,3,615698.0,579328.0,5325,Globe Life Field,day,N
+824315,2026,2026-08-23,115,Colorado Rockies,114,Cleveland Guardians,2,7,608372.0,656492.0,19,Coors Field,day,N
+824720,2026,2026-08-23,111,Boston Red Sox,137,San Francisco Giants,5,4,687562.0,683363.0,3,Fenway Park,day,N
+823909,2026,2026-08-23,119,Los Angeles Dodgers,134,Pittsburgh Pirates,4,0,605483.0,669199.0,22,UNIQLO Field at Dodger Stadium,day,N
+823099,2026,2026-08-23,136,Seattle Mariners,112,Chicago Cubs,2,19,682243.0,684007.0,680,T-Mobile Park,day,N
+823258,2026,2026-08-23,135,San Diego Padres,142,Minnesota Twins,8,1,621111.0,641927.0,2680,Petco Park,day,N
+825043,2026,2026-08-23,109,Arizona Diamondbacks,113,Cincinnati Reds,5,3,683352.0,671096.0,15,Chase Field,day,N
+823745,2026,2026-08-23,158,Milwaukee Brewers,144,Atlanta Braves,2,4,675660.0,641816.0,2735,Journey Bank Ballpark,night,N
+824235,2026,2026-08-24,116,Detroit Tigers,139,Tampa Bay Rays,1,4,664285.0,656876.0,2394,Comerica Park,night,N
+823828,2026,2026-08-24,146,Miami Marlins,111,Boston Red Sox,2,4,645261.0,624133.0,4169,loanDepot park,night,N
+822695,2026,2026-08-24,120,Washington Nationals,115,Colorado Rockies,13,3,676917.0,663372.0,3309,Nationals Park,night,N
+824557,2026,2026-08-24,145,Chicago White Sox,140,Texas Rangers,2,11,664353.0,677958.0,4,Rate Field,night,N
+823992,2026,2026-08-24,108,Los Angeles Angels,114,Cleveland Guardians,2,4,691946.0,800048.0,1,Angel Stadium,night,N
+825041,2026,2026-08-24,109,Arizona Diamondbacks,112,Chicago Cubs,0,7,518876.0,592332.0,15,Chase Field,night,N
+823260,2026,2026-08-24,135,San Diego Padres,134,Pittsburgh Pirates,2,3,592662.0,677952.0,2680,Petco Park,night,N
+824964,2026,2026-08-24,133,Athletics,142,Minnesota Twins,6,9,605488.0,805673.0,2529,Sutter Health Park,night,N
+823097,2026,2026-08-24,136,Seattle Mariners,143,Philadelphia Phillies,9,2,669302.0,554430.0,680,T-Mobile Park,night,N
+823183,2026,2026-08-24,137,San Francisco Giants,113,Cincinnati Reds,5,0,687931.0,695505.0,2395,Oracle Park,night,N
+824233,2026,2026-08-25,116,Detroit Tigers,139,Tampa Bay Rays,4,1,695549.0,668984.0,2394,Comerica Park,night,N
+823826,2026,2026-08-25,146,Miami Marlins,111,Boston Red Sox,3,7,663969.0,801139.0,4169,loanDepot park,night,N
+822693,2026,2026-08-25,120,Washington Nationals,115,Colorado Rockies,1,3,674841.0,690279.0,3309,Nationals Park,night,N
+823505,2026,2026-08-25,147,New York Yankees,117,Houston Astros,7,9,701542.0,814490.0,3313,Yankee Stadium,night,N
+822773,2026,2026-08-25,141,Toronto Blue Jays,118,Kansas City Royals,3,5,453286.0,607625.0,14,Rogers Centre,night,N
+823585,2026,2026-08-25,121,New York Mets,158,Milwaukee Brewers,3,2,804267.0,690986.0,3289,Citi Field,night,N
+824881,2026,2026-08-25,144,Atlanta Braves,119,Los Angeles Dodgers,4,3,693821.0,607192.0,4705,Truist Park,night,N
+824556,2026,2026-08-25,145,Chicago White Sox,140,Texas Rangers,11,7,641743.0,594798.0,4,Rate Field,night,N
+823016,2026,2026-08-25,138,St. Louis Cardinals,110,Baltimore Orioles,1,13,669461.0,605135.0,2889,Busch Stadium,night,N
+823989,2026,2026-08-25,108,Los Angeles Angels,114,Cleveland Guardians,6,8,700712.0,668909.0,1,Angel Stadium,night,N
+825042,2026,2026-08-25,109,Arizona Diamondbacks,112,Chicago Cubs,5,4,694297.0,605280.0,15,Chase Field,night,N
+823259,2026,2026-08-25,135,San Diego Padres,134,Pittsburgh Pirates,0,1,650633.0,694973.0,2680,Petco Park,night,N
+824962,2026,2026-08-25,133,Athletics,142,Minnesota Twins,4,2,695611.0,671737.0,2529,Sutter Health Park,night,N
+823098,2026,2026-08-25,136,Seattle Mariners,143,Philadelphia Phillies,4,1,669923.0,605400.0,680,T-Mobile Park,night,N
+823181,2026,2026-08-25,137,San Francisco Giants,113,Cincinnati Reds,3,1,605288.0,663903.0,2395,Oracle Park,night,N
+824234,2026,2026-08-26,116,Detroit Tigers,139,Tampa Bay Rays,0,3,675512.0,642547.0,2394,Comerica Park,day,N
+825039,2026,2026-08-26,109,Arizona Diamondbacks,112,Chicago Cubs,2,0,593958.0,571510.0,15,Chase Field,day,N
+823180,2026,2026-08-26,137,San Francisco Giants,113,Cincinnati Reds,9,10,657277.0,666157.0,2395,Oracle Park,day,N
+823988,2026,2026-08-26,108,Los Angeles Angels,114,Cleveland Guardians,3,4,680570.0,676282.0,1,Angel Stadium,day,N
+823255,2026,2026-08-26,135,San Diego Padres,134,Pittsburgh Pirates,3,0,681190.0,696149.0,2680,Petco Park,day,N
+823096,2026,2026-08-26,136,Seattle Mariners,143,Philadelphia Phillies,0,6,693433.0,666200.0,680,T-Mobile Park,day,N
+823825,2026,2026-08-26,146,Miami Marlins,111,Boston Red Sox,4,0,687473.0,543243.0,4169,loanDepot park,night,N
+822692,2026,2026-08-26,120,Washington Nationals,115,Colorado Rockies,1,13,663362.0,685299.0,3309,Nationals Park,night,N
+823506,2026,2026-08-26,147,New York Yankees,117,Houston Astros,9,3,695684.0,663567.0,3313,Yankee Stadium,night,N
+822772,2026,2026-08-26,141,Toronto Blue Jays,118,Kansas City Royals,3,0,693686.0,677976.0,14,Rogers Centre,night,N
+823584,2026,2026-08-26,121,New York Mets,158,Milwaukee Brewers,1,8,476594.0,669160.0,3289,Citi Field,night,N
+824878,2026,2026-08-26,144,Atlanta Braves,119,Los Angeles Dodgers,6,5,700363.0,808963.0,4705,Truist Park,night,N
+824555,2026,2026-08-26,145,Chicago White Sox,140,Texas Rangers,10,4,680732.0,669022.0,4,Rate Field,night,N
+823015,2026,2026-08-26,138,St. Louis Cardinals,110,Baltimore Orioles,7,8,700241.0,680694.0,2889,Busch Stadium,night,N
+824963,2026,2026-08-26,133,Athletics,142,Minnesota Twins,7,4,669372.0,687570.0,2529,Sutter Health Park,night,N
+822694,2026,2026-08-27,120,Washington Nationals,115,Colorado Rockies,7,1,663623.0,687312.0,3309,Nationals Park,day,N
+823014,2026,2026-08-27,138,St. Louis Cardinals,110,Baltimore Orioles,7,5,700669.0,669432.0,2889,Busch Stadium,day,N
+823503,2026,2026-08-27,147,New York Yankees,117,Houston Astros,1,5,543037.0,669713.0,3313,Yankee Stadium,night,N
+822771,2026,2026-08-27,141,Toronto Blue Jays,118,Kansas City Royals,2,13,681293.0,702070.0,14,Rogers Centre,night,N
+823581,2026,2026-08-27,121,New York Mets,158,Milwaukee Brewers,2,8,640455.0,694819.0,3289,Citi Field,night,N
+824879,2026,2026-08-27,144,Atlanta Braves,119,Los Angeles Dodgers,1,0,519242.0,808967.0,4705,Truist Park,night,N
+823179,2026,2026-08-27,137,San Francisco Giants,109,Arizona Diamondbacks,6,1,694738.0,703615.0,2395,Oracle Park,night,N
+824638,2026,2026-08-28,112,Chicago Cubs,113,Cincinnati Reds,8,10,656849.0,695076.0,17,Wrigley Field,day,N
+824231,2026,2026-08-28,116,Detroit Tigers,119,Los Angeles Dodgers,1,2,623454.0,669373.0,2394,Comerica Park,night,N
+822691,2026,2026-08-28,120,Washington Nationals,146,Miami Marlins,9,2,800600.0,691587.0,3309,Nationals Park,night,N
+824396,2026,2026-08-28,114,Cleveland Guardians,118,Kansas City Royals,0,3,676440.0,608379.0,5,Progressive Field,night,N
+823583,2026,2026-08-28,121,New York Mets,117,Houston Astros,1,3,681035.0,686613.0,3289,Citi Field,night,N
+822935,2026,2026-08-28,139,Tampa Bay Rays,135,San Diego Padres,9,4,663556.0,663554.0,12,Tropicana Field,night,N
+822769,2026,2026-08-28,141,Toronto Blue Jays,136,Seattle Mariners,8,1,656302.0,676106.0,14,Rogers Centre,night,N
+824877,2026,2026-08-28,144,Atlanta Braves,115,Colorado Rockies,6,4,656550.0,608372.0,4705,Truist Park,night,N
+823504,2026,2026-08-28,147,New York Yankees,111,Boston Red Sox,1,0,693645.0,663776.0,3313,Yankee Stadium,night,N
+823744,2026,2026-08-28,158,Milwaukee Brewers,140,Texas Rangers,6,1,701656.0,674003.0,32,American Family Field,night,N
+823666,2026,2026-08-28,142,Minnesota Twins,145,Chicago White Sox,4,7,665152.0,622491.0,3312,Target Field,night,N
+823013,2026,2026-08-28,138,St. Louis Cardinals,134,Pittsburgh Pirates,4,1,687273.0,683003.0,2889,Busch Stadium,night,N
+823985,2026,2026-08-28,108,Los Angeles Angels,143,Philadelphia Phillies,3,5,672282.0,691725.0,1,Angel Stadium,night,N
+824960,2026,2026-08-28,133,Athletics,110,Baltimore Orioles,3,4,682052.0,687064.0,2529,Sutter Health Park,night,N
+823178,2026,2026-08-28,137,San Francisco Giants,109,Arizona Diamondbacks,6,10,694918.0,684442.0,2395,Oracle Park,night,N
+823539,2026,2026-08-29,147,New York Yankees,111,Boston Red Sox,0,6,607074.0,687562.0,3313,Yankee Stadium,day,S
+823501,2026,2026-08-29,147,New York Yankees,111,Boston Red Sox,9,2,608331.0,687941.0,3313,Yankee Stadium,night,S
+824230,2026,2026-08-29,116,Detroit Tigers,119,Los Angeles Dodgers,2,1,672456.0,605483.0,2394,Comerica Park,day,N
+823665,2026,2026-08-29,142,Minnesota Twins,145,Chicago White Sox,2,3,641927.0,607200.0,3312,Target Field,day,N
+823011,2026,2026-08-29,138,St. Louis Cardinals,134,Pittsburgh Pirates,2,6,681517.0,669199.0,2889,Busch Stadium,day,N
+824637,2026,2026-08-29,112,Chicago Cubs,113,Cincinnati Reds,17,5,592332.0,671096.0,17,Wrigley Field,day,N
+822770,2026,2026-08-29,141,Toronto Blue Jays,136,Seattle Mariners,4,3,667755.0,807739.0,14,Rogers Centre,day,N
+823177,2026,2026-08-29,137,San Francisco Giants,109,Arizona Diamondbacks,1,7,683363.0,518876.0,2395,Oracle Park,day,S
+823176,2026,2026-08-29,137,San Francisco Giants,109,Arizona Diamondbacks,7,2,805074.0,683352.0,2395,Oracle Park,night,S
+822690,2026,2026-08-29,120,Washington Nationals,146,Miami Marlins,5,4,676917.0,645261.0,3309,Nationals Park,day,N
+824392,2026,2026-08-29,114,Cleveland Guardians,118,Kansas City Royals,3,8,656492.0,663738.0,5,Progressive Field,day,N
+823582,2026,2026-08-29,121,New York Mets,117,Houston Astros,6,2,690997.0,656986.0,3289,Citi Field,day,N
+822936,2026,2026-08-29,139,Tampa Bay Rays,135,San Diego Padres,7,6,607259.0,621111.0,12,Tropicana Field,day,N
+824874,2026,2026-08-29,144,Atlanta Braves,115,Colorado Rockies,2,1,527048.0,688642.0,4705,Truist Park,day,N
+823741,2026,2026-08-29,158,Milwaukee Brewers,140,Texas Rangers,5,3,675660.0,615698.0,32,American Family Field,night,N
+824961,2026,2026-08-29,133,Athletics,110,Baltimore Orioles,3,5,678022.0,669358.0,2529,Sutter Health Park,night,N
+823986,2026,2026-08-29,108,Los Angeles Angels,143,Philadelphia Phillies,2,4,696270.0,650911.0,1,Angel Stadium,night,N
+822688,2026,2026-08-30,120,Washington Nationals,146,Miami Marlins,2,6,674841.0,676083.0,3309,Nationals Park,day,N
+824876,2026,2026-08-30,144,Atlanta Braves,115,Colorado Rockies,3,2,641816.0,690279.0,4705,Truist Park,day,N
+823502,2026,2026-08-30,147,New York Yankees,111,Boston Red Sox,16,1,701542.0,624133.0,3313,Yankee Stadium,day,N
+822766,2026,2026-08-30,141,Toronto Blue Jays,136,Seattle Mariners,7,0,453286.0,669302.0,14,Rogers Centre,day,N
+824393,2026,2026-08-30,114,Cleveland Guardians,118,Kansas City Royals,11,1,800048.0,607625.0,5,Progressive Field,day,N
+824232,2026,2026-08-30,116,Detroit Tigers,119,Los Angeles Dodgers,1,6,664285.0,607192.0,2394,Comerica Park,day,N
+822933,2026,2026-08-30,139,Tampa Bay Rays,135,San Diego Padres,5,4,656876.0,592662.0,12,Tropicana Field,day,N
+823662,2026,2026-08-30,142,Minnesota Twins,145,Chicago White Sox,5,1,805673.0,663855.0,3312,Target Field,day,N
+823740,2026,2026-08-30,158,Milwaukee Brewers,140,Texas Rangers,4,7,669160.0,677958.0,32,American Family Field,day,N
+823010,2026,2026-08-30,138,St. Louis Cardinals,134,Pittsburgh Pirates,4,5,669461.0,677952.0,2889,Busch Stadium,day,N
+823580,2026,2026-08-30,121,New York Mets,117,Houston Astros,3,6,804267.0,814490.0,3289,Citi Field,day,N
+824959,2026,2026-08-30,133,Athletics,110,Baltimore Orioles,5,8,605488.0,605135.0,2529,Sutter Health Park,day,N
+823987,2026,2026-08-30,108,Los Angeles Angels,143,Philadelphia Phillies,2,5,579328.0,554430.0,1,Angel Stadium,day,N
+824636,2026,2026-08-30,112,Chicago Cubs,113,Cincinnati Reds,5,7,684007.0,695505.0,17,Wrigley Field,night,N
+824911,2026,2026-08-31,144,Atlanta Braves,137,San Francisco Giants,3,7,693821.0,683627.0,4705,Truist Park,night,N
+824473,2026,2026-08-31,113,Cincinnati Reds,135,San Diego Padres,0,5,663903.0,650633.0,2602,Great American Ball Park,night,N
+822932,2026,2026-08-31,139,Tampa Bay Rays,121,New York Mets,2,3,693855.0,476594.0,12,Tropicana Field,night,N
+824719,2026,2026-08-31,111,Boston Red Sox,136,Seattle Mariners,9,8,801139.0,669923.0,3,Fenway Park,night,N
+822689,2026,2026-08-31,120,Washington Nationals,146,Miami Marlins,6,3,702021.0,687473.0,3309,Nationals Park,night,N
+823663,2026,2026-08-31,142,Minnesota Twins,116,Detroit Tigers,11,1,671737.0,695549.0,3312,Target Field,night,N
+824635,2026,2026-08-31,112,Chicago Cubs,158,Milwaukee Brewers,17,3,605280.0,690986.0,17,Wrigley Field,night,N
+822855,2026,2026-08-31,140,Texas Rangers,133,Athletics,8,1,594798.0,695611.0,5325,Globe Life Field,night,N
+824149,2026,2026-08-31,117,Houston Astros,145,Chicago White Sox,6,3,663567.0,641743.0,2392,Daikin Park,night,N
+824314,2026,2026-08-31,115,Colorado Rockies,110,Baltimore Orioles,1,2,685299.0,700249.0,19,Coors Field,night,N
+823982,2026,2026-08-31,108,Los Angeles Angels,147,New York Yankees,10,1,700712.0,695684.0,1,Angel Stadium,night,N
+825040,2026,2026-08-31,109,Arizona Diamondbacks,143,Philadelphia Phillies,1,2,694297.0,605400.0,15,Chase Field,night,N
