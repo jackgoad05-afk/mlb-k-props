@@ -2084,3 +2084,18 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 823984,2026,2026-09-01,108,Los Angeles Angels,147,New York Yankees,3,7,680570.0,543037.0,1,Angel Stadium,night,N
 825038,2026,2026-09-01,109,Arizona Diamondbacks,143,Philadelphia Phillies,1,7,593958.0,666200.0,15,Chase Field,night,N
 823908,2026,2026-09-01,119,Los Angeles Dodgers,138,St. Louis Cardinals,8,13,641778.0,700241.0,22,UNIQLO Field at Dodger Stadium,night,N
+824470,2026,2026-09-02,113,Cincinnati Reds,135,San Diego Padres,7,3,682227.0,663554.0,2602,Great American Ball Park,day,N
+822686,2026,2026-09-02,120,Washington Nationals,144,Atlanta Braves,0,9,695418.0,656550.0,3309,Nationals Park,day,N
+822851,2026,2026-09-02,140,Texas Rangers,133,Athletics,2,9,674003.0,682052.0,5325,Globe Life Field,day,N
+824312,2026,2026-09-02,115,Colorado Rockies,110,Baltimore Orioles,6,5,608372.0,669432.0,19,Coors Field,day,N
+825037,2026,2026-09-02,109,Arizona Diamondbacks,143,Philadelphia Phillies,1,0,664199.0,691725.0,15,Chase Field,day,N
+824717,2026,2026-09-02,111,Boston Red Sox,136,Seattle Mariners,3,8,663776.0,682243.0,3,Fenway Park,day,N
+823339,2026,2026-09-02,134,Pittsburgh Pirates,137,San Francisco Giants,4,5,696149.0,694738.0,31,PNC Park,night,N
+822931,2026,2026-09-02,139,Tampa Bay Rays,121,New York Mets,4,10,643377.0,663795.0,12,Tropicana Field,night,N
+824390,2026,2026-09-02,114,Cleveland Guardians,141,Toronto Blue Jays,0,11,676282.0,656302.0,5,Progressive Field,night,N
+823660,2026,2026-09-02,142,Minnesota Twins,116,Detroit Tigers,6,11,665152.0,623454.0,3312,Target Field,night,N
+824068,2026,2026-09-02,118,Kansas City Royals,146,Miami Marlins,6,9,702070.0,691587.0,7,Kauffman Stadium,night,N
+824634,2026,2026-09-02,112,Chicago Cubs,158,Milwaukee Brewers,5,9,656849.0,694819.0,17,Wrigley Field,night,N
+824147,2026,2026-09-02,117,Houston Astros,145,Chicago White Sox,2,0,669713.0,663436.0,2392,Daikin Park,night,N
+823983,2026,2026-09-02,108,Los Angeles Angels,147,New York Yankees,3,6,672282.0,693645.0,1,Angel Stadium,night,N
+823906,2026,2026-09-02,119,Los Angeles Dodgers,138,St. Louis Cardinals,6,8,808967.0,802408.0,22,UNIQLO Field at Dodger Stadium,night,N
