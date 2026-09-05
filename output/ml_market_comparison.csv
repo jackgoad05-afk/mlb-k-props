@@ -325,3 +325,15 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-09-04,823579,New York Mets,San Francisco Giants,New York Mets,0.6298374912935899,9,New York Mets,True
 2026-09-04,824424,Cleveland Guardians,Detroit Tigers,Cleveland Guardians,0.5601591106205639,9,Detroit Tigers,False
 2026-09-04,824554,Chicago White Sox,Minnesota Twins,Chicago White Sox,0.5155378719612773,9,Minnesota Twins,False
+2026-09-05,823823,Miami Marlins,Chicago Cubs,Chicago Cubs,0.5374171565309093,9,Chicago Cubs,True
+2026-09-05,823577,New York Mets,San Francisco Giants,New York Mets,0.5998872999199211,9,New York Mets,True
+2026-09-05,823419,Philadelphia Phillies,Atlanta Braves,Philadelphia Phillies,0.5919068494212096,9,Philadelphia Phillies,True
+2026-09-05,824389,Cleveland Guardians,Detroit Tigers,Cleveland Guardians,0.5887390329055449,9,Cleveland Guardians,True
+2026-09-05,824468,Cincinnati Reds,Milwaukee Brewers,Milwaukee Brewers,0.5866525395884895,9,Milwaukee Brewers,True
+2026-09-05,823335,Pittsburgh Pirates,Los Angeles Angels,Pittsburgh Pirates,0.6240673396511851,9,Pittsburgh Pirates,True
+2026-09-05,824795,Baltimore Orioles,Boston Red Sox,Boston Red Sox,0.5400051496432047,9,Boston Red Sox,True
+2026-09-05,822850,Texas Rangers,Tampa Bay Rays,Texas Rangers,0.5000034416387295,9,Tampa Bay Rays,False
+2026-09-05,824553,Chicago White Sox,Minnesota Twins,Chicago White Sox,0.5271187621110367,9,Minnesota Twins,False
+2026-09-05,824066,Kansas City Royals,Toronto Blue Jays,Kansas City Royals,0.502082623950701,9,Toronto Blue Jays,False
+2026-09-05,824145,Houston Astros,Arizona Diamondbacks,Houston Astros,0.5031093067716226,9,Arizona Diamondbacks,False
+2026-09-05,823257,San Diego Padres,New York Yankees,San Diego Padres,0.5405514213484898,9,New York Yankees,False
