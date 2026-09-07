@@ -1358,3 +1358,27 @@ game_id,market_type,side,agent,note,timestamp
 824795,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-09-05T21:25:47.809584
 824795,strikeout_props,over,line_movement,Line moved toward the edge: +125 -> +106 -- sharp money agreeing since the flag.,2026-09-05T21:25:47.810330
 824795,strikeout_props,under,line_movement,Line moved against the edge: -105 -> -108 -- sharp money disagreeing since the flag.,2026-09-05T21:25:47.811053
+824793,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-09-07T22:08:55.238354
+824715,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-09-07T22:08:55.238361
+823254,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-09-07T22:08:55.238363
+823254,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-09-07T22:08:55.238366
+824229,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-09-07T22:08:55.238367
+824229,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-09-07T22:08:55.238369
+824062,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-09-07T22:08:55.238371
+823415,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-09-07T22:08:55.238374
+824793,strikeout_props,under,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-07T22:08:57.104871
+824715,strikeout_props,under,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-07T22:08:57.104880
+823254,strikeout_props,under,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-07T22:08:57.104882
+823254,strikeout_props,under,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-07T22:08:57.104884
+824229,strikeout_props,under,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-07T22:08:57.104887
+824229,strikeout_props,over,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-07T22:08:57.104889
+824062,strikeout_props,under,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-07T22:08:57.104891
+823415,strikeout_props,under,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-07T22:08:57.104893
+824793,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-09-07T22:08:58.157641
+824715,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-09-07T22:08:58.157754
+823254,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-09-07T22:08:58.159198
+823254,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-09-07T22:08:58.159988
+824229,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-09-07T22:08:58.160153
+824229,strikeout_props,over,line_movement,Line unchanged since flag; sharp consensus stable.,2026-09-07T22:08:58.160252
+824062,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-09-07T22:08:58.160345
+823415,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-09-07T22:08:58.160439
