@@ -351,3 +351,11 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-09-06,823091,Seattle Mariners,Athletics,Seattle Mariners,0.6408685827995853,9,Seattle Mariners,True
 2026-09-06,823253,San Diego Padres,New York Yankees,New York Yankees,0.5036092880766994,9,New York Yankees,True
 2026-09-06,824552,Chicago White Sox,Minnesota Twins,Chicago White Sox,0.5733852186171015,9,Chicago White Sox,True
+2026-09-07,823415,Philadelphia Phillies,Atlanta Braves,Philadelphia Phillies,0.6218934212297075,6,Philadelphia Phillies,True
+2026-09-07,823820,Miami Marlins,New York Mets,Miami Marlins,0.6153291569528538,6,Miami Marlins,True
+2026-09-07,824793,Baltimore Orioles,Cleveland Guardians,Baltimore Orioles,0.5540068099568555,6,Cleveland Guardians,False
+2026-09-07,824715,Boston Red Sox,Los Angeles Angels,Boston Red Sox,0.6168237385727675,5,Boston Red Sox,True
+2026-09-07,824062,Kansas City Royals,Arizona Diamondbacks,Kansas City Royals,0.5071559885096228,9,Arizona Diamondbacks,False
+2026-09-07,823742,Milwaukee Brewers,Chicago Cubs,Milwaukee Brewers,0.5321721759699376,9,Chicago Cubs,False
+2026-09-07,824229,Detroit Tigers,Minnesota Twins,Detroit Tigers,0.5226544706774238,9,Minnesota Twins,False
+2026-09-07,823254,San Diego Padres,Washington Nationals,San Diego Padres,0.6408975949475487,9,San Diego Padres,True
