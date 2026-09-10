@@ -2180,3 +2180,18 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 824957,2026,2026-09-08,133,Athletics,141,Toronto Blue Jays,2,4,678022.0,667755.0,2529,Sutter Health Park,night,N
 823174,2026,2026-09-08,137,San Francisco Giants,138,St. Louis Cardinals,2,1,694738.0,687273.0,2395,Oracle Park,night,N
 823901,2026,2026-09-08,119,Los Angeles Dodgers,113,Cincinnati Reds,3,2,669373.0,666157.0,22,UNIQLO Field at Dodger Stadium,night,N
+824226,2026,2026-09-09,116,Detroit Tigers,142,Minnesota Twins,7,2,672456.0,805673.0,2394,Comerica Park,day,N
+824956,2026,2026-09-09,133,Athletics,141,Toronto Blue Jays,2,0,669620.0,680755.0,2529,Sutter Health Park,day,N
+823172,2026,2026-09-09,137,San Francisco Giants,138,St. Louis Cardinals,7,6,694918.0,669467.0,2395,Oracle Park,day,N
+823251,2026,2026-09-09,135,San Diego Padres,120,Washington Nationals,9,2,621111.0,800600.0,2680,Petco Park,day,N
+823090,2026,2026-09-09,136,Seattle Mariners,140,Texas Rangers,3,2,807739.0,674003.0,680,T-Mobile Park,day,N
+824791,2026,2026-09-09,110,Baltimore Orioles,114,Cleveland Guardians,9,5,669358.0,656492.0,2,Oriole Park at Camden Yards,night,N
+823416,2026,2026-09-09,143,Philadelphia Phillies,117,Houston Astros,11,7,650911.0,686613.0,2681,Citizens Bank Park,night,N
+823818,2026,2026-09-09,146,Miami Marlins,121,New York Mets,14,15,676083.0,476594.0,4169,loanDepot park,night,N
+824713,2026,2026-09-09,111,Boston Red Sox,108,Los Angeles Angels,4,6,687562.0,696270.0,3,Fenway Park,night,N
+823497,2026,2026-09-09,147,New York Yankees,115,Colorado Rockies,6,1,701542.0,608372.0,3313,Yankee Stadium,night,N
+824871,2026,2026-09-09,144,Atlanta Braves,139,Tampa Bay Rays,2,7,625643.0,643377.0,4705,Truist Park,night,N
+824064,2026,2026-09-09,118,Kansas City Royals,109,Arizona Diamondbacks,5,2,663738.0,668678.0,7,Kauffman Stadium,night,N
+824549,2026,2026-09-09,145,Chicago White Sox,134,Pittsburgh Pirates,2,4,663436.0,669199.0,4,Rate Field,night,N
+823739,2026,2026-09-09,158,Milwaukee Brewers,112,Chicago Cubs,8,6,701656.0,592332.0,32,American Family Field,night,N
+823900,2026,2026-09-09,119,Los Angeles Dodgers,113,Cincinnati Reds,14,1,808967.0,695076.0,22,UNIQLO Field at Dodger Stadium,night,N

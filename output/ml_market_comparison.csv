@@ -382,3 +382,8 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-09-09,824064,Kansas City Royals,Arizona Diamondbacks,Arizona Diamondbacks,0.5213855871331252,9,Arizona Diamondbacks,True
 2026-09-09,823739,Milwaukee Brewers,Chicago Cubs,Milwaukee Brewers,0.5435407850430395,9,Milwaukee Brewers,True
 2026-09-09,824549,Chicago White Sox,Pittsburgh Pirates,Chicago White Sox,0.5549930463748548,9,Pittsburgh Pirates,False
+2026-09-10,824872,Atlanta Braves,Tampa Bay Rays,Atlanta Braves,0.5519550807520885,6,Atlanta Braves,True
+2026-09-10,823413,Philadelphia Phillies,Houston Astros,Philadelphia Phillies,0.6265572201126755,9,Philadelphia Phillies,True
+2026-09-10,823088,Seattle Mariners,Texas Rangers,Seattle Mariners,0.5342201700869387,9,Seattle Mariners,True
+2026-09-10,823499,New York Yankees,Colorado Rockies,New York Yankees,0.7188328893004549,9,New York Yankees,True
+2026-09-10,824550,Chicago White Sox,Pittsburgh Pirates,Chicago White Sox,0.5003457649654028,9,Pittsburgh Pirates,False
