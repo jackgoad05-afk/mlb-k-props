@@ -1,43 +1,105 @@
 game_pk,home_team_name,away_team_name,market,market_type,side,line,model_prob,pm_price,pm_implied_prob,edge,depth_usd,sportsbook_prob,n_books
-824872,Atlanta Braves,Tampa Bay Rays,polymarket,moneyline,home,,0.5441176470588234,0.47,0.47,0.0741176470588234,0.0,0.5542008092979015,6
-824872,Atlanta Braves,Tampa Bay Rays,polymarket,moneyline,away,,0.4558823529411766,0.47,0.47,-0.014117647058823346,62.1,0.4457991907020985,6
-823413,Philadelphia Phillies,Houston Astros,polymarket,moneyline,home,,0.6183385579937304,0.37,0.37,0.2483385579937304,0.0,0.6267517026432822,9
-823413,Philadelphia Phillies,Houston Astros,polymarket,moneyline,away,,0.3816614420062696,0.37,0.37,0.011661442006269618,101349.1716,0.37324829735671783,9
-823088,Seattle Mariners,Texas Rangers,polymarket,moneyline,home,,0.5441176470588234,0.46,0.46,0.08411764705882335,0.0,0.5342201700869387,9
-823088,Seattle Mariners,Texas Rangers,polymarket,moneyline,away,,0.4558823529411766,0.46,0.46,-0.004117647058823393,52582.4528,0.4657798299130613,9
-823499,New York Yankees,Colorado Rockies,polymarket,moneyline,home,,0.6398467432950191,0.28,0.28,0.3598467432950191,0.0,0.7188328893004549,9
-823499,New York Yankees,Colorado Rockies,polymarket,moneyline,away,,0.3601532567049809,0.28,0.28,0.08015325670498086,28968.081,0.28116711069954514,9
-824550,Chicago White Sox,Pittsburgh Pirates,polymarket,moneyline,home,,0.4457751164337991,0.51,0.51,-0.06422488356620093,37116.774900000004,0.5003457649654028,9
-824550,Chicago White Sox,Pittsburgh Pirates,polymarket,moneyline,away,,0.5542248835662009,0.51,0.51,0.04422488356620091,35334.3606,0.49965423503459716,9
-824872,Atlanta Braves,Tampa Bay Rays,polymarket,totals,over,8.5,,0.3,0.3,,0.0,,6
-824872,Atlanta Braves,Tampa Bay Rays,polymarket,totals,under,8.5,,0.3,0.3,,0.0,,6
-824872,Atlanta Braves,Tampa Bay Rays,polymarket,totals,over,7.5,,0.36,0.36,,19.8,,6
-824872,Atlanta Braves,Tampa Bay Rays,polymarket,totals,under,7.5,,0.36,0.36,,0.0,,6
-824872,Atlanta Braves,Tampa Bay Rays,polymarket,totals,over,9.5,,0.21,0.21,,89.7454,,6
-824872,Atlanta Braves,Tampa Bay Rays,polymarket,totals,under,9.5,,0.21,0.21,,0.0,,6
-824872,Atlanta Braves,Tampa Bay Rays,polymarket,totals,over,6.5,,0.52,0.52,,0.0,,6
-824872,Atlanta Braves,Tampa Bay Rays,polymarket,totals,under,6.5,,0.52,0.52,,0.0,,6
-823413,Philadelphia Phillies,Houston Astros,polymarket,totals,over,8.5,,0.5,0.5,,11435.465,,9
-823413,Philadelphia Phillies,Houston Astros,polymarket,totals,under,8.5,,0.5,0.5,,0.0,,9
-823413,Philadelphia Phillies,Houston Astros,polymarket,totals,over,7.5,,0.59,0.59,,11989.8738,,9
-823413,Philadelphia Phillies,Houston Astros,polymarket,totals,under,7.5,,0.59,0.59,,0.0,,9
-823413,Philadelphia Phillies,Houston Astros,polymarket,totals,over,9.5,,0.4,0.4,,20969.033499999998,,9
-823413,Philadelphia Phillies,Houston Astros,polymarket,totals,under,9.5,,0.4,0.4,,0.0,,9
-823088,Seattle Mariners,Texas Rangers,polymarket,totals,over,7.5,,0.39,0.39,,15.873000000000001,,9
-823088,Seattle Mariners,Texas Rangers,polymarket,totals,under,7.5,,0.39,0.39,,0.0,,9
-823088,Seattle Mariners,Texas Rangers,polymarket,totals,over,6.5,,0.53,0.53,,1036.8973,,9
-823088,Seattle Mariners,Texas Rangers,polymarket,totals,under,6.5,,0.53,0.53,,3050.15,,9
-823088,Seattle Mariners,Texas Rangers,polymarket,totals,over,8.5,,0.33,0.33,,7735.0614000000005,,9
-823088,Seattle Mariners,Texas Rangers,polymarket,totals,under,8.5,,0.33,0.33,,0.0,,9
-823499,New York Yankees,Colorado Rockies,polymarket,totals,over,8.5,,0.5,0.5,,8860.515,,9
-823499,New York Yankees,Colorado Rockies,polymarket,totals,under,8.5,,0.5,0.5,,0.0,,9
-823499,New York Yankees,Colorado Rockies,polymarket,totals,over,7.5,,0.59,0.59,,8623.422299999998,,9
-823499,New York Yankees,Colorado Rockies,polymarket,totals,under,7.5,,0.59,0.59,,0.0,,9
-823499,New York Yankees,Colorado Rockies,polymarket,totals,over,9.5,,0.41,0.41,,9656.356899999999,,9
-823499,New York Yankees,Colorado Rockies,polymarket,totals,under,9.5,,0.41,0.41,,0.0,,9
-824550,Chicago White Sox,Pittsburgh Pirates,polymarket,totals,over,7.5,,0.52,0.52,,862.8568,,9
-824550,Chicago White Sox,Pittsburgh Pirates,polymarket,totals,under,7.5,,0.52,0.52,,10045.0272,,9
-824550,Chicago White Sox,Pittsburgh Pirates,polymarket,totals,over,6.5,,0.64,0.64,,360.22400000000005,,9
-824550,Chicago White Sox,Pittsburgh Pirates,polymarket,totals,under,6.5,,0.64,0.64,,677.12,,9
-824550,Chicago White Sox,Pittsburgh Pirates,polymarket,totals,over,8.5,,0.44,0.44,,234.96,,9
-824550,Chicago White Sox,Pittsburgh Pirates,polymarket,totals,under,8.5,,0.44,0.44,,0.0,,9
+824631,Chicago Cubs,Pittsburgh Pirates,polymarket,moneyline,home,,0.5441176470588234,0.38,0.38,0.16411764705882337,0.0,0.6316527523261078,9
+824631,Chicago Cubs,Pittsburgh Pirates,polymarket,moneyline,away,,0.4558823529411766,0.38,0.38,0.07588235294117662,46613.136999999995,0.36834724767389215,9
+824227,Detroit Tigers,Colorado Rockies,polymarket,moneyline,home,,0.6398467432950191,0.38,0.38,0.2598467432950191,0.0,0.6253368151447156,9
+824227,Detroit Tigers,Colorado Rockies,polymarket,moneyline,away,,0.3601532567049809,0.38,0.38,-0.01984674329501912,25709.466200000003,0.3746631848552844,9
+822684,Washington Nationals,Los Angeles Angels,polymarket,moneyline,home,,0.5441176470588234,0.42,0.42,0.12411764705882339,0.0,0.5820456046636518,9
+822684,Washington Nationals,Los Angeles Angels,polymarket,moneyline,away,,0.4558823529411766,0.42,0.42,0.03588235294117664,31973.361,0.41795439533634815,9
+823498,New York Yankees,New York Mets,polymarket,moneyline,home,,0.6183385579937304,0.45,0.45,0.16833855799373038,0.0,0.5545305324587316,9
+823498,New York Yankees,New York Mets,polymarket,moneyline,away,,0.3816614420062696,0.45,0.45,-0.0683385579937304,21788.505,0.44546946754126837,9
+822767,Toronto Blue Jays,Baltimore Orioles,polymarket,moneyline,home,,0.5441176470588234,0.45,0.45,0.09411764705882336,0.0,0.5561089474206219,9
+822767,Toronto Blue Jays,Baltimore Orioles,polymarket,moneyline,away,,0.4558823529411766,0.45,0.45,0.005882352941176616,24551.158499999998,0.4438910525793781,9
+824711,Boston Red Sox,Kansas City Royals,polymarket,moneyline,home,,0.6183385579937304,0.36,0.36,0.2583385579937304,0.0,0.6443780107866705,9
+824711,Boston Red Sox,Kansas City Royals,polymarket,moneyline,away,,0.3816614420062696,0.36,0.36,0.021661442006269627,23470.614,0.35562198921332955,9
+822930,Tampa Bay Rays,Houston Astros,polymarket,moneyline,home,,0.5441176470588234,0.39,0.39,0.15411764705882336,0.0,0.6087198503763792,9
+822930,Tampa Bay Rays,Houston Astros,polymarket,moneyline,away,,0.4558823529411766,0.39,0.39,0.06588235294117661,31205.413200000003,0.3912801496236208,9
+824873,Atlanta Braves,Philadelphia Phillies,polymarket,moneyline,home,,0.6183385579937304,0.38,0.38,0.23833855799373038,0.0,0.6252109742531722,9
+824873,Atlanta Braves,Philadelphia Phillies,polymarket,moneyline,away,,0.3816614420062696,0.38,0.38,0.001661442006269609,33350.89,0.3747890257468278,9
+823736,Milwaukee Brewers,Cincinnati Reds,polymarket,moneyline,home,,0.6183385579937304,0.36,0.36,0.2583385579937304,0.0,0.6395016971076967,9
+823736,Milwaukee Brewers,Cincinnati Reds,polymarket,moneyline,away,,0.3816614420062696,0.36,0.36,0.021661442006269627,77768.136,0.36049830289230334,9
+823659,Minnesota Twins,Cleveland Guardians,polymarket,moneyline,home,,0.4978354978354978,0.53,0.53,-0.03216450216450223,3739.9185,0.4792545145045487,9
+823659,Minnesota Twins,Cleveland Guardians,polymarket,moneyline,away,,0.5021645021645023,0.53,0.53,-0.02783549783549777,38655.6984,0.5207454854954513,9
+823012,St. Louis Cardinals,Chicago White Sox,polymarket,moneyline,home,,0.4978354978354978,0.51,0.51,-0.012164502164502211,31737.4224,0.4909416539701581,9
+823012,St. Louis Cardinals,Chicago White Sox,polymarket,moneyline,away,,0.5021645021645023,0.51,0.51,-0.007835497835497751,12571.020600000002,0.5090583460298419,9
+824954,Athletics,Seattle Mariners,polymarket,moneyline,home,,0.459727385377943,0.6,0.6,-0.14027261462205698,5.3999999999999995,0.4022656525750916,9
+824954,Athletics,Seattle Mariners,polymarket,moneyline,away,,0.540272614622057,0.6,0.6,-0.059727385377942976,9831.833999999999,0.5977343474249084,9
+823173,San Francisco Giants,San Diego Padres,polymarket,moneyline,home,,0.459727385377943,0.58,0.58,-0.12027261462205696,4.06,0.4295913943878302,9
+823173,San Francisco Giants,San Diego Padres,polymarket,moneyline,away,,0.540272614622057,0.58,0.58,-0.03972738537794296,35330.7812,0.5704086056121698,9
+824631,Chicago Cubs,Pittsburgh Pirates,polymarket,totals,over,8.5,,0.49,0.49,,457.219,,9
+824631,Chicago Cubs,Pittsburgh Pirates,polymarket,totals,under,8.5,,0.49,0.49,,0.0,,9
+824631,Chicago Cubs,Pittsburgh Pirates,polymarket,totals,over,7.5,,0.57,0.57,,1075.1397,,9
+824631,Chicago Cubs,Pittsburgh Pirates,polymarket,totals,under,7.5,,0.57,0.57,,17.099999999999998,,9
+824631,Chicago Cubs,Pittsburgh Pirates,polymarket,totals,over,9.5,,0.39,0.39,,4226.4573,,9
+824631,Chicago Cubs,Pittsburgh Pirates,polymarket,totals,under,9.5,,0.39,0.39,,0.0,,9
+824227,Detroit Tigers,Colorado Rockies,polymarket,totals,over,8.5,,0.46,0.46,,5000.7832,,9
+824227,Detroit Tigers,Colorado Rockies,polymarket,totals,under,8.5,,0.46,0.46,,0.0,,9
+824227,Detroit Tigers,Colorado Rockies,polymarket,totals,over,7.5,,0.54,0.54,,1076.3388,,9
+824227,Detroit Tigers,Colorado Rockies,polymarket,totals,under,7.5,,0.54,0.54,,2.7,,9
+824227,Detroit Tigers,Colorado Rockies,polymarket,totals,over,9.5,,0.36,0.36,,145.07999999999998,,9
+824227,Detroit Tigers,Colorado Rockies,polymarket,totals,under,9.5,,0.36,0.36,,0.0,,9
+822684,Washington Nationals,Los Angeles Angels,polymarket,totals,over,8.5,,0.44,0.44,,1548.3203999999998,,9
+822684,Washington Nationals,Los Angeles Angels,polymarket,totals,under,8.5,,0.44,0.44,,0.0,,9
+822684,Washington Nationals,Los Angeles Angels,polymarket,totals,over,7.5,,0.51,0.51,,1232.3181,,9
+822684,Washington Nationals,Los Angeles Angels,polymarket,totals,under,7.5,,0.51,0.51,,9494.098800000002,,9
+822684,Washington Nationals,Los Angeles Angels,polymarket,totals,over,9.5,,0.35,0.35,,4066.4015,,9
+822684,Washington Nationals,Los Angeles Angels,polymarket,totals,under,9.5,,0.35,0.35,,0.0,,9
+823498,New York Yankees,New York Mets,polymarket,totals,over,8.5,,0.48,0.48,,1913.7648,,9
+823498,New York Yankees,New York Mets,polymarket,totals,under,8.5,,0.48,0.48,,0.0,,9
+823498,New York Yankees,New York Mets,polymarket,totals,over,9.5,,0.37,0.37,,758.2077,,9
+823498,New York Yankees,New York Mets,polymarket,totals,under,9.5,,0.37,0.37,,0.0,,9
+823498,New York Yankees,New York Mets,polymarket,totals,over,7.5,,0.57,0.57,,4676.6334,,9
+823498,New York Yankees,New York Mets,polymarket,totals,under,7.5,,0.57,0.57,,5880.000000000001,,9
+822767,Toronto Blue Jays,Baltimore Orioles,polymarket,totals,over,8.5,,0.44,0.44,,1846.0420000000001,,9
+822767,Toronto Blue Jays,Baltimore Orioles,polymarket,totals,under,8.5,,0.44,0.44,,0.0,,9
+822767,Toronto Blue Jays,Baltimore Orioles,polymarket,totals,over,7.5,,0.53,0.53,,3064.6296,,9
+822767,Toronto Blue Jays,Baltimore Orioles,polymarket,totals,under,7.5,,0.53,0.53,,3076.65,,9
+822767,Toronto Blue Jays,Baltimore Orioles,polymarket,totals,over,9.5,,0.34,0.34,,3902.565,,9
+822767,Toronto Blue Jays,Baltimore Orioles,polymarket,totals,under,9.5,,0.34,0.34,,0.0,,9
+824711,Boston Red Sox,Kansas City Royals,polymarket,totals,over,8.5,,0.49,0.49,,2085.0382,,9
+824711,Boston Red Sox,Kansas City Royals,polymarket,totals,under,8.5,,0.49,0.49,,0.0,,9
+824711,Boston Red Sox,Kansas City Royals,polymarket,totals,over,7.5,,0.57,0.57,,1354.7532,,9
+824711,Boston Red Sox,Kansas City Royals,polymarket,totals,under,7.5,,0.57,0.57,,5617.100000000001,,9
+824711,Boston Red Sox,Kansas City Royals,polymarket,totals,over,9.5,,0.38,0.38,,117.8912,,9
+824711,Boston Red Sox,Kansas City Royals,polymarket,totals,under,9.5,,0.38,0.38,,0.0,,9
+822930,Tampa Bay Rays,Houston Astros,polymarket,totals,over,7.5,,0.52,0.52,,1223.9552,,9
+822930,Tampa Bay Rays,Houston Astros,polymarket,totals,under,7.5,,0.52,0.52,,2033.2,,9
+822930,Tampa Bay Rays,Houston Astros,polymarket,totals,over,6.5,,0.64,0.64,,178.56,,9
+822930,Tampa Bay Rays,Houston Astros,polymarket,totals,under,6.5,,0.64,0.64,,0.0,,9
+822930,Tampa Bay Rays,Houston Astros,polymarket,totals,over,8.5,,0.45,0.45,,2845.17,,9
+822930,Tampa Bay Rays,Houston Astros,polymarket,totals,under,8.5,,0.45,0.45,,0.0,,9
+824873,Atlanta Braves,Philadelphia Phillies,polymarket,totals,over,7.5,,0.45,0.45,,150.14249999999998,,9
+824873,Atlanta Braves,Philadelphia Phillies,polymarket,totals,under,7.5,,0.45,0.45,,0.0,,9
+824873,Atlanta Braves,Philadelphia Phillies,polymarket,totals,over,6.5,,0.59,0.59,,1368.8531,,9
+824873,Atlanta Braves,Philadelphia Phillies,polymarket,totals,under,6.5,,0.59,0.59,,0.0,,9
+824873,Atlanta Braves,Philadelphia Phillies,polymarket,totals,over,8.5,,0.39,0.39,,885.6042000000001,,9
+824873,Atlanta Braves,Philadelphia Phillies,polymarket,totals,under,8.5,,0.39,0.39,,0.0,,9
+823736,Milwaukee Brewers,Cincinnati Reds,polymarket,totals,over,8.5,,0.45,0.45,,810.1080000000001,,9
+823736,Milwaukee Brewers,Cincinnati Reds,polymarket,totals,under,8.5,,0.45,0.45,,0.0,,9
+823736,Milwaukee Brewers,Cincinnati Reds,polymarket,totals,over,7.5,,0.54,0.54,,2635.8318000000004,,9
+823736,Milwaukee Brewers,Cincinnati Reds,polymarket,totals,under,7.5,,0.54,0.54,,0.0,,9
+823736,Milwaukee Brewers,Cincinnati Reds,polymarket,totals,over,9.5,,0.35,0.35,,746.2455,,9
+823736,Milwaukee Brewers,Cincinnati Reds,polymarket,totals,under,9.5,,0.35,0.35,,0.0,,9
+823659,Minnesota Twins,Cleveland Guardians,polymarket,totals,over,7.5,,0.51,0.51,,16896.3153,,9
+823659,Minnesota Twins,Cleveland Guardians,polymarket,totals,under,7.5,,0.51,0.51,,2020.3038000000001,,9
+823659,Minnesota Twins,Cleveland Guardians,polymarket,totals,over,6.5,,0.63,0.63,,1269.6957,,9
+823659,Minnesota Twins,Cleveland Guardians,polymarket,totals,under,6.5,,0.63,0.63,,756.0,,9
+823659,Minnesota Twins,Cleveland Guardians,polymarket,totals,over,8.5,,0.43,0.43,,732.0965,,9
+823659,Minnesota Twins,Cleveland Guardians,polymarket,totals,under,8.5,,0.43,0.43,,0.0,,9
+823012,St. Louis Cardinals,Chicago White Sox,polymarket,totals,over,8.5,,0.47,0.47,,5387.8121,,9
+823012,St. Louis Cardinals,Chicago White Sox,polymarket,totals,under,8.5,,0.47,0.47,,0.0,,9
+823012,St. Louis Cardinals,Chicago White Sox,polymarket,totals,over,7.5,,0.55,0.55,,883.7125000000001,,9
+823012,St. Louis Cardinals,Chicago White Sox,polymarket,totals,under,7.5,,0.55,0.55,,0.0,,9
+823012,St. Louis Cardinals,Chicago White Sox,polymarket,totals,over,9.5,,0.37,0.37,,2092.9272,,9
+823012,St. Louis Cardinals,Chicago White Sox,polymarket,totals,under,9.5,,0.37,0.37,,0.0,,9
+824954,Athletics,Seattle Mariners,polymarket,totals,over,10.5,,0.47,0.47,,0.0,,9
+824954,Athletics,Seattle Mariners,polymarket,totals,under,10.5,,0.47,0.47,,0.0,,9
+824954,Athletics,Seattle Mariners,polymarket,totals,over,8.5,,0.66,0.66,,1727.3718000000001,,9
+824954,Athletics,Seattle Mariners,polymarket,totals,under,8.5,,0.66,0.66,,20.8956,,9
+824954,Athletics,Seattle Mariners,polymarket,totals,over,9.5,,0.56,0.56,,5973.7702,,9
+824954,Athletics,Seattle Mariners,polymarket,totals,under,9.5,,0.56,0.56,,5944.799999999999,,9
+823173,San Francisco Giants,San Diego Padres,polymarket,totals,over,7.5,,0.54,0.54,,1267.7958,,9
+823173,San Francisco Giants,San Diego Padres,polymarket,totals,under,7.5,,0.54,0.54,,0.0,,9
+823173,San Francisco Giants,San Diego Padres,polymarket,totals,over,6.5,,0.66,0.66,,752.9478,,9
+823173,San Francisco Giants,San Diego Padres,polymarket,totals,under,6.5,,0.66,0.66,,0.0,,9
+823173,San Francisco Giants,San Diego Padres,polymarket,totals,over,8.5,,0.46,0.46,,21176.542400000002,,9
+823173,San Francisco Giants,San Diego Padres,polymarket,totals,under,8.5,,0.46,0.46,,0.0,,9
