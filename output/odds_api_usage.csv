@@ -976,3 +976,4 @@ logged_at,endpoint,requests_used,requests_remaining,last_call_cost
 2026-09-12T15:56:23,https://api.the-odds-api.com/v4/sports/baseball_mlb/odds,240,260,1
 2026-09-12T15:56:27,https://api.the-odds-api.com/v4/sports/baseball_mlb/odds,241,259,1
 2026-09-12T15:56:49,https://api.the-odds-api.com/v4/sports/baseball_mlb/odds,242,258,1
+2026-09-12T23:48:49,https://api.the-odds-api.com/v4/sports/baseball_mlb/events,249,251,0
