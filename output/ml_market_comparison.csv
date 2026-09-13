@@ -407,3 +407,18 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-09-12,823819,Miami Marlins,Los Angeles Dodgers,Los Angeles Dodgers,0.6269064040664647,9,Los Angeles Dodgers,True
 2026-09-12,822927,Tampa Bay Rays,Houston Astros,Tampa Bay Rays,0.5672912304696227,9,Tampa Bay Rays,True
 2026-09-12,823009,St. Louis Cardinals,Chicago White Sox,St. Louis Cardinals,0.5039747524720484,9,St. Louis Cardinals,True
+2026-09-13,824225,Detroit Tigers,Colorado Rockies,Detroit Tigers,0.7560832028373531,6,Detroit Tigers,True
+2026-09-13,824869,Atlanta Braves,Philadelphia Phillies,Atlanta Braves,0.542729888085585,9,Philadelphia Phillies,False
+2026-09-13,822682,Washington Nationals,Los Angeles Angels,Washington Nationals,0.5552979451789486,9,Washington Nationals,True
+2026-09-13,823495,New York Yankees,New York Mets,New York Yankees,0.616919412496918,9,New York Yankees,True
+2026-09-13,822764,Toronto Blue Jays,Baltimore Orioles,Toronto Blue Jays,0.57765656516139,9,Toronto Blue Jays,True
+2026-09-13,823815,Miami Marlins,Los Angeles Dodgers,Los Angeles Dodgers,0.5574097459432349,9,Los Angeles Dodgers,True
+2026-09-13,822928,Tampa Bay Rays,Houston Astros,Tampa Bay Rays,0.5443672214067048,9,Tampa Bay Rays,True
+2026-09-13,823734,Milwaukee Brewers,Cincinnati Reds,Milwaukee Brewers,0.6392012152822331,9,Milwaukee Brewers,True
+2026-09-13,823658,Minnesota Twins,Cleveland Guardians,Minnesota Twins,0.5369822874423762,9,Cleveland Guardians,False
+2026-09-13,823008,St. Louis Cardinals,Chicago White Sox,Chicago White Sox,0.5183139209601703,9,Chicago White Sox,True
+2026-09-13,824628,Chicago Cubs,Pittsburgh Pirates,Chicago Cubs,0.5983598630716528,9,Pittsburgh Pirates,False
+2026-09-13,824708,Boston Red Sox,Kansas City Royals,Boston Red Sox,0.6274277898720079,9,Boston Red Sox,True
+2026-09-13,824952,Athletics,Seattle Mariners,Seattle Mariners,0.5487644220925749,9,Seattle Mariners,True
+2026-09-13,825033,Arizona Diamondbacks,Texas Rangers,Arizona Diamondbacks,0.5415695346983109,9,Arizona Diamondbacks,True
+2026-09-13,823171,San Francisco Giants,San Diego Padres,San Diego Padres,0.5395332294052078,9,San Diego Padres,True
