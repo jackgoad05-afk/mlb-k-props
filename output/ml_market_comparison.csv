@@ -422,3 +422,10 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-09-13,824952,Athletics,Seattle Mariners,Seattle Mariners,0.5487644220925749,9,Seattle Mariners,True
 2026-09-13,825033,Arizona Diamondbacks,Texas Rangers,Arizona Diamondbacks,0.5415695346983109,9,Arizona Diamondbacks,True
 2026-09-13,823171,San Francisco Giants,San Diego Padres,San Diego Padres,0.5395332294052078,9,San Diego Padres,True
+2026-09-14,824386,Cleveland Guardians,Chicago White Sox,Cleveland Guardians,0.5841636608216813,9,Cleveland Guardians,True
+2026-09-14,824465,Cincinnati Reds,Los Angeles Dodgers,Los Angeles Dodgers,0.6598633833909902,9,Los Angeles Dodgers,True
+2026-09-14,822765,Toronto Blue Jays,Detroit Tigers,Toronto Blue Jays,0.5575044505926228,9,Detroit Tigers,False
+2026-09-14,823575,New York Mets,Baltimore Orioles,New York Mets,0.5321061270516352,9,New York Mets,True
+2026-09-14,824629,Chicago Cubs,Atlanta Braves,Chicago Cubs,0.5539627450043771,9,Chicago Cubs,True
+2026-09-14,823656,Minnesota Twins,New York Yankees,New York Yankees,0.5350808444045884,9,New York Yankees,True
+2026-09-14,823006,St. Louis Cardinals,San Francisco Giants,St. Louis Cardinals,0.5638910065802838,9,San Francisco Giants,False
