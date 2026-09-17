@@ -2270,3 +2270,18 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 824307,2026,2026-09-15,115,Colorado Rockies,135,San Diego Padres,9,3,607536.0,621111.0,19,Coors Field,night,N
 823980,2026,2026-09-15,108,Los Angeles Angels,136,Seattle Mariners,2,1,696270.0,669302.0,1,Angel Stadium,night,N
 825030,2026,2026-09-15,109,Arizona Diamondbacks,146,Miami Marlins,2,4,647336.0,676083.0,15,Chase Field,night,N
+824382,2026,2026-09-16,114,Cleveland Guardians,145,Chicago White Sox,6,3,800048.0,641743.0,5,Progressive Field,day,N
+823004,2026,2026-09-16,138,St. Louis Cardinals,137,San Francisco Giants,5,6,669461.0,683627.0,2889,Busch Stadium,day,N
+823655,2026,2026-09-16,142,Minnesota Twins,147,New York Yankees,5,4,805673.0,607074.0,3312,Target Field,day,N
+822763,2026,2026-09-16,141,Toronto Blue Jays,116,Detroit Tigers,5,1,453286.0,672456.0,14,Rogers Centre,day,N
+824467,2026,2026-09-16,113,Cincinnati Reds,119,Los Angeles Dodgers,6,2,671096.0,605483.0,2602,Great American Ball Park,night,N
+822926,2026,2026-09-16,139,Tampa Bay Rays,133,Athletics,4,3,607259.0,669620.0,12,Tropicana Field,night,N
+823332,2026,2026-09-16,134,Pittsburgh Pirates,158,Milwaukee Brewers,4,5,683003.0,701656.0,31,PNC Park,night,N
+822680,2026,2026-09-16,120,Washington Nationals,143,Philadelphia Phillies,0,3,688692.0,554430.0,3309,Nationals Park,night,N
+823576,2026,2026-09-16,121,New York Mets,110,Baltimore Orioles,1,7,675540.0,605135.0,3289,Citi Field,night,N
+824626,2026,2026-09-16,112,Chicago Cubs,144,Atlanta Braves,8,4,684007.0,702275.0,17,Wrigley Field,night,N
+822846,2026,2026-09-16,140,Texas Rangers,111,Boston Red Sox,7,3,669022.0,687562.0,5325,Globe Life Field,night,N
+824140,2026,2026-09-16,117,Houston Astros,118,Kansas City Royals,2,5,664299.0,663738.0,2392,Daikin Park,night,N
+824306,2026,2026-09-16,115,Colorado Rockies,135,San Diego Padres,3,9,690279.0,592662.0,19,Coors Field,night,N
+823979,2026,2026-09-16,108,Los Angeles Angels,136,Seattle Mariners,2,7,579328.0,669923.0,1,Angel Stadium,night,N
+825031,2026,2026-09-16,109,Arizona Diamondbacks,146,Miami Marlins,3,4,518876.0,687473.0,15,Chase Field,night,N

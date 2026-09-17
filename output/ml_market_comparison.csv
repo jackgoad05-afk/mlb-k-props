@@ -449,3 +449,9 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-09-16,822680,Washington Nationals,Philadelphia Phillies,Philadelphia Phillies,0.6358287001512354,9,Philadelphia Phillies,True
 2026-09-16,823576,New York Mets,Baltimore Orioles,New York Mets,0.5470041349582755,9,Baltimore Orioles,False
 2026-09-16,824626,Chicago Cubs,Atlanta Braves,Chicago Cubs,0.5921486018597033,9,Atlanta Braves,False
+2026-09-17,823334,Pittsburgh Pirates,Milwaukee Brewers,Pittsburgh Pirates,0.8245657444627851,6,Milwaukee Brewers,False
+2026-09-17,824464,Cincinnati Reds,Los Angeles Dodgers,Los Angeles Dodgers,0.8786312176671353,6,Los Angeles Dodgers,True
+2026-09-17,822924,Tampa Bay Rays,Athletics,Tampa Bay Rays,0.6947894077120199,8,Tampa Bay Rays,True
+2026-09-17,824305,Colorado Rockies,San Diego Padres,San Diego Padres,0.642254088187924,9,San Diego Padres,True
+2026-09-17,823573,New York Mets,Philadelphia Phillies,New York Mets,0.542841878771377,9,Philadelphia Phillies,False
+2026-09-17,824548,Chicago White Sox,Detroit Tigers,Chicago White Sox,0.5144323136624996,9,Detroit Tigers,False
