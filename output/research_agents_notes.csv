@@ -1811,3 +1811,36 @@ game_id,market_type,side,agent,note,timestamp
 824141,strikeout_props,under,line_movement,"Line steady: -170 -> -170, no meaningful movement.",2026-09-17T22:18:38.174656
 824548,strikeout_props,under,line_movement,Line moved toward the edge: -148 -> -135 -- sharp money agreeing since the flag.,2026-09-17T22:18:38.175414
 824548,strikeout_props,over,line_movement,Line moved toward the edge: -105 -> -118 -- sharp money agreeing since the flag.,2026-09-17T22:18:38.176037
+824790,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-09-18T21:45:52.311908
+822923,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-09-18T21:45:52.311915
+822923,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-09-18T21:45:52.311918
+822923,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-09-18T21:45:52.311920
+824463,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-09-18T21:45:52.311922
+824463,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-09-18T21:45:52.311924
+823331,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-09-18T21:45:52.311926
+823331,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-09-18T21:45:52.311929
+824547,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-09-18T21:45:52.311932
+824547,strikeout_props,over,lineup,Confirmed: still listed as today's probable starter.,2026-09-18T21:45:52.311934
+824383,strikeout_props,under,lineup,Confirmed: still listed as today's probable starter.,2026-09-18T21:45:52.311936
+824790,strikeout_props,under,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-18T21:45:54.426011
+822923,strikeout_props,under,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-18T21:45:54.426019
+822923,strikeout_props,under,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-18T21:45:54.426023
+822923,strikeout_props,over,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-18T21:45:54.426025
+824463,strikeout_props,over,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-18T21:45:54.426028
+824463,strikeout_props,over,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-18T21:45:54.426030
+823331,strikeout_props,under,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-18T21:45:54.426032
+823331,strikeout_props,under,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-18T21:45:54.426034
+824547,strikeout_props,under,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-18T21:45:54.426036
+824547,strikeout_props,over,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-18T21:45:54.426039
+824383,strikeout_props,under,injury_news,"Research check failed -- see logs, treat as unverified.",2026-09-18T21:45:54.426041
+824790,strikeout_props,under,line_movement,"Line steady: -130 -> -128, no meaningful movement.",2026-09-18T21:45:55.260157
+822923,strikeout_props,under,line_movement,"Line steady: +110 -> +109, no meaningful movement.",2026-09-18T21:45:55.261029
+822923,strikeout_props,under,line_movement,"Line steady: -190 -> -190, no meaningful movement.",2026-09-18T21:45:55.261801
+822923,strikeout_props,over,line_movement,"Line steady: +115 -> +115, no meaningful movement.",2026-09-18T21:45:55.262574
+824463,strikeout_props,over,line_movement,"Line steady: -130 -> -132, no meaningful movement.",2026-09-18T21:45:55.263420
+824463,strikeout_props,over,line_movement,"Line steady: -108 -> -109, no meaningful movement.",2026-09-18T21:45:55.264148
+823331,strikeout_props,under,line_movement,Line moved against the edge: -125 -> -135 -- sharp money disagreeing since the flag.,2026-09-18T21:45:55.265025
+823331,strikeout_props,under,line_movement,"Line steady: -142 -> -140, no meaningful movement.",2026-09-18T21:45:55.265786
+824547,strikeout_props,under,line_movement,Line unchanged since flag; sharp consensus stable.,2026-09-18T21:45:55.266496
+824547,strikeout_props,over,line_movement,Line moved against the edge: +120 -> +124 -- sharp money disagreeing since the flag.,2026-09-18T21:45:55.267248
+824383,strikeout_props,under,line_movement,"Line steady: +102 -> +104, no meaningful movement.",2026-09-18T21:45:55.267852
