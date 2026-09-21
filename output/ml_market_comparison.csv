@@ -484,3 +484,5 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-09-20,825028,Arizona Diamondbacks,New York Yankees,Arizona Diamondbacks,0.5208667408616627,9,New York Yankees,False
 2026-09-20,823247,San Diego Padres,Miami Marlins,San Diego Padres,0.5762528878720194,9,San Diego Padres,True
 2026-09-20,824789,Baltimore Orioles,Milwaukee Brewers,Milwaukee Brewers,0.6490989351988117,9,Milwaukee Brewers,True
+2026-09-21,824787,Baltimore Orioles,Toronto Blue Jays,Baltimore Orioles,0.5036252240462623,9,Toronto Blue Jays,False
+2026-09-21,824221,Detroit Tigers,Washington Nationals,Detroit Tigers,0.5531167918522422,9,Washington Nationals,False
