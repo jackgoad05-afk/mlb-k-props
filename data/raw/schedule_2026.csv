@@ -2339,3 +2339,6 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 823247,2026,2026-09-20,135,San Diego Padres,146,Miami Marlins,7,3,621111.0,645261.0,2680,Petco Park,day,N
 825028,2026,2026-09-20,109,Arizona Diamondbacks,147,New York Yankees,8,4,669203.0,701542.0,15,Chase Field,day,N
 824789,2026,2026-09-20,110,Baltimore Orioles,158,Milwaukee Brewers,0,3,687064.0,694819.0,2,Oriole Park at Camden Yards,night,N
+824787,2026,2026-09-21,110,Baltimore Orioles,141,Toronto Blue Jays,4,3,669358.0,702056.0,2,Oriole Park at Camden Yards,night,N
+824221,2026,2026-09-21,116,Detroit Tigers,120,Washington Nationals,9,2,689981.0,687792.0,2394,Comerica Park,night,N
+823169,2026,2026-09-21,137,San Francisco Giants,142,Minnesota Twins,5,2,694918.0,805673.0,2395,Oracle Park,night,N

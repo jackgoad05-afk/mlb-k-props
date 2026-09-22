@@ -1102,3 +1102,17 @@ logged_at,endpoint,requests_used,requests_remaining,last_call_cost
 2026-09-21T18:23:29,https://api.the-odds-api.com/v4/sports/baseball_mlb/events/3e7090629723a062facffeca147d8c9d/odds,396,104,1
 2026-09-21T18:23:34,https://api.the-odds-api.com/v4/sports/baseball_mlb/odds,397,103,1
 2026-09-21T18:23:46,https://api.the-odds-api.com/v4/sports/baseball_mlb/odds,398,102,1
+2026-09-22T17:26:43,https://api.the-odds-api.com/v4/sports/baseball_mlb/events,399,101,0
+2026-09-22T17:26:43,https://api.the-odds-api.com/v4/sports/baseball_mlb/events/394e1e2b849c5b4eaf2b5984eaa74b79/odds,400,100,1
+2026-09-22T17:26:43,https://api.the-odds-api.com/v4/sports/baseball_mlb/events/7fafa79a573ac098f38c8c6c4293b93e/odds,401,99,1
+2026-09-22T17:26:43,https://api.the-odds-api.com/v4/sports/baseball_mlb/events/e1693becb4cbacb4b30e46c1c960d9a5/odds,402,98,1
+2026-09-22T17:26:43,https://api.the-odds-api.com/v4/sports/baseball_mlb/events/2ec6c946384087513c61f58aad6e082f/odds,403,97,1
+2026-09-22T17:26:43,https://api.the-odds-api.com/v4/sports/baseball_mlb/events/388cb001ef45b493163b9d37cf60f606/odds,404,96,1
+2026-09-22T17:26:43,https://api.the-odds-api.com/v4/sports/baseball_mlb/events/3b4ceeb7bb4bee993b6876fead12eeba/odds,405,95,1
+2026-09-22T17:26:43,https://api.the-odds-api.com/v4/sports/baseball_mlb/events/574050c10d1acc2da7baf72384eeaa11/odds,406,94,1
+2026-09-22T17:26:43,https://api.the-odds-api.com/v4/sports/baseball_mlb/events/0c17c76059d99e5bb249df6a7c540127/odds,407,93,1
+2026-09-22T17:26:44,https://api.the-odds-api.com/v4/sports/baseball_mlb/events/82b37a47daa08ef041c888d37b999303/odds,408,92,1
+2026-09-22T17:26:44,https://api.the-odds-api.com/v4/sports/baseball_mlb/events/ebb664c5095200280fa1b15540c2c88b/odds,409,91,1
+2026-09-22T17:26:51,https://api.the-odds-api.com/v4/sports/baseball_mlb/odds,410,90,1
+2026-09-22T17:26:55,https://api.the-odds-api.com/v4/sports/baseball_mlb/odds,411,89,1
+2026-09-22T17:27:19,https://api.the-odds-api.com/v4/sports/baseball_mlb/odds,412,88,1

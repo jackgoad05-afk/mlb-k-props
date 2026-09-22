@@ -486,3 +486,13 @@ date,game_pk,home_team_name,away_team_name,market_favorite,market_favorite_fair_
 2026-09-20,824789,Baltimore Orioles,Milwaukee Brewers,Milwaukee Brewers,0.6490989351988117,9,Milwaukee Brewers,True
 2026-09-21,824787,Baltimore Orioles,Toronto Blue Jays,Baltimore Orioles,0.5036252240462623,9,Toronto Blue Jays,False
 2026-09-21,824221,Detroit Tigers,Washington Nationals,Detroit Tigers,0.5531167918522422,9,Washington Nationals,False
+2026-09-22,823543,New York Yankees,Tampa Bay Rays,New York Yankees,0.5729014500397197,6,New York Yankees,True
+2026-09-22,824785,Baltimore Orioles,Toronto Blue Jays,Baltimore Orioles,0.5270352195052196,9,Baltimore Orioles,True
+2026-09-22,824222,Detroit Tigers,Washington Nationals,Detroit Tigers,0.5871846513027407,9,Washington Nationals,False
+2026-09-22,823412,Philadelphia Phillies,Milwaukee Brewers,Philadelphia Phillies,0.5596619185715005,9,Milwaukee Brewers,False
+2026-09-22,823328,Pittsburgh Pirates,St. Louis Cardinals,Pittsburgh Pirates,0.6075320933611902,9,Pittsburgh Pirates,True
+2026-09-22,824709,Boston Red Sox,Cleveland Guardians,Boston Red Sox,0.5372040919697961,9,Boston Red Sox,True
+2026-09-22,823543,New York Yankees,Tampa Bay Rays,New York Yankees,0.5477127289248336,9,New York Yankees,True
+2026-09-22,824867,Atlanta Braves,Cincinnati Reds,Atlanta Braves,0.6286643346902928,9,Atlanta Braves,True
+2026-09-22,824624,Chicago Cubs,Miami Marlins,Chicago Cubs,0.6446172520135116,9,Chicago Cubs,True
+2026-09-22,824061,Kansas City Royals,Chicago White Sox,Chicago White Sox,0.5224156028223433,9,Chicago White Sox,True
