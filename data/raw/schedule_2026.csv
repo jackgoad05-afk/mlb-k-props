@@ -2342,3 +2342,18 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 824787,2026,2026-09-21,110,Baltimore Orioles,141,Toronto Blue Jays,4,3,669358.0,702056.0,2,Oriole Park at Camden Yards,night,N
 824221,2026,2026-09-21,116,Detroit Tigers,120,Washington Nationals,9,2,689981.0,687792.0,2394,Comerica Park,night,N
 823169,2026,2026-09-21,137,San Francisco Giants,142,Minnesota Twins,5,2,694918.0,805673.0,2395,Oracle Park,night,N
+823543,2026,2026-09-22,147,New York Yankees,139,Tampa Bay Rays,2,0,607074.0,607259.0,3313,Yankee Stadium,day,S
+823494,2026,2026-09-22,147,New York Yankees,139,Tampa Bay Rays,1,6,608331.0,656876.0,3313,Yankee Stadium,night,S
+824222,2026,2026-09-22,116,Detroit Tigers,120,Washington Nationals,1,3,623454.0,683000.0,2394,Comerica Park,night,N
+823328,2026,2026-09-22,134,Pittsburgh Pirates,138,St. Louis Cardinals,2,0,683003.0,669467.0,31,PNC Park,night,N
+823412,2026,2026-09-22,143,Philadelphia Phillies,158,Milwaukee Brewers,6,4,554430.0,669160.0,2681,Citizens Bank Park,night,N
+824709,2026,2026-09-22,111,Boston Red Sox,114,Cleveland Guardians,2,3,801139.0,800048.0,3,Fenway Park,night,N
+824867,2026,2026-09-22,144,Atlanta Braves,113,Cincinnati Reds,0,4,702275.0,682227.0,4705,Truist Park,night,N
+824061,2026,2026-09-22,118,Kansas City Royals,145,Chicago White Sox,11,14,663738.0,641743.0,7,Kauffman Stadium,night,N
+824624,2026,2026-09-22,112,Chicago Cubs,146,Miami Marlins,2,8,684007.0,676083.0,17,Wrigley Field,night,N
+822840,2026,2026-09-22,140,Texas Rangers,121,New York Mets,3,6,669022.0,640455.0,5325,Globe Life Field,night,N
+824302,2026,2026-09-22,115,Colorado Rockies,109,Arizona Diamondbacks,2,7,607536.0,647336.0,19,Coors Field,night,N
+824953,2026,2026-09-22,133,Athletics,108,Los Angeles Angels,9,7,669620.0,579328.0,2529,Sutter Health Park,night,N
+823089,2026,2026-09-22,136,Seattle Mariners,117,Houston Astros,0,7,669302.0,664299.0,680,T-Mobile Park,night,N
+823166,2026,2026-09-22,137,San Francisco Giants,142,Minnesota Twins,2,3,683627.0,671737.0,2395,Oracle Park,night,N
+823897,2026,2026-09-22,119,Los Angeles Dodgers,135,San Diego Padres,7,0,592779.0,650633.0,22,UNIQLO Field at Dodger Stadium,night,N
