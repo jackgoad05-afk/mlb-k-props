@@ -2357,3 +2357,19 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 823089,2026,2026-09-22,136,Seattle Mariners,117,Houston Astros,0,7,669302.0,664299.0,680,T-Mobile Park,night,N
 823166,2026,2026-09-22,137,San Francisco Giants,142,Minnesota Twins,2,3,683627.0,671737.0,2395,Oracle Park,night,N
 823897,2026,2026-09-22,119,Los Angeles Dodgers,135,San Diego Padres,7,0,592779.0,650633.0,22,UNIQLO Field at Dodger Stadium,night,N
+824223,2026,2026-09-23,116,Detroit Tigers,120,Washington Nationals,2,4,664285.0,663992.0,2394,Comerica Park,day,N
+824785,2026,2026-09-23,110,Baltimore Orioles,141,Toronto Blue Jays,4,2,605135.0,453286.0,2,Oriole Park at Camden Yards,day,S
+824784,2026,2026-09-23,110,Baltimore Orioles,141,Toronto Blue Jays,4,2,694346.0,669310.0,2,Oriole Park at Camden Yards,night,S
+823168,2026,2026-09-23,137,San Francisco Giants,142,Minnesota Twins,2,4,702885.0,687570.0,2395,Oracle Park,day,N
+823327,2026,2026-09-23,134,Pittsburgh Pirates,138,St. Louis Cardinals,1,5,669199.0,669461.0,31,PNC Park,night,N
+823410,2026,2026-09-23,143,Philadelphia Phillies,158,Milwaukee Brewers,1,4,605400.0,701656.0,2681,Citizens Bank Park,night,N
+823492,2026,2026-09-23,147,New York Yankees,139,Tampa Bay Rays,9,2,543037.0,669438.0,3313,Yankee Stadium,night,N
+824710,2026,2026-09-23,111,Boston Red Sox,114,Cleveland Guardians,1,0,543243.0,656492.0,3,Fenway Park,night,N
+824868,2026,2026-09-23,144,Atlanta Braves,113,Cincinnati Reds,3,2,519242.0,671096.0,4705,Truist Park,night,N
+824060,2026,2026-09-23,118,Kansas City Royals,145,Chicago White Sox,5,4,607625.0,663542.0,7,Kauffman Stadium,night,N
+824625,2026,2026-09-23,112,Chicago Cubs,146,Miami Marlins,2,3,592332.0,687473.0,17,Wrigley Field,night,N
+822841,2026,2026-09-23,140,Texas Rangers,121,New York Mets,2,7,674003.0,690997.0,5325,Globe Life Field,night,N
+824301,2026,2026-09-23,115,Colorado Rockies,109,Arizona Diamondbacks,3,5,690279.0,518876.0,19,Coors Field,night,N
+824951,2026,2026-09-23,133,Athletics,108,Los Angeles Angels,7,3,605488.0,700712.0,2529,Sutter Health Park,night,N
+823894,2026,2026-09-23,119,Los Angeles Dodgers,135,San Diego Padres,1,5,808967.0,592662.0,22,UNIQLO Field at Dodger Stadium,night,N
+823086,2026,2026-09-23,136,Seattle Mariners,117,Houston Astros,6,5,669923.0,814490.0,680,T-Mobile Park,night,N
