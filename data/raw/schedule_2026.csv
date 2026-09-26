@@ -2385,3 +2385,20 @@ game_pk,season,official_date,home_team_id,home_team_name,away_team_id,away_team_
 824950,2026,2026-09-24,133,Athletics,117,Houston Astros,5,7,686930.0,663567.0,2529,Sutter Health Park,night,N
 823087,2026,2026-09-24,136,Seattle Mariners,108,Los Angeles Angels,4,6,693433.0,680570.0,680,T-Mobile Park,night,N
 823895,2026,2026-09-24,119,Los Angeles Dodgers,135,San Diego Padres,2,4,607192.0,601713.0,22,UNIQLO Field at Dodger Stadium,night,N
+824703,2026,2026-09-25,111,Boston Red Sox,112,Chicago Cubs,4,3,687941.0,605280.0,3,Fenway Park,day,S
+824706,2026,2026-09-25,111,Boston Red Sox,112,Chicago Cubs,2,0,678394.0,656849.0,3,Fenway Park,night,S
+823491,2026,2026-09-25,147,New York Yankees,110,Baltimore Orioles,2,10,694341.0,669432.0,3313,Yankee Stadium,night,Y
+823489,2026,2026-09-25,147,New York Yankees,110,Baltimore Orioles,6,3,642232.0,687064.0,3313,Yankee Stadium,night,Y
+824220,2026,2026-09-25,116,Detroit Tigers,134,Pittsburgh Pirates,8,7,695549.0,696149.0,2394,Comerica Park,night,N
+823409,2026,2026-09-25,143,Philadelphia Phillies,139,Tampa Bay Rays,0,2,650911.0,642547.0,2681,Citizens Bank Park,night,N
+822681,2026,2026-09-25,120,Washington Nationals,121,New York Mets,7,6,674841.0,642376.0,3309,Nationals Park,night,N
+822760,2026,2026-09-25,141,Toronto Blue Jays,113,Cincinnati Reds,6,5,667755.0,666157.0,14,Rogers Centre,night,N
+823816,2026,2026-09-25,146,Miami Marlins,144,Atlanta Braves,3,0,691587.0,678061.0,4169,loanDepot park,night,N
+824058,2026,2026-09-25,118,Kansas City Royals,114,Cleveland Guardians,9,12,702070.0,668909.0,7,Kauffman Stadium,night,N
+824544,2026,2026-09-25,145,Chicago White Sox,115,Colorado Rockies,6,1,680732.0,608372.0,4,Rate Field,night,N
+823735,2026,2026-09-25,158,Milwaukee Brewers,138,St. Louis Cardinals,8,4,688107.0,700241.0,32,American Family Field,night,N
+823652,2026,2026-09-25,142,Minnesota Twins,140,Texas Rangers,10,2,657746.0,594798.0,3312,Target Field,night,N
+824947,2026,2026-09-25,133,Athletics,117,Houston Astros,6,5,682052.0,686613.0,2529,Sutter Health Park,night,N
+823248,2026,2026-09-25,135,San Diego Padres,109,Arizona Diamondbacks,4,11,663554.0,694297.0,2680,Petco Park,night,N
+823085,2026,2026-09-25,136,Seattle Mariners,108,Los Angeles Angels,5,7,682243.0,672282.0,680,T-Mobile Park,night,N
+823167,2026,2026-09-25,137,San Francisco Giants,119,Los Angeles Dodgers,0,2,805074.0,669373.0,2395,Oracle Park,night,N
